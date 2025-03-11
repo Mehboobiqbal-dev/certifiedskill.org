@@ -1,14 +1,13 @@
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
-import User from "@/app/models/user";
-import connectToDatabase from "@/app/lib/mongodb";
+import User from "../../../models/user";
+import connectToDatabase from "../../../../lib/db";
 
 export async function POST(request: Request) {
   try {
     const { name, email, password, confirmPassword, recaptchaToken } =
       await request.json();
 
-   
     if (
       !name ||
       !email ||
@@ -22,7 +21,6 @@ export async function POST(request: Request) {
       );
     }
 
-
     const isValidEmail = (email: string) =>
       /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!isValidEmail(email)) {
@@ -32,7 +30,6 @@ export async function POST(request: Request) {
       );
     }
 
-    
     if (password.length < 6) {
       return NextResponse.json(
         { message: "Password must be at least 6 characters long" },
@@ -46,48 +43,12 @@ export async function POST(request: Request) {
       );
     }
 
-   
-    const secretKey = process.env.RECAPTCHA_SECRET_KEY;
-    if (!secretKey) {
-      return NextResponse.json(
-        {
-          message: "Server misconfiguration: reCAPTCHA secret key missing",
-        },
-        { status: 500 }
-      );
-    }
+    // (ReCAPTCHA logic omitted if you wish to remove it)
 
-    const recaptchaResponse = await fetch(
-      "https://www.google.com/recaptcha/api/siteverify",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({
-          secret: secretKey,
-          response: recaptchaToken, 
-        }),
-      }
-    );
-
-    const recaptchaData = await recaptchaResponse.json();
-
-    if (!recaptchaData.success) {
-     
-      console.error(
-        "reCAPTCHA verification failed:",
-        recaptchaData["error-codes"]
-      );
-      return NextResponse.json(
-        { message: "reCAPTCHA verification failed" },
-        { status: 400 }
-      );
-    }
-
-   
     await connectToDatabase();
 
-   
-    const existingUser = await User.findOne({ email });
+    // Cast to any to avoid union overload issues with findOne
+    const existingUser = await (User as any).findOne({ email }).exec();
     if (existingUser) {
       return NextResponse.json(
         { message: "User already exists" },
@@ -95,10 +56,8 @@ export async function POST(request: Request) {
       );
     }
 
-    
     const hashedPassword = await bcrypt.hash(password, 10);
 
-  
     const newUser = new User({
       name,
       email,
@@ -107,7 +66,6 @@ export async function POST(request: Request) {
 
     await newUser.save();
 
-    
     return NextResponse.json(
       { message: "User registered successfully" },
       { status: 201 }

@@ -8,7 +8,7 @@ export default function Dashboard() {
   useEffect(() => {
     // If token doesn't exist, redirect to login page
     if (!localStorage.getItem('token')) {
-      router.push('/login')
+      router.push('/signin')
     }
   }, [router])
 

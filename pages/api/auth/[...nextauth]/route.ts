@@ -1,10 +1,8 @@
-
-
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
-import User from "@/app/models/user";
-import connectToDatabase from "@/app/lib/mongodb";
+import User from "../../../models/user";
+import connectToDatabase from "../../../../lib/db";
 import bcrypt from "bcryptjs";
 
 const authOptions = {
@@ -19,23 +17,21 @@ const authOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: {
-          label: "Email",
-          type: "text",
-          placeholder: "you@example.com",
-        },
+        email: { label: "Email", type: "text", placeholder: "you@example.com" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
         try {
           await connectToDatabase();
-          const user = await User.findOne({ email: credentials?.email });
+          const user = await (User as any)
+            .findOne({ email: credentials?.email })
+            .exec();
           if (!user) {
             throw new Error("No user found with that email.");
           }
           const isValidPassword = await bcrypt.compare(
             credentials?.password ?? "",
-            user.password as string
+            user.password || ""
           );
           if (!isValidPassword) {
             throw new Error("Invalid password.");
@@ -49,21 +45,23 @@ const authOptions = {
     }),
   ],
   callbacks: {
-    async signIn(params) {
-      const { account, profile } = params;
+    async signIn({ user, account, profile, ...rest }: any) {
+      // Now user, account, and profile are all available.
       if (account?.provider === "github") {
         await connectToDatabase();
-        const existingUser = await User.findOne({ email: profile?.email });
+        const existingUser = await (User as any)
+          .findOne({ email: profile.email })
+          .exec();
         if (!existingUser) {
-          await User.create({
-            name: profile?.name,
-            email: profile?.email,
+          await (User as any).create({
+            name: profile.name,
+            email: profile.email,
           });
         }
       }
       return true;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user }: any) {
       if (user) {
         token.id = user.id;
         token.email = user.email;
@@ -71,7 +69,7 @@ const authOptions = {
       }
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token }: any) {
       if (token) {
         session.user = {
           email: token.email as string,
@@ -86,7 +84,6 @@ const authOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
-
 
 export const GET = NextAuth(authOptions);
 export const POST = NextAuth(authOptions);

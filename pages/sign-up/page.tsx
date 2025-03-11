@@ -1,17 +1,15 @@
 "use client";
 
-
-import { Button } from "@/app/components/ui/button";
+import { Button } from "../components/ui/button";
 import {
   Card,
   CardHeader,
   CardDescription,
   CardContent,
   CardTitle,
-} from "@/app/components/ui/card";
-import { Input } from "@/app/components/ui/input";
-import { Separator } from "@/app/components/ui/separator";
-
+} from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Separator } from "../components/ui/separator"; // fixed import
 
 import Link from "next/link";
 import { useState } from "react";
@@ -19,14 +17,9 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { TriangleAlert } from "lucide-react";
 import { signIn } from "next-auth/react";
-import ReCAPTCHA from "react-google-recaptcha";
-
 
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-
-
-const SITE_KEY = "6LcPG-YqAAAAAI98ubN_Np9jQBF-_S50dHgpe5zZ";
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -35,26 +28,20 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
   });
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null); 
-
-    if (!captchaToken) {
-      setError("Please complete the reCAPTCHA verification.");
-      return;
-    }
+    setError(null);
 
     setPending(true);
     try {
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, recaptchaToken: captchaToken }),
+        body: JSON.stringify({ ...form }),
       });
       const data = await res.json();
 
@@ -90,7 +77,7 @@ const SignUp = () => {
           </CardDescription>
         </CardHeader>
 
-                {!!error && (
+        {!!error && (
           <div className="bg-red-100 p-3 rounded-md flex items-center gap-x-2 text-sm text-red-700 mb-6">
             <TriangleAlert className="text-red-700" />
             <p className="font-bold">{error}</p>
@@ -134,14 +121,6 @@ const SignUp = () => {
               required
             />
 
-                        <div className="flex justify-center">
-              <ReCAPTCHA
-                sitekey={SITE_KEY}
-                onChange={(token) => setCaptchaToken(token)}
-                theme="light" 
-              />
-            </div>
-
             <button
               type="submit"
               disabled={pending}
@@ -155,16 +134,12 @@ const SignUp = () => {
           <div className="flex my-2 justify-evenly items-center">
             <Button
               onClick={(e) => handleProvider(e, "google")}
-              variant="outline"
-              size="lg"
               className="bg-slate-300 hover:bg-slate-400 hover:scale-110"
             >
               <FcGoogle size={24} />
             </Button>
             <Button
               onClick={(e) => handleProvider(e, "github")}
-              variant="outline"
-              size="lg"
               className="bg-slate-300 hover:bg-slate-400 hover:scale-110"
             >
               <FaGithub size={24} />

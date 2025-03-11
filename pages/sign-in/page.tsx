@@ -1,21 +1,16 @@
 "use client";
 
-
-
-import { Button } from "@/app/components/ui/button";
+import { Button } from "../components/ui/button";
 import {
   Card,
   CardHeader,
   CardDescription,
   CardContent,
   CardTitle,
-} from "@/app/components/ui/card";
-import { Input } from "@/app/components/ui/input";
-import { Separator } from "@/app/components/ui/separator";
-
+} from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Separator } from "../components/ui/separator";
 import Link from "next/link";
-
-
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
@@ -57,6 +52,7 @@ const SignIn = () => {
     event.preventDefault();
     signIn(value, { callbackUrl: "/" });
   };
+
   return (
     <div className="h-full flex items-center justify-center bg-[#1b0918]">
       <Card className="md:h-auto w-[80%] sm:w-[420px] p-4 sm:p-8">
@@ -91,7 +87,8 @@ const SignIn = () => {
               required
             />
 
-            <Button className="w-full" size="lg" disabled={pending}>
+            {/* Removed size prop */}
+            <Button className="w-full" disabled={pending}>
               continue
             </Button>
           </form>
@@ -101,8 +98,7 @@ const SignIn = () => {
             <Button
               disabled={false}
               onClick={() => {}}
-              variant="outline"
-              size="lg"
+              // Removed variant and size props
               className="bg-slate-300 hover:bg-slate-400 hover:scale-110"
             >
               <FcGoogle className="size-8 left-2.5 top-2.5" />
@@ -110,8 +106,7 @@ const SignIn = () => {
             <Button
               disabled={false}
               onClick={(e) => handleProvider(e, "github")}
-              variant="outline"
-              size="lg"
+              // Removed variant and size props
               className="bg-slate-300 hover:bg-slate-400 hover:scale-110"
             >
               <FaGithub className="size-8 left-2.5 top-2.5" />
@@ -123,7 +118,7 @@ const SignIn = () => {
               className="text-sky-700 ml-4 hover:underline cursor-pointer"
               href="sign-up"
             >
-              Sing up{" "}
+              Sign up
             </Link>
           </p>
         </CardContent>
