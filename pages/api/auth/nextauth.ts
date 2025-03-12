@@ -1,8 +1,8 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
-import User from "../../../models/user";
-import connectToDatabase from "../../../../lib/db";
+import User from "../../models/user";
+import connectToDatabase from "../../../lib/db";
 import bcrypt from "bcryptjs";
 
 const authOptions = {
@@ -46,7 +46,6 @@ const authOptions = {
   ],
   callbacks: {
     async signIn({ user, account, profile, ...rest }: any) {
-      // Now user, account, and profile are all available.
       if (account?.provider === "github") {
         await connectToDatabase();
         const existingUser = await (User as any)
@@ -85,5 +84,6 @@ const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 };
 
-export const GET = NextAuth(authOptions);
-export const POST = NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };
