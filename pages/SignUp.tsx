@@ -1,15 +1,15 @@
 "use client";
 
-import { Button } from "../components/ui/button";
+import { Button } from "./components/ui/button";
 import {
   Card,
   CardHeader,
   CardDescription,
   CardContent,
   CardTitle,
-} from "../components/ui/card";
-import { Input } from "../components/ui/input";
-import { Separator } from "../components/ui/separator"; // fixed import
+} from "./components/ui/card";
+import { Input } from "./components/ui/input";
+import { Separator } from "./components/ui/separator"; // fixed import
 
 import Link from "next/link";
 import { useState } from "react";
@@ -147,7 +147,7 @@ const SignUp = () => {
           </div>
           <p className="text-white ml-7">
             Already have an account?
-            <Link className="text-sky-700 ml-2 hover:underline" href="/sign-in">
+            <Link className="text-sky-700 ml-2 hover:underline" href="/SignIn">
               Sign in
             </Link>
           </p>

@@ -1,15 +1,15 @@
 "use client";
 
-import { Button } from "../components/ui/button";
+import { Button } from "./components/ui/button";
 import {
   Card,
   CardHeader,
   CardDescription,
   CardContent,
   CardTitle,
-} from "../components/ui/card";
-import { Input } from "../components/ui/input";
-import { Separator } from "../components/ui/separator";
+} from "./components/ui/card";
+import { Input } from "./components/ui/input";
+import { Separator } from "./components/ui/separator";
 import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -116,7 +116,7 @@ const SignIn = () => {
             Create new account
             <Link
               className="text-sky-700 ml-4 hover:underline cursor-pointer"
-              href="sign-up"
+              href="SignUp"
             >
               Sign up
             </Link>
