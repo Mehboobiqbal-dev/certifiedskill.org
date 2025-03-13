@@ -1,24 +1,19 @@
 // pages/index.js
 import Link from "next/link";
-import header from "../header"
+import Header from './Header';; // Assuming it's a component
 
 export default function Home() {
   return (
-    <header />
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-gray-900 py-6">GetCertified</h1>
-        </div>
-      </header>
+      <Header /> 
 
       {/* Hero Section */}
       <main className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <section className="text-center">
-          <h2 className="text-4xl font-extrabold text-gray-900">
+          <h1 className="text-4xl font-extrabold text-gray-900">
             Empowering Skilled Individuals
-          </h2>
+          </h1>
           <p className="mt-4 text-lg text-gray-600">
             GetCertified is a non-profit organization dedicated to recognizing and rewarding talent.
             We provide free certifications to skilled individuals, helping you showcase your abilities
@@ -29,11 +24,10 @@ export default function Home() {
             ensuring that every talented individual has the opportunity to succeed.
           </p>
           <div className="mt-8">
-            <Link
-              href="/SignUp"
-              className="inline-block bg-blue-600 hover:bg-blue-700 text-black font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300"
-            >
-              Get Started Today
+            <Link href="/SignUp">
+              <span className="inline-block bg-blue-600 hover:bg-blue-700 text-black font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 cursor-pointer">
+                Get Started Today
+              </span>
             </Link>
           </div>
         </section>

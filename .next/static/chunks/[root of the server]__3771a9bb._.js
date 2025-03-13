@@ -1,4 +1,4 @@
-(globalThis.TURBOPACK = globalThis.TURBOPACK || []).push(["static/chunks/[root of the server]__3759f8a9._.js", {
+(globalThis.TURBOPACK = globalThis.TURBOPACK || []).push(["static/chunks/[root of the server]__3771a9bb._.js", {
 
 "[turbopack]/browser/dev/hmr-client/hmr-client.ts [client] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
@@ -462,6 +462,165 @@ function triggerUpdate(msg) {
     }
 }
 }}),
+"[project]/pages/Header.jsx [client] (ecmascript)": ((__turbopack_context__) => {
+"use strict";
+
+var { g: global, d: __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
+{
+__turbopack_context__.s({
+    "default": (()=>__TURBOPACK__default__export__)
+});
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react/jsx-dev-runtime.js [client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next-auth/react/index.js [client] (ecmascript)");
+(()=>{
+    const e = new Error("Cannot find module '../components/user-button'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react/index.js [client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/link.js [client] (ecmascript)");
+;
+var _s = __turbopack_context__.k.signature();
+"use client";
+;
+;
+;
+;
+const HeaderContent = ()=>{
+    _s();
+    const [menuOpen, setMenuOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const menuRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useRef"])(null);
+    // Close menu when clicking outside
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "HeaderContent.useEffect": ()=>{
+            const handleClickOutside = {
+                "HeaderContent.useEffect.handleClickOutside": (event)=>{
+                    if (menuRef.current && !menuRef.current.contains(event.target) && event.target.getAttribute('aria-label') !== 'Toggle Navigation Menu') {
+                        setMenuOpen(false);
+                    }
+                }
+            }["HeaderContent.useEffect.handleClickOutside"];
+            if (menuOpen) {
+                document.addEventListener("click", handleClickOutside);
+            }
+            return ({
+                "HeaderContent.useEffect": ()=>{
+                    document.removeEventListener("click", handleClickOutside);
+                }
+            })["HeaderContent.useEffect"];
+        }
+    }["HeaderContent.useEffect"], [
+        menuOpen
+    ]);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("header", {
+        className: "bg-gradient-to-br from-[#141e30] to-[#243b55] text-white py-2 px-4 sticky top-0 w-full z-50 shadow-md overflow-x-hidden",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "max-w-screen-xl mx-auto flex items-center justify-between",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex items-center",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(UserButton, {}, void 0, false, {
+                            fileName: "[project]/pages/Header.jsx",
+                            lineNumber: 39,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            className: "text-2xl text-white ml-4",
+                            "aria-expanded": menuOpen,
+                            "aria-controls": "main-menu",
+                            onClick: (e)=>{
+                                e.stopPropagation();
+                                setMenuOpen((prev)=>!prev);
+                            },
+                            "aria-label": "Toggle Navigation Menu",
+                            children: "☰"
+                        }, void 0, false, {
+                            fileName: "[project]/pages/Header.jsx",
+                            lineNumber: 42,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/pages/Header.jsx",
+                    lineNumber: 38,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/pages/Header.jsx",
+                lineNumber: 33,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
+                ref: menuRef,
+                id: "main-menu",
+                className: `${menuOpen ? 'block' : 'hidden'} bg-gradient-to-br from-[#141e30] to-[#243b55] text-white transition-all duration-400 overflow-x-hidden`,
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "max-w-screen-xl mx-auto px-4",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
+                        className: "text-center",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                            className: "py-2",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$client$5d$__$28$ecmascript$29$__["default"], {
+                                href: "/home",
+                                onClick: ()=>setMenuOpen(false),
+                                "aria-label": "Go to Home Page",
+                                className: "hover:text-[#FFD700] transition-colors duration-200",
+                                children: "Home"
+                            }, void 0, false, {
+                                fileName: "[project]/pages/Header.jsx",
+                                lineNumber: 68,
+                                columnNumber: 15
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/pages/Header.jsx",
+                            lineNumber: 67,
+                            columnNumber: 13
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/pages/Header.jsx",
+                        lineNumber: 66,
+                        columnNumber: 11
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/pages/Header.jsx",
+                    lineNumber: 65,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/pages/Header.jsx",
+                lineNumber: 58,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/pages/Header.jsx",
+        lineNumber: 32,
+        columnNumber: 5
+    }, this);
+};
+_s(HeaderContent, "m+Bw3p56aCldBbEoFNtGoL2OdKs=");
+_c = HeaderContent;
+const Header = ()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["SessionProvider"], {
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(HeaderContent, {}, void 0, false, {
+            fileName: "[project]/pages/Header.jsx",
+            lineNumber: 87,
+            columnNumber: 5
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/pages/Header.jsx",
+        lineNumber: 86,
+        columnNumber: 3
+    }, this);
+_c1 = Header;
+const __TURBOPACK__default__export__ = Header;
+var _c, _c1;
+__turbopack_context__.k.register(_c, "HeaderContent");
+__turbopack_context__.k.register(_c1, "Header");
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(module, globalThis.$RefreshHelpers$);
+}
+}}),
 "[project]/pages/index.js [client] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
@@ -473,11 +632,7 @@ __turbopack_context__.s({
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react/jsx-dev-runtime.js [client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/link.js [client] (ecmascript)");
-(()=>{
-    const e = new Error("Cannot find module '../Header'");
-    e.code = 'MODULE_NOT_FOUND';
-    throw e;
-})();
+var __TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$Header$2e$jsx__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/pages/Header.jsx [client] (ecmascript)");
 ;
 ;
 ;
@@ -485,7 +640,7 @@ function Home() {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "min-h-screen bg-gray-50",
         children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Header, {}, void 0, false, {
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$Header$2e$jsx__$5b$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/pages/index.js",
                 lineNumber: 9,
                 columnNumber: 7
@@ -715,4 +870,4 @@ __turbopack_context__.r("[next]/entry/page-loader.ts { PAGE => \"[project]/pages
 }}),
 }]);
 
-//# sourceMappingURL=%5Broot%20of%20the%20server%5D__3759f8a9._.js.map
+//# sourceMappingURL=%5Broot%20of%20the%20server%5D__3771a9bb._.js.map
