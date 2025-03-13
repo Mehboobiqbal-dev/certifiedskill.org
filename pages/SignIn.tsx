@@ -2,16 +2,16 @@
 
 
 
-import { Button } from "../../pages/components/ui/button";
+import { Button } from "./components/ui/button";
 import {
   Card,
   CardHeader,
   CardDescription,
   CardContent,
   CardTitle,
-} from "../../pages/components/ui/card";
-import { Input } from "../../pages/components/ui/input";
-import { Separator } from "../../pages/components/ui/separator";
+} from "./components/ui/card";
+import { Input } from "./components/ui/input";
+import { Separator } from "./components/ui/separator";
 
 import Link from "next/link";
 

@@ -1,8 +1,8 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
-import User from "../../../pages/models/user";
-import connectToDatabase from "../../../lib/db";
+import User from "../../../../pages/models/user";
+import connectToDatabase from "../../../../lib/db";
 import bcrypt from "bcryptjs";
 
 const authOptions = {
@@ -79,8 +79,9 @@ const authOptions = {
       return session;
     },
   },
-  // Remove or comment out the custom signIn page setting:
-  // pages: { signIn: "/sign-in" },
+  pages: {
+    signIn: "/sign-in",
+  },
   secret: process.env.NEXTAUTH_SECRET,
 };
 
