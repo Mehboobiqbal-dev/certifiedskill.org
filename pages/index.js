@@ -1,8 +1,10 @@
 // pages/index.js
 import Link from "next/link";
+import header from "../header"
 
 export default function Home() {
   return (
+    <header />
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white shadow">

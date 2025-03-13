@@ -32,22 +32,7 @@ const HeaderContent = () => {
     <header className="bg-gradient-to-br from-[#141e30] to-[#243b55] text-white py-2 px-4 sticky top-0 w-full z-50 shadow-md overflow-x-hidden">
       <div className="max-w-screen-xl mx-auto flex items-center justify-between">
         {/* Logo */}
-        <div className="flex-shrink-0">
-          <h1 className="text-xl font-bold p-1 rounded">
-            <Link
-              href="/"
-              onClick={() => setMenuOpen(false)}
-              aria-label="Tax Advisor Home"
-            >
-              <img
-                src="https://i.postimg.cc/xT3d2TBK/photo-removebg-preview-1.png"
-                alt="Tax Advisor Logo"
-                className="w-full max-w-[150px] md:max-w-[200px] h-auto"
-                loading="lazy"
-              />
-            </Link>
-          </h1>
-        </div>
+        
 
         {/* User Button and Menu Toggle */}
         <div className="flex items-center">
@@ -89,46 +74,7 @@ const HeaderContent = () => {
                 Home
               </Link>
             </li>
-            <li className="py-2">
-              <Link
-                href="/tax-calculator"
-                onClick={() => setMenuOpen(false)}
-                aria-label="Tax Calculator"
-                className="hover:text-[#FFD700] transition-colors duration-200"
-              >
-                Tax Calculator
-              </Link>
-            </li>
-            <li className="py-2">
-              <Link
-                href="/SmartTaxBot"
-                onClick={() => setMenuOpen(false)}
-                aria-label="SmartTaxBot Page"
-                className="hover:text-[#FFD700] transition-colors duration-200"
-              >
-                SmartTaxBot
-              </Link>
-            </li>
-            <li className="py-2">
-              <Link
-                href="/newslist"
-                onClick={() => setMenuOpen(false)}
-                aria-label="News Page"
-                className="hover:text-[#FFD700] transition-colors duration-200"
-              >
-                News
-              </Link>
-            </li>
-            <li className="py-2">
-              <Link
-                href="/blog"
-                onClick={() => setMenuOpen(false)}
-                aria-label="Blog Page"
-                className="hover:text-[#FFD700] transition-colors duration-200"
-              >
-                Blog
-              </Link>
-            </li>
+            
           </ul>
         </div>
       </nav>
