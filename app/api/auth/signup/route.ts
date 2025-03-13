@@ -5,22 +5,18 @@ import connectToDatabase from "../../../../lib/db";
 
 export async function POST(request: Request) {
   try {
-    const { name, email, password, confirmPassword, recaptchaToken } =
-      await request.json();
+    // Destructure without recaptchaToken
+    const { name, email, password, confirmPassword } = await request.json();
 
-    if (
-      !name ||
-      !email ||
-      !password ||
-      !confirmPassword ||
-      !recaptchaToken
-    ) {
+    // Validate required fields
+    if (!name || !email || !password || !confirmPassword) {
       return NextResponse.json(
         { message: "All fields are required" },
         { status: 400 }
       );
     }
 
+    // Validate email format
     const isValidEmail = (email: string) =>
       /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!isValidEmail(email)) {
@@ -30,12 +26,15 @@ export async function POST(request: Request) {
       );
     }
 
+    // Validate password length
     if (password.length < 6) {
       return NextResponse.json(
         { message: "Password must be at least 6 characters long" },
         { status: 400 }
       );
     }
+
+    // Validate matching passwords
     if (password !== confirmPassword) {
       return NextResponse.json(
         { message: "Passwords do not match" },
@@ -43,11 +42,10 @@ export async function POST(request: Request) {
       );
     }
 
-    // (ReCAPTCHA logic omitted if you wish to remove it)
-
+    // Connect to database
     await connectToDatabase();
 
-    // Cast to any to avoid union overload issues with findOne
+    // Check if the user already exists
     const existingUser = await (User as any).findOne({ email }).exec();
     if (existingUser) {
       return NextResponse.json(
@@ -56,8 +54,10 @@ export async function POST(request: Request) {
       );
     }
 
+    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Create and save the new user
     const newUser = new User({
       name,
       email,

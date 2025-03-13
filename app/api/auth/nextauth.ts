@@ -31,7 +31,7 @@ const authOptions = {
           }
           const isValidPassword = await bcrypt.compare(
             credentials?.password ?? "",
-            user.password || ""
+            user.password as string
           );
           if (!isValidPassword) {
             throw new Error("Invalid password.");
@@ -45,16 +45,17 @@ const authOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile, ...rest }: any) {
+    async signIn(params: any) {
+      const { account, profile } = params;
       if (account?.provider === "github") {
         await connectToDatabase();
         const existingUser = await (User as any)
-          .findOne({ email: profile.email })
+          .findOne({ email: profile?.email })
           .exec();
         if (!existingUser) {
           await (User as any).create({
-            name: profile.name,
-            email: profile.email,
+            name: profile?.name,
+            email: profile?.email,
           });
         }
       }
@@ -78,12 +79,11 @@ const authOptions = {
       return session;
     },
   },
-  pages: {
-    signIn: "/sign-in",
-  },
+  // Remove or comment out the custom signIn page setting:
+  // pages: { signIn: "/sign-in" },
   secret: process.env.NEXTAUTH_SECRET,
 };
 
 const handler = NextAuth(authOptions);
-
-export { handler as GET, handler as POST };
+export const GET = handler;
+export const POST = handler;

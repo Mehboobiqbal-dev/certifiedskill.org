@@ -47,7 +47,7 @@ const SignUp = () => {
 
       if (res.ok) {
         toast.success(data.message);
-        router.push("/sign-in");
+        router.push("/SignIn");
       } else {
         setError(data.message || "An error occurred during sign up.");
       }
