@@ -1,5 +1,7 @@
 "use client";
 
+
+
 import { Button } from "../../pages/components/ui/button";
 import {
   Card,
@@ -10,11 +12,14 @@ import {
 } from "../../pages/components/ui/card";
 import { Input } from "../../pages/components/ui/input";
 import { Separator } from "../../pages/components/ui/separator";
+
 import Link from "next/link";
+
+
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
-import { signIn } from "next-auth/react"; // Correct import
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { TriangleAlert } from "lucide-react";
@@ -36,7 +41,7 @@ const SignIn = () => {
     });
     if (res?.ok) {
       router.push("/");
-      toast.success("Login successful");
+      toast.success("login successful");
     } else if (res?.status === 401) {
       setError("Invalid Credentials");
       setPending(false);
@@ -47,24 +52,23 @@ const SignIn = () => {
 
   const handleProvider = (
     event: React.MouseEvent<HTMLButtonElement>,
-    provider: "github" | "google"
+    value: "github" | "google"
   ) => {
     event.preventDefault();
-    signIn(provider, { callbackUrl: "/" });
+    signIn(value, { callbackUrl: "/" });
   };
-
   return (
     <div className="h-full flex items-center justify-center bg-[#1b0918]">
       <Card className="md:h-auto w-[80%] sm:w-[420px] p-4 sm:p-8">
         <CardHeader>
           <CardTitle className="text-center text-white ml-7">Sign in</CardTitle>
           <CardDescription className="text-sm text-center text-accent-foreground text-white ml-7">
-            Use email or service to sign in
+            Use email or service, to sign in
           </CardDescription>
         </CardHeader>
         {!!error && (
           <div className="bg-destructive/15 p-3 rounded-md flex items-center gap-x-2 text-sm text-destructive mb-6">
-            <TriangleAlert className="text-red-700" />
+            <TriangleAlert />
             <p>{error}</p>
           </div>
         )}
@@ -86,7 +90,8 @@ const SignIn = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <Button className="w-full" disabled={pending}>
+
+            <Button className="w-full" size="lg" disabled={pending}>
               continue
             </Button>
           </form>
@@ -96,25 +101,29 @@ const SignIn = () => {
             <Button
               disabled={false}
               onClick={() => {}}
+              variant="outline"
+              size="lg"
               className="bg-slate-300 hover:bg-slate-400 hover:scale-110"
             >
-              <FcGoogle size={24} />
+              <FcGoogle className="size-8 left-2.5 top-2.5" />
             </Button>
             <Button
               disabled={false}
               onClick={(e) => handleProvider(e, "github")}
+              variant="outline"
+              size="lg"
               className="bg-slate-300 hover:bg-slate-400 hover:scale-110"
             >
-              <FaGithub size={24} />
+              <FaGithub className="size-8 left-2.5 top-2.5" />
             </Button>
           </div>
           <p className="text-center text-sm mt-2 text-muted-foreground">
             Create new account
             <Link
               className="text-sky-700 ml-4 hover:underline cursor-pointer"
-              href="/signup"
+              href="sign-up"
             >
-              Sign up
+              Sing up{" "}
             </Link>
           </p>
         </CardContent>

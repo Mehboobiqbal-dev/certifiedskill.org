@@ -29,7 +29,7 @@ export default function Home() {
           <div className="mt-8">
             <Link
               href="/SignUp"
-              className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300"
+              className="inline-block bg-blue-600 hover:bg-blue-700 text-black font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300"
             >
               Get Started Today
             </Link>
