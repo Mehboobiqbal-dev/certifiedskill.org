@@ -40,8 +40,7 @@ const SignIn = () => {
       password,
     });
     if (res?.ok) {
-      router.push("/");
-      toast.success("login successful");
+      router.push("/dashboard"); // Redirect to dashboard after sign in\n      toast.success("Login successful");
     } else if (res?.status === 401) {
       setError("Invalid Credentials");
       setPending(false);
@@ -52,23 +51,24 @@ const SignIn = () => {
 
   const handleProvider = (
     event: React.MouseEvent<HTMLButtonElement>,
-    value: "github" | "google"
+    provider: "github" | "google"
   ) => {
     event.preventDefault();
-    signIn(value, { callbackUrl: "/" });
+    signIn(provider, { callbackUrl: "/dashboard" }); // Provider sign in redirects to dashboard
   };
+
   return (
     <div className="h-full flex items-center justify-center bg-[#1b0918]">
       <Card className="md:h-auto w-[80%] sm:w-[420px] p-4 sm:p-8">
         <CardHeader>
           <CardTitle className="text-center text-white ml-7">Sign in</CardTitle>
           <CardDescription className="text-sm text-center text-accent-foreground text-white ml-7">
-            Use email or service, to sign in
+            Use email or service to sign in
           </CardDescription>
         </CardHeader>
         {!!error && (
           <div className="bg-destructive/15 p-3 rounded-md flex items-center gap-x-2 text-sm text-destructive mb-6">
-            <TriangleAlert />
+            <TriangleAlert className="text-red-700" />
             <p>{error}</p>
           </div>
         )}
@@ -90,8 +90,7 @@ const SignIn = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-
-            <Button className="w-full" size="lg" disabled={pending}>
+            <Button className="w-full" disabled={pending}>
               continue
             </Button>
           </form>
@@ -101,29 +100,25 @@ const SignIn = () => {
             <Button
               disabled={false}
               onClick={() => {}}
-              variant="outline"
-              size="lg"
               className="bg-slate-300 hover:bg-slate-400 hover:scale-110"
             >
-              <FcGoogle className="size-8 left-2.5 top-2.5" />
+              <FcGoogle size={24} />
             </Button>
             <Button
               disabled={false}
               onClick={(e) => handleProvider(e, "github")}
-              variant="outline"
-              size="lg"
               className="bg-slate-300 hover:bg-slate-400 hover:scale-110"
             >
-              <FaGithub className="size-8 left-2.5 top-2.5" />
+              <FaGithub size={24} />
             </Button>
           </div>
           <p className="text-center text-sm mt-2 text-muted-foreground">
             Create new account
             <Link
               className="text-sky-700 ml-4 hover:underline cursor-pointer"
-              href="sign-up"
+              href="/signup"
             >
-              Sing up{" "}
+              Sign up
             </Link>
           </p>
         </CardContent>
