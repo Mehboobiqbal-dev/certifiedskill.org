@@ -179,19 +179,34 @@ __turbopack_context__.s({
 });
 var __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/mongoose [external] (mongoose, cjs)");
 ;
-const MONGO_URI = process.env.MONGO_URI;
-if (!MONGO_URI) {
-    throw new Error("Please define the MONGO_URI environment variable");
+if (!process.env.MONGO_URI) {
+    throw new Error('Please define the MONGO_URI environment variable');
+}
+// Use a global variable to cache the connection
+let cached = global.mongoose;
+if (!cached) {
+    cached = global.mongoose = {
+        conn: null,
+        promise: null
+    };
 }
 async function connectToDatabase() {
-    if (__TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["default"].connection.readyState === 1) {
-        return __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["default"];
+    if (cached.conn) {
+        return cached.conn;
     }
-    const opts = {
-        bufferCommands: false
-    };
-    await __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["default"].connect(MONGO_URI, opts);
-    return __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["default"];
+    if (!cached.promise) {
+        const options = {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        };
+        cached.promise = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["default"].connect(process.env.MONGO_URI, options).then((mongooseInstance)=>{
+            return {
+                db: mongooseInstance.connection.db
+            };
+        });
+    }
+    cached.conn = await cached.promise;
+    return cached.conn;
 }
 const __TURBOPACK__default__export__ = connectToDatabase;
 }}),

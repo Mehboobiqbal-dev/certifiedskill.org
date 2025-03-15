@@ -1,6 +1,5 @@
 import connectToDatabase from '../../../lib/db';
-import Exam from '../../models/Exam';
-import { ObjectId } from "mongoDB";
+import { ObjectId } from "mongodb";
 
 export default async function handler(req, res) {
   if (req.method !== "GET") {
@@ -15,7 +14,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: "Invalid Exam ID" });
     }
 
-    const exam = await db.collections("exams").findone({ _id: new ObjectID(id) });
+    const exam = await db.collection("exams").findOne({ _id: new ObjectId(id) });
 
     if (!exam) {
       return res.status(404).json({ message: "Exam Not Found" });

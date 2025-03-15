@@ -185,9 +185,7 @@ __turbopack_context__.s({
 });
 var __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react/jsx-dev-runtime [external] (react/jsx-dev-runtime, cjs)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/router.js [ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react [external] (react, cjs)");
 var __TURBOPACK__imported__module__$5b$externals$5d2f$next$2f$head$2e$js__$5b$external$5d$__$28$next$2f$head$2e$js$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/next/head.js [external] (next/head.js, cjs)");
-;
 ;
 ;
 ;
@@ -203,19 +201,19 @@ function Exam({ exam }) {
                     children: exam.title
                 }, void 0, false, {
                     fileName: "[project]/pages/exam/[id].js",
-                    lineNumber: 11,
+                    lineNumber: 10,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 10,
+                lineNumber: 9,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("h1", {
                 children: exam.title
             }, void 0, false, {
                 fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 13,
+                lineNumber: 12,
                 columnNumber: 7
             }, this),
             exam.questions.map((q, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
@@ -226,23 +224,33 @@ function Exam({ exam }) {
                         children: q.questionText
                     }, void 0, false, {
                         fileName: "[project]/pages/exam/[id].js",
-                        lineNumber: 16,
+                        lineNumber: 15,
                         columnNumber: 11
                     }, this)
                 }, index, false, {
                     fileName: "[project]/pages/exam/[id].js",
-                    lineNumber: 15,
+                    lineNumber: 14,
                     columnNumber: 9
                 }, this))
         ]
     }, void 0, true, {
         fileName: "[project]/pages/exam/[id].js",
-        lineNumber: 9,
+        lineNumber: 8,
         columnNumber: 5
     }, this);
 }
-async function getServerSideProps({ params }) {
-    const res = await fetch(`https://3000-idx-get-certified-1742011310099.cluster-nx3nmmkbnfe54q3dd4pfbgilpc.cloudworkstations.dev/api/exams/${params.id}`);
+async function getServerSideProps({ params, req }) {
+    const protocol = req.headers['x-forwarded-proto'] || 'http';
+    const host = req.headers.host;
+    const apiUrl = `${protocol}://${host}/api/exams/${params.id}`;
+    const res = await fetch(apiUrl);
+    if (!res.ok) {
+        const errorText = await res.text();
+        console.error("API error response:", errorText);
+        return {
+            notFound: true
+        };
+    }
     const exam = await res.json();
     return {
         props: {

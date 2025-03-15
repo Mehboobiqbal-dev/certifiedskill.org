@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import Head from 'next/head';
 
 export default function Exam({ exam }) {
@@ -20,8 +19,19 @@ export default function Exam({ exam }) {
   );
 }
 
-export async function getServerSideProps({ params }) {
-  const res = await fetch(`https://3000-idx-get-certified-1742011310099.cluster-nx3nmmkbnfe54q3dd4pfbgilpc.cloudworkstations.dev/api/exams/${params.id}`);
+export async function getServerSideProps({ params, req }) {
+  const protocol = req.headers['x-forwarded-proto'] || 'http';
+  const host = req.headers.host;
+  const apiUrl = `${protocol}://${host}/api/exams/${params.id}`;
+
+  const res = await fetch(apiUrl);
+
+  if (!res.ok) {
+    const errorText = await res.text();
+    console.error("API error response:", errorText);
+    return { notFound: true };
+  }
+
   const exam = await res.json();
   return { props: { exam } };
 }

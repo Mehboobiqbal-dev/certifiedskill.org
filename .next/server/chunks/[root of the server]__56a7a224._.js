@@ -8,16 +8,6 @@ const mod = __turbopack_context__.x("next/dist/compiled/next-server/pages-api.ru
 
 module.exports = mod;
 }}),
-"[externals]/next-connect [external] (next-connect, esm_import)": ((__turbopack_context__) => {
-"use strict";
-
-var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
-__turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
-const mod = await __turbopack_context__.y("next-connect");
-
-__turbopack_context__.n(mod);
-__turbopack_async_result__();
-} catch(e) { __turbopack_async_result__(e); } }, true);}),
 "[externals]/mongoose [external] (mongoose, cjs)": (function(__turbopack_context__) {
 
 var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
@@ -95,73 +85,56 @@ const examSchema = new __TURBOPACK__imported__module__$5b$externals$5d2f$mongoos
 });
 const __TURBOPACK__default__export__ = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["default"].models.Exam || __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["default"].model('Exam', examSchema);
 }}),
-"[project]/pages/api/exams/index.js [api] (ecmascript)": ((__turbopack_context__) => {
+"[project]/pages/api/exams/[id].js [api] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
-__turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
-// pages/api/exams/index.js
+var { g: global, d: __dirname } = __turbopack_context__;
+{
 __turbopack_context__.s({
     "default": (()=>handler)
 });
-var __TURBOPACK__imported__module__$5b$externals$5d2f$next$2d$connect__$5b$external$5d$__$28$next$2d$connect$2c$__esm_import$29$__ = __turbopack_context__.i("[externals]/next-connect [external] (next-connect, esm_import)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$js__$5b$api$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/db.js [api] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$models$2f$Exam$2e$js__$5b$api$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/pages/models/Exam.js [api] (ecmascript)");
-var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
-    __TURBOPACK__imported__module__$5b$externals$5d2f$next$2d$connect__$5b$external$5d$__$28$next$2d$connect$2c$__esm_import$29$__
-]);
-([__TURBOPACK__imported__module__$5b$externals$5d2f$next$2d$connect__$5b$external$5d$__$28$next$2d$connect$2c$__esm_import$29$__] = __turbopack_async_dependencies__.then ? (await __turbopack_async_dependencies__)() : __turbopack_async_dependencies__);
+(()=>{
+    const e = new Error("Cannot find module 'mongoDB'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
 ;
 ;
 ;
 async function handler(req, res) {
-    // Connect to the database
-    await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$js__$5b$api$5d$__$28$ecmascript$29$__["default"])();
-    if (req.method === 'POST') {
-        try {
-            const { title, questions, duration, startTime, endTime } = req.body;
-            // Create a new exam document
-            const exam = new __TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$models$2f$Exam$2e$js__$5b$api$5d$__$28$ecmascript$29$__["default"]({
-                title,
-                questions,
-                duration,
-                startTime,
-                endTime
-            });
-            await exam.save();
-            return res.status(201).json({
-                message: 'Exam created successfully',
-                exam
-            });
-        } catch (error) {
-            console.error('Error creating exam:', error);
-            return res.status(500).json({
-                message: 'Internal Server Error'
-            });
-        }
-    } else if (req.method === 'GET') {
-        try {
-            // Return all exams
-            const exams = await __TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$models$2f$Exam$2e$js__$5b$api$5d$__$28$ecmascript$29$__["default"].find({});
-            return res.status(200).json(exams);
-        } catch (error) {
-            console.error('Error fetching exams:', error);
-            return res.status(500).json({
-                message: 'Internal Server Error'
-            });
-        }
-    } else {
-        res.setHeader('Allow', [
-            'GET',
-            'POST'
-        ]);
+    if (req.method !== "GET") {
         return res.status(405).json({
-            message: `Method ${req.method} not allowed`
+            message: "Method Not Allowed"
+        });
+    }
+    try {
+        const { db } = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$js__$5b$api$5d$__$28$ecmascript$29$__["default"])();
+        const { id } = req.query;
+        if (!ObjectId.isValid(id)) {
+            return res.status(400).json({
+                message: "Invalid Exam ID"
+            });
+        }
+        const exam = await db.collections("exams").findone({
+            _id: new ObjectID(id)
+        });
+        if (!exam) {
+            return res.status(404).json({
+                message: "Exam Not Found"
+            });
+        }
+        res.status(200).json(exam);
+    } catch (error) {
+        console.error("MongoDB Fetch Error:", error);
+        res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
         });
     }
 }
-__turbopack_async_result__();
-} catch(e) { __turbopack_async_result__(e); } }, false);}),
+}}),
 "[project]/node_modules/next/dist/esm/server/route-modules/pages-api/module.compiled.js [api] (ecmascript)": (function(__turbopack_context__) {
 
 var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
@@ -238,11 +211,11 @@ function hoist(module, name) {
     return undefined;
 } //# sourceMappingURL=helpers.js.map
 }}),
-"[project]/node_modules/next/dist/esm/build/templates/pages-api.js { INNER_PAGE => \"[project]/pages/api/exams/index.js [api] (ecmascript)\" } [api] (ecmascript)": ((__turbopack_context__) => {
+"[project]/node_modules/next/dist/esm/build/templates/pages-api.js { INNER_PAGE => \"[project]/pages/api/exams/[id].js [api] (ecmascript)\" } [api] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
-__turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
+var { g: global, d: __dirname } = __turbopack_context__;
+{
 __turbopack_context__.s({
     "config": (()=>config),
     "default": (()=>__TURBOPACK__default__export__),
@@ -252,31 +225,26 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$route$2d$kind$2e$js__$5b$api$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/esm/server/route-kind.js [api] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$build$2f$templates$2f$helpers$2e$js__$5b$api$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/esm/build/templates/helpers.js [api] (ecmascript)");
 // Import the userland code.
-var __TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$api$2f$exams$2f$index$2e$js__$5b$api$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/pages/api/exams/index.js [api] (ecmascript)");
-var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
-    __TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$api$2f$exams$2f$index$2e$js__$5b$api$5d$__$28$ecmascript$29$__
-]);
-([__TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$api$2f$exams$2f$index$2e$js__$5b$api$5d$__$28$ecmascript$29$__] = __turbopack_async_dependencies__.then ? (await __turbopack_async_dependencies__)() : __turbopack_async_dependencies__);
+var __TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$api$2f$exams$2f5b$id$5d2e$js__$5b$api$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/pages/api/exams/[id].js [api] (ecmascript)");
 ;
 ;
 ;
 ;
-const __TURBOPACK__default__export__ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$build$2f$templates$2f$helpers$2e$js__$5b$api$5d$__$28$ecmascript$29$__["hoist"])(__TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$api$2f$exams$2f$index$2e$js__$5b$api$5d$__$28$ecmascript$29$__, 'default');
-const config = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$build$2f$templates$2f$helpers$2e$js__$5b$api$5d$__$28$ecmascript$29$__["hoist"])(__TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$api$2f$exams$2f$index$2e$js__$5b$api$5d$__$28$ecmascript$29$__, 'config');
+const __TURBOPACK__default__export__ = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$build$2f$templates$2f$helpers$2e$js__$5b$api$5d$__$28$ecmascript$29$__["hoist"])(__TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$api$2f$exams$2f5b$id$5d2e$js__$5b$api$5d$__$28$ecmascript$29$__, 'default');
+const config = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$build$2f$templates$2f$helpers$2e$js__$5b$api$5d$__$28$ecmascript$29$__["hoist"])(__TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$api$2f$exams$2f5b$id$5d2e$js__$5b$api$5d$__$28$ecmascript$29$__, 'config');
 const routeModule = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$route$2d$modules$2f$pages$2d$api$2f$module$2e$compiled$2e$js__$5b$api$5d$__$28$ecmascript$29$__["PagesAPIRouteModule"]({
     definition: {
         kind: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$route$2d$kind$2e$js__$5b$api$5d$__$28$ecmascript$29$__["RouteKind"].PAGES_API,
-        page: "/api/exams/index",
-        pathname: "/api/exams",
+        page: "/api/exams/[id]",
+        pathname: "/api/exams/[id]",
         // The following aren't used in production.
         bundlePath: '',
         filename: ''
     },
-    userland: __TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$api$2f$exams$2f$index$2e$js__$5b$api$5d$__$28$ecmascript$29$__
+    userland: __TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$api$2f$exams$2f5b$id$5d2e$js__$5b$api$5d$__$28$ecmascript$29$__
 }); //# sourceMappingURL=pages-api.js.map
-__turbopack_async_result__();
-} catch(e) { __turbopack_async_result__(e); } }, false);}),
+}}),
 
 };
 
-//# sourceMappingURL=%5Broot%20of%20the%20server%5D__61696f1a._.js.map
+//# sourceMappingURL=%5Broot%20of%20the%20server%5D__56a7a224._.js.map
