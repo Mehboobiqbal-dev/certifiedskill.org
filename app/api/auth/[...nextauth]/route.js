@@ -7,12 +7,12 @@ import bcrypt from "bcryptjs";
 
 const authOptions = {
   session: {
-    strategy: "jwt" as const,
+    strategy: "jwt",
   },
   providers: [
     GithubProvider({
-      clientId: process.env.GITHUB_ID as string,
-      clientSecret: process.env.GITHUB_SECRET as string,
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -23,19 +23,13 @@ const authOptions = {
       async authorize(credentials) {
         try {
           await connectToDatabase();
-          const user = await (User as any)
-            .findOne({ email: credentials?.email })
-            .exec();
-          if (!user) {
-            throw new Error("No user found with that email.");
-          }
+          const user = await User.findOne({ email: credentials?.email }).exec();
+          if (!user) throw new Error("No user found with that email.");
           const isValidPassword = await bcrypt.compare(
             credentials?.password ?? "",
-            user.password as string
+            user.password
           );
-          if (!isValidPassword) {
-            throw new Error("Invalid password.");
-          }
+          if (!isValidPassword) throw new Error("Invalid password.");
           return user;
         } catch (error) {
           console.error("Authorize error:", error);
@@ -45,35 +39,37 @@ const authOptions = {
     }),
   ],
   callbacks: {
-    async signIn(params: any) {
-      const { account, profile } = params;
+    async signIn({ account, profile }) {
+      // For provider sign in, create a new user if one doesn't exist.
       if (account?.provider === "github") {
         await connectToDatabase();
-        const existingUser = await (User as any)
-          .findOne({ email: profile?.email })
-          .exec();
+        const existingUser = await User.findOne({ email: profile?.email }).exec();
         if (!existingUser) {
-          await (User as any).create({
+          await User.create({
             name: profile?.name,
             email: profile?.email,
+            role: 'student' // Default role; adjust as needed.
           });
         }
       }
       return true;
     },
-    async jwt({ token, user }: any) {
+    async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
+        token.id = user._id.toString();
         token.email = user.email;
         token.name = user.name;
+        token.role = user.role || 'student';
       }
       return token;
     },
-    async session({ session, token }: any) {
+    async session({ session, token }) {
       if (token) {
         session.user = {
-          email: token.email as string,
-          name: token.name as string,
+          id: token.id,
+          email: token.email,
+          name: token.name,
+          role: token.role || 'student',
         };
       }
       return session;

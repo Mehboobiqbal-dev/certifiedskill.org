@@ -3,12 +3,10 @@ import { NextResponse } from "next/server";
 import User from "../../../../pages/models/user";
 import connectToDatabase from "../../../../lib/db";
 
-export async function POST(request: Request) {
+export async function POST(request) {
   try {
-    // Destructure without recaptchaToken
-    const { name, email, password, confirmPassword } = await request.json();
+    const { name, email, password, confirmPassword, role } = await request.json();
 
-    // Validate required fields
     if (!name || !email || !password || !confirmPassword) {
       return NextResponse.json(
         { message: "All fields are required" },
@@ -16,8 +14,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // Validate email format
-    const isValidEmail = (email: string) =>
+    const isValidEmail = (email) =>
       /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!isValidEmail(email)) {
       return NextResponse.json(
@@ -26,7 +23,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Validate password length
     if (password.length < 6) {
       return NextResponse.json(
         { message: "Password must be at least 6 characters long" },
@@ -34,7 +30,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Validate matching passwords
     if (password !== confirmPassword) {
       return NextResponse.json(
         { message: "Passwords do not match" },
@@ -42,11 +37,9 @@ export async function POST(request: Request) {
       );
     }
 
-    // Connect to database
     await connectToDatabase();
 
-    // Check if the user already exists
-    const existingUser = await (User as any).findOne({ email }).exec();
+    const existingUser = await User.findOne({ email }).exec();
     if (existingUser) {
       return NextResponse.json(
         { message: "User already exists" },
@@ -54,14 +47,13 @@ export async function POST(request: Request) {
       );
     }
 
-    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create and save the new user
     const newUser = new User({
       name,
       email,
       password: hashedPassword,
+      role: role || "student"
     });
 
     await newUser.save();

@@ -195,114 +195,13 @@ async function connectToDatabase() {
 }
 const __TURBOPACK__default__export__ = connectToDatabase;
 }}),
-"[project]/app/api/auth/[...nextauth]/route.ts [app-route] (ecmascript)": ((__turbopack_context__) => {
-"use strict";
+"[project]/app/api/auth/[...nextauth]/route.ts [app-route] (ecmascript)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname } = __turbopack_context__;
+var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
 {
-__turbopack_context__.s({
-    "GET": (()=>GET),
-    "POST": (()=>POST)
-});
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$index$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next-auth/index.js [app-route] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$providers$2f$credentials$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next-auth/providers/credentials.js [app-route] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$providers$2f$github$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next-auth/providers/github.js [app-route] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$models$2f$user$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/pages/models/user.ts [app-route] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/db.js [app-route] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$bcryptjs$2f$index$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/bcryptjs/index.js [app-route] (ecmascript)");
-;
-;
-;
-;
-;
-;
-const authOptions = {
-    session: {
-        strategy: "jwt"
-    },
-    providers: [
-        (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$providers$2f$github$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])({
-            clientId: process.env.GITHUB_ID,
-            clientSecret: process.env.GITHUB_SECRET
-        }),
-        (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$providers$2f$credentials$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])({
-            name: "Credentials",
-            credentials: {
-                email: {
-                    label: "Email",
-                    type: "text",
-                    placeholder: "you@example.com"
-                },
-                password: {
-                    label: "Password",
-                    type: "password"
-                }
-            },
-            async authorize (credentials) {
-                try {
-                    await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])();
-                    const user = await __TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$models$2f$user$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findOne({
-                        email: credentials?.email
-                    }).exec();
-                    if (!user) {
-                        throw new Error("No user found with that email.");
-                    }
-                    const isValidPassword = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$bcryptjs$2f$index$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].compare(credentials?.password ?? "", user.password);
-                    if (!isValidPassword) {
-                        throw new Error("Invalid password.");
-                    }
-                    return user;
-                } catch (error) {
-                    console.error("Authorize error:", error);
-                    return null;
-                }
-            }
-        })
-    ],
-    callbacks: {
-        async signIn (params) {
-            const { account, profile } = params;
-            if (account?.provider === "github") {
-                await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])();
-                const existingUser = await __TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$models$2f$user$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findOne({
-                    email: profile?.email
-                }).exec();
-                if (!existingUser) {
-                    await __TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$models$2f$user$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].create({
-                        name: profile?.name,
-                        email: profile?.email
-                    });
-                }
-            }
-            return true;
-        },
-        async jwt ({ token, user }) {
-            if (user) {
-                token.id = user.id;
-                token.email = user.email;
-                token.name = user.name;
-            }
-            return token;
-        },
-        async session ({ session, token }) {
-            if (token) {
-                session.user = {
-                    email: token.email,
-                    name: token.name
-                };
-            }
-            return session;
-        }
-    },
-    pages: {
-        signIn: "/sign-in"
-    },
-    secret: process.env.NEXTAUTH_SECRET
-};
-const handler = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$index$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])(authOptions);
-const GET = handler;
-const POST = handler;
-}}),
+const e = new Error("Could not parse module '[project]/app/api/auth/[...nextauth]/route.ts'");
+e.code = 'MODULE_UNPARSEABLE';
+throw e;}}),
 
 };
 

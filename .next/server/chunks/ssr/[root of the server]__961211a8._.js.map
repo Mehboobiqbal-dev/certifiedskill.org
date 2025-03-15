@@ -2,6 +2,6 @@
   "version": 3,
   "sources": [],
   "sections": [
-    {"offset": {"line": 15, "column": 0}, "map": {"version":3,"sources":["file:///workspaces/get-certified/pages/_app.js"],"sourcesContent":["import \"../styles/globals.css\";\n\nexport default function App({ Component, pageProps }) {\n  return <Component {...pageProps} />;\n}\n"],"names":[],"mappings":";;;;;;AAEe,SAAS,IAAI,EAAE,SAAS,EAAE,SAAS,EAAE;IAClD,qBAAO,qKAAC;QAAW,GAAG,SAAS;;;;;;AACjC","debugId":null}},
+    {"offset": {"line": 15, "column": 0}, "map": {"version":3,"sources":["file:///home/user/get-certified/pages/_app.js"],"sourcesContent":["import \"../styles/globals.css\";\n\nexport default function App({ Component, pageProps }) {\n  return <Component {...pageProps} />;\n}\n"],"names":[],"mappings":";;;;;;AAEe,SAAS,IAAI,EAAE,SAAS,EAAE,SAAS,EAAE;IAClD,qBAAO,qKAAC;QAAW,GAAG,SAAS;;;;;;AACjC","debugId":null}},
     {"offset": {"line": 30, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
 }
