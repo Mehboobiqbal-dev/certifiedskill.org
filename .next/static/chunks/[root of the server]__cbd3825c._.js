@@ -472,7 +472,6 @@ __turbopack_context__.s({
     "default": (()=>Exam)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react/jsx-dev-runtime.js [client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next-auth/react/index.js [client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/router.js [client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react/index.js [client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$head$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/head.js [client] (ecmascript)");
@@ -481,211 +480,60 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-;
 var __N_SSP = true;
 function Exam({ exam }) {
     _s();
-    const { status } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useSession"])();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useRouter"])();
-    const [answers, setAnswers] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])({});
-    const videoRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useRef"])(null);
-    const [cheatingDetected, setCheatingDetected] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "Exam.useEffect": ()=>{
-            // Redirect if not signed in
-            if (status === 'unauthenticated') {
-                router.push('/');
-                return;
-            }
-            // Tab change detection
-            const handleVisibilityChange = {
-                "Exam.useEffect.handleVisibilityChange": ()=>{
-                    if (document.visibilityState === 'hidden') {
-                        setCheatingDetected(true);
-                        alert('Tab change detected! This will be flagged.');
-                    }
-                }
-            }["Exam.useEffect.handleVisibilityChange"];
-            document.addEventListener('visibilitychange', handleVisibilityChange);
-            // Face detection setup using global FaceDetection loaded via CDN
-            const setupFaceDetection = {
-                "Exam.useEffect.setupFaceDetection": ()=>{
-                    if ("object" !== 'undefined' && window.FaceDetection) {
-                        const faceDetection = new window.FaceDetection({
-                            locateFile: {
-                                "Exam.useEffect.setupFaceDetection": (file)=>`https://cdn.jsdelivr.net/npm/@mediapipe/face_detection/${file}`
-                            }["Exam.useEffect.setupFaceDetection"]
-                        });
-                        faceDetection.setOptions({
-                            model: 'short',
-                            minDetectionConfidence: 0.5
-                        });
-                        faceDetection.onResults({
-                            "Exam.useEffect.setupFaceDetection": (results)=>{
-                                if (!results.detections || !results.detections.length) {
-                                    setCheatingDetected(true);
-                                    alert('No face detected! Please stay in view.');
-                                }
-                            }
-                        }["Exam.useEffect.setupFaceDetection"]);
-                        const video = videoRef.current;
-                        navigator.mediaDevices.getUserMedia({
-                            video: true
-                        }).then({
-                            "Exam.useEffect.setupFaceDetection": (stream)=>{
-                                video.srcObject = stream;
-                                video.play();
-                                const detect = {
-                                    "Exam.useEffect.setupFaceDetection.detect": ()=>faceDetection.send({
-                                            image: video
-                                        }).then({
-                                            "Exam.useEffect.setupFaceDetection.detect": ()=>requestAnimationFrame(detect)
-                                        }["Exam.useEffect.setupFaceDetection.detect"])
-                                }["Exam.useEffect.setupFaceDetection.detect"];
-                                detect();
-                            }
-                        }["Exam.useEffect.setupFaceDetection"]);
-                    } else {
-                        console.error('FaceDetection is not available on window.');
-                    }
-                }
-            }["Exam.useEffect.setupFaceDetection"];
-            setupFaceDetection();
-            return ({
-                "Exam.useEffect": ()=>{
-                    document.removeEventListener('visibilitychange', handleVisibilityChange);
-                }
-            })["Exam.useEffect"];
-        }
-    }["Exam.useEffect"], [
-        status,
-        router
-    ]);
-    const handleSubmit = async ()=>{
-        const res = await fetch('/api/submit-exam', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                examId: exam._id,
-                answers: Object.values(answers)
-            })
-        });
-        if (res.ok) {
-            alert('Exam submitted!');
-            router.push('/dashboard');
-        }
-    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         style: {
             padding: '20px'
         },
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$head$2e$js__$5b$client$5d$__$28$ecmascript$29$__["default"], {
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("script", {
-                    src: "https://cdn.jsdelivr.net/npm/@mediapipe/face_detection/face_detection.js",
-                    crossOrigin: "anonymous"
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("title", {
+                    children: exam.title
                 }, void 0, false, {
                     fileName: "[project]/pages/exam/[id].js",
-                    lineNumber: 80,
+                    lineNumber: 11,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 78,
+                lineNumber: 10,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                 children: exam.title
             }, void 0, false, {
                 fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 85,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("video", {
-                ref: videoRef,
-                width: "320",
-                height: "240",
-                style: {
-                    position: 'fixed',
-                    top: 10,
-                    right: 10
-                }
-            }, void 0, false, {
-                fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 86,
+                lineNumber: 13,
                 columnNumber: 7
             }, this),
             exam.questions.map((q, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     style: {
                         marginBottom: '20px'
                     },
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            children: q.questionText
-                        }, void 0, false, {
-                            fileName: "[project]/pages/exam/[id].js",
-                            lineNumber: 94,
-                            columnNumber: 11
-                        }, this),
-                        q.options.map((option, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "radio",
-                                        name: `question-${index}`,
-                                        value: option,
-                                        onChange: ()=>setAnswers({
-                                                ...answers,
-                                                [index]: option
-                                            })
-                                    }, void 0, false, {
-                                        fileName: "[project]/pages/exam/[id].js",
-                                        lineNumber: 97,
-                                        columnNumber: 15
-                                    }, this),
-                                    option
-                                ]
-                            }, i, true, {
-                                fileName: "[project]/pages/exam/[id].js",
-                                lineNumber: 96,
-                                columnNumber: 13
-                            }, this))
-                    ]
-                }, index, true, {
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        children: q.questionText
+                    }, void 0, false, {
+                        fileName: "[project]/pages/exam/[id].js",
+                        lineNumber: 16,
+                        columnNumber: 11
+                    }, this)
+                }, index, false, {
                     fileName: "[project]/pages/exam/[id].js",
-                    lineNumber: 93,
+                    lineNumber: 15,
                     columnNumber: 9
-                }, this)),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                onClick: handleSubmit,
-                disabled: cheatingDetected,
-                children: "Submit Exam"
-            }, void 0, false, {
-                fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 108,
-                columnNumber: 7
-            }, this),
-            cheatingDetected && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                style: {
-                    color: 'red'
-                },
-                children: "Cheating detected! Resolve issues to submit."
-            }, void 0, false, {
-                fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 112,
-                columnNumber: 9
-            }, this)
+                }, this))
         ]
     }, void 0, true, {
         fileName: "[project]/pages/exam/[id].js",
-        lineNumber: 77,
+        lineNumber: 9,
         columnNumber: 5
     }, this);
 }
-_s(Exam, "muJwXkxcOQXJHiSoaRbde1rWiXQ=", false, function() {
+_s(Exam, "fN7XvhJ+p5oE6+Xlo0NJmXpxjC8=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useSession"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];
 });

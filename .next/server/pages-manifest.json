@@ -5,7 +5,5 @@
   "/dashboard": "pages/dashboard.js",
   "/api/exams": "pages/api/exams.js",
   "/exam/[id]": "pages/exam/[id].js",
-  "/_error": "pages/_error.js",
-  "/SignIn": "pages/SignIn.js",
-  "/api/exams/[id]": "pages/api/exams/[id].js"
+  "/_error": "pages/_error.js"
 }

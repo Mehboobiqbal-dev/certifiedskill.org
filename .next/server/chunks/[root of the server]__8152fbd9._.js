@@ -938,30 +938,34 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ;
 ;
 async function handler(req, res) {
-    // Connect to the database
-    await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$js__$5b$api$5d$__$28$ecmascript$29$__["default"])();
-    const { id } = req.query;
-    if (req.method === 'GET') {
-        try {
+    console.log("Incoming request:", req.method, req.query);
+    try {
+        await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$js__$5b$api$5d$__$28$ecmascript$29$__["default"])();
+        console.log("Connected to database");
+        const { id } = req.query;
+        if (req.method === 'GET') {
             const exam = await __TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$index$2e$js__$5b$api$5d$__$28$ecmascript$29$__["default"].findById(id);
             if (!exam) {
+                console.log("Exam not found for ID:", id);
                 return res.status(404).json({
                     message: 'Exam not found'
                 });
             }
+            console.log("Exam found:", exam);
             return res.status(200).json(exam);
-        } catch (error) {
-            console.error('Error fetching exam:', error);
-            return res.status(500).json({
-                message: 'Internal Server Error'
+        } else {
+            res.setHeader('Allow', [
+                'GET'
+            ]);
+            return res.status(405).json({
+                message: `Method ${req.method} not allowed`
             });
         }
-    } else {
-        res.setHeader('Allow', [
-            'GET'
-        ]);
-        return res.status(405).json({
-            message: `Method ${req.method} not allowed`
+    } catch (error) {
+        console.error("Error in API:", error);
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            error: error.message
         });
     }
 }

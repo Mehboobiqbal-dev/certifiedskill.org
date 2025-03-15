@@ -134,124 +134,60 @@ function MyApp({ Component, pageProps }) {
     }, this);
 }
 }}),
-"[externals]/fs [external] (fs, cjs)": (function(__turbopack_context__) {
-
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
-{
-const mod = __turbopack_context__.x("fs", () => require("fs"));
-
-module.exports = mod;
-}}),
-"[externals]/stream [external] (stream, cjs)": (function(__turbopack_context__) {
-
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
-{
-const mod = __turbopack_context__.x("stream", () => require("stream"));
-
-module.exports = mod;
-}}),
-"[externals]/zlib [external] (zlib, cjs)": (function(__turbopack_context__) {
-
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
-{
-const mod = __turbopack_context__.x("zlib", () => require("zlib"));
-
-module.exports = mod;
-}}),
-"[externals]/react-dom [external] (react-dom, cjs)": (function(__turbopack_context__) {
-
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
-{
-const mod = __turbopack_context__.x("react-dom", () => require("react-dom"));
-
-module.exports = mod;
-}}),
-"[externals]/next/head.js [external] (next/head.js, cjs)": (function(__turbopack_context__) {
-
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
-{
-const mod = __turbopack_context__.x("next/head.js", () => require("next/head.js"));
-
-module.exports = mod;
-}}),
 "[project]/pages/exam/[id].js [ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
 var { g: global, d: __dirname } = __turbopack_context__;
 {
 __turbopack_context__.s({
-    "default": (()=>Exam),
-    "getServerSideProps": (()=>getServerSideProps)
+    "default": (()=>handler)
 });
-var __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react/jsx-dev-runtime [external] (react/jsx-dev-runtime, cjs)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/router.js [ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react [external] (react, cjs)");
-var __TURBOPACK__imported__module__$5b$externals$5d2f$next$2f$head$2e$js__$5b$external$5d$__$28$next$2f$head$2e$js$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/next/head.js [external] (next/head.js, cjs)");
+(()=>{
+    const e = new Error("Cannot find module '../../../db'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
+(()=>{
+    const e = new Error("Cannot find module '../../../models/Exam'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
 ;
 ;
-;
-;
-function Exam({ exam }) {
-    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
-        style: {
-            padding: '20px'
-        },
-        children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f$next$2f$head$2e$js__$5b$external$5d$__$28$next$2f$head$2e$js$2c$__cjs$29$__["default"], {
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("title", {
-                    children: exam.title
-                }, void 0, false, {
-                    fileName: "[project]/pages/exam/[id].js",
-                    lineNumber: 11,
-                    columnNumber: 9
-                }, this)
-            }, void 0, false, {
-                fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 10,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("h1", {
-                children: exam.title
-            }, void 0, false, {
-                fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 13,
-                columnNumber: 7
-            }, this),
-            exam.questions.map((q, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
-                    style: {
-                        marginBottom: '20px'
-                    },
-                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("p", {
-                        children: q.questionText
-                    }, void 0, false, {
-                        fileName: "[project]/pages/exam/[id].js",
-                        lineNumber: 16,
-                        columnNumber: 11
-                    }, this)
-                }, index, false, {
-                    fileName: "[project]/pages/exam/[id].js",
-                    lineNumber: 15,
-                    columnNumber: 9
-                }, this))
-        ]
-    }, void 0, true, {
-        fileName: "[project]/pages/exam/[id].js",
-        lineNumber: 9,
-        columnNumber: 5
-    }, this);
-}
-async function getServerSideProps({ params }) {
-    const res = await fetch(`https://3000-idx-get-certified-1742011310099.cluster-nx3nmmkbnfe54q3dd4pfbgilpc.cloudworkstations.dev/api/exams/${params.id}`);
-    const exam = await res.json();
-    return {
-        props: {
-            exam
+async function handler(req, res) {
+    console.log("Incoming request:", req.method, req.query);
+    try {
+        await connectDB();
+        console.log("Connected to database");
+        const { id } = req.query;
+        if (req.method === 'GET') {
+            const exam = await Exam.findById(id);
+            if (!exam) {
+                console.log("Exam not found for ID:", id);
+                return res.status(404).json({
+                    message: 'Exam not found'
+                });
+            }
+            console.log("Exam found:", exam);
+            return res.status(200).json(exam);
+        } else {
+            res.setHeader('Allow', [
+                'GET'
+            ]);
+            return res.status(405).json({
+                message: `Method ${req.method} not allowed`
+            });
         }
-    };
+    } catch (error) {
+        console.error("Error in API:", error);
+        return res.status(500).json({
+            message: 'Internal Server Error',
+            error: error.message
+        });
+    }
 }
 }}),
 
 };
 
-//# sourceMappingURL=%5Broot%20of%20the%20server%5D__086893c2._.js.map
+//# sourceMappingURL=%5Broot%20of%20the%20server%5D__dcfd4632._.js.map
