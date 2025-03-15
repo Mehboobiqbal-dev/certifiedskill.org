@@ -492,7 +492,11 @@ function Exam({ exam }) {
     const [cheatingDetected, setCheatingDetected] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])(false);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "Exam.useEffect": ()=>{
-            if (status === 'unauthenticated') router.push('/');
+            // Redirect if not signed in
+            if (status === 'unauthenticated') {
+                router.push('/');
+                return;
+            }
             // Tab change detection
             const handleVisibilityChange = {
                 "Exam.useEffect.handleVisibilityChange": ()=>{
@@ -503,53 +507,54 @@ function Exam({ exam }) {
                 }
             }["Exam.useEffect.handleVisibilityChange"];
             document.addEventListener('visibilitychange', handleVisibilityChange);
-            // Face detection setup
+            // Face detection setup using global FaceDetection loaded via CDN
             const setupFaceDetection = {
-                "Exam.useEffect.setupFaceDetection": async ()=>{
-                    const { FaceDetection } = await (()=>{
-                        const e = new Error("Cannot find module '@mediapipe/face_detection'");
-                        e.code = 'MODULE_NOT_FOUND';
-                        throw e;
-                    })();
-                    const faceDetection = new FaceDetection({
-                        locateFile: {
-                            "Exam.useEffect.setupFaceDetection": (file)=>`https://cdn.jsdelivr.net/npm/@mediapipe/face_detection/${file}`
-                        }["Exam.useEffect.setupFaceDetection"]
-                    });
-                    faceDetection.setOptions({
-                        model: 'short',
-                        minDetectionConfidence: 0.5
-                    });
-                    faceDetection.onResults({
-                        "Exam.useEffect.setupFaceDetection": (results)=>{
-                            if (!results.detections.length) {
-                                setCheatingDetected(true);
-                                alert('No face detected! Please stay in view.');
+                "Exam.useEffect.setupFaceDetection": ()=>{
+                    if ("object" !== 'undefined' && window.FaceDetection) {
+                        const faceDetection = new window.FaceDetection({
+                            locateFile: {
+                                "Exam.useEffect.setupFaceDetection": (file)=>`https://cdn.jsdelivr.net/npm/@mediapipe/face_detection/${file}`
+                            }["Exam.useEffect.setupFaceDetection"]
+                        });
+                        faceDetection.setOptions({
+                            model: 'short',
+                            minDetectionConfidence: 0.5
+                        });
+                        faceDetection.onResults({
+                            "Exam.useEffect.setupFaceDetection": (results)=>{
+                                if (!results.detections || !results.detections.length) {
+                                    setCheatingDetected(true);
+                                    alert('No face detected! Please stay in view.');
+                                }
                             }
-                        }
-                    }["Exam.useEffect.setupFaceDetection"]);
-                    const video = videoRef.current;
-                    navigator.mediaDevices.getUserMedia({
-                        video: true
-                    }).then({
-                        "Exam.useEffect.setupFaceDetection": (stream)=>{
-                            video.srcObject = stream;
-                            video.play();
-                            const detect = {
-                                "Exam.useEffect.setupFaceDetection.detect": ()=>faceDetection.send({
-                                        image: video
-                                    }).then({
-                                        "Exam.useEffect.setupFaceDetection.detect": ()=>requestAnimationFrame(detect)
-                                    }["Exam.useEffect.setupFaceDetection.detect"])
-                            }["Exam.useEffect.setupFaceDetection.detect"];
-                            detect();
-                        }
-                    }["Exam.useEffect.setupFaceDetection"]);
+                        }["Exam.useEffect.setupFaceDetection"]);
+                        const video = videoRef.current;
+                        navigator.mediaDevices.getUserMedia({
+                            video: true
+                        }).then({
+                            "Exam.useEffect.setupFaceDetection": (stream)=>{
+                                video.srcObject = stream;
+                                video.play();
+                                const detect = {
+                                    "Exam.useEffect.setupFaceDetection.detect": ()=>faceDetection.send({
+                                            image: video
+                                        }).then({
+                                            "Exam.useEffect.setupFaceDetection.detect": ()=>requestAnimationFrame(detect)
+                                        }["Exam.useEffect.setupFaceDetection.detect"])
+                                }["Exam.useEffect.setupFaceDetection.detect"];
+                                detect();
+                            }
+                        }["Exam.useEffect.setupFaceDetection"]);
+                    } else {
+                        console.error('FaceDetection is not available on window.');
+                    }
                 }
             }["Exam.useEffect.setupFaceDetection"];
             setupFaceDetection();
             return ({
-                "Exam.useEffect": ()=>document.removeEventListener('visibilitychange', handleVisibilityChange)
+                "Exam.useEffect": ()=>{
+                    document.removeEventListener('visibilitychange', handleVisibilityChange);
+                }
             })["Exam.useEffect"];
         }
     }["Exam.useEffect"], [
@@ -583,19 +588,19 @@ function Exam({ exam }) {
                     crossOrigin: "anonymous"
                 }, void 0, false, {
                     fileName: "[project]/pages/exam/[id].js",
-                    lineNumber: 67,
+                    lineNumber: 80,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 66,
+                lineNumber: 78,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                 children: exam.title
             }, void 0, false, {
                 fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 69,
+                lineNumber: 85,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("video", {
@@ -609,7 +614,7 @@ function Exam({ exam }) {
                 }
             }, void 0, false, {
                 fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 70,
+                lineNumber: 86,
                 columnNumber: 7
             }, this),
             exam.questions.map((q, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -618,10 +623,10 @@ function Exam({ exam }) {
                     },
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            children: q.question
+                            children: q.questionText
                         }, void 0, false, {
                             fileName: "[project]/pages/exam/[id].js",
-                            lineNumber: 73,
+                            lineNumber: 94,
                             columnNumber: 11
                         }, this),
                         q.options.map((option, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -636,20 +641,20 @@ function Exam({ exam }) {
                                             })
                                     }, void 0, false, {
                                         fileName: "[project]/pages/exam/[id].js",
-                                        lineNumber: 76,
+                                        lineNumber: 97,
                                         columnNumber: 15
                                     }, this),
                                     option
                                 ]
                             }, i, true, {
                                 fileName: "[project]/pages/exam/[id].js",
-                                lineNumber: 75,
+                                lineNumber: 96,
                                 columnNumber: 13
                             }, this))
                     ]
                 }, index, true, {
                     fileName: "[project]/pages/exam/[id].js",
-                    lineNumber: 72,
+                    lineNumber: 93,
                     columnNumber: 9
                 }, this)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -658,7 +663,7 @@ function Exam({ exam }) {
                 children: "Submit Exam"
             }, void 0, false, {
                 fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 87,
+                lineNumber: 108,
                 columnNumber: 7
             }, this),
             cheatingDetected && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -668,13 +673,13 @@ function Exam({ exam }) {
                 children: "Cheating detected! Resolve issues to submit."
             }, void 0, false, {
                 fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 90,
-                columnNumber: 28
+                lineNumber: 112,
+                columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/pages/exam/[id].js",
-        lineNumber: 65,
+        lineNumber: 77,
         columnNumber: 5
     }, this);
 }

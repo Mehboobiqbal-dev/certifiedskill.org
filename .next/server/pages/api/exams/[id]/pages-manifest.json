@@ -1,0 +1,3 @@
+{
+  "/api/exams/[id]": "pages/api/exams/[id].js"
+}

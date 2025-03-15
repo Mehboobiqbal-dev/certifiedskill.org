@@ -2,7 +2,10 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
+  "/dashboard": "pages/dashboard.js",
+  "/api/exams": "pages/api/exams.js",
+  "/exam/[id]": "pages/exam/[id].js",
   "/_error": "pages/_error.js",
   "/SignIn": "pages/SignIn.js",
-  "/SignUp": "pages/SignUp.js"
+  "/api/exams/[id]": "pages/api/exams/[id].js"
 }

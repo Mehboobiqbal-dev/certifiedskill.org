@@ -11,6 +11,7 @@ export default function Exam({ exam }) {
   const [cheatingDetected, setCheatingDetected] = useState(false);
 
   useEffect(() => {
+    // Redirect if not signed in
     if (status === 'unauthenticated') {
       router.push('/');
       return;
@@ -25,7 +26,7 @@ export default function Exam({ exam }) {
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
-    // Face detection setup using the global FaceDetection from the CDN
+    // Face detection setup using global FaceDetection loaded via CDN
     const setupFaceDetection = () => {
       if (typeof window !== 'undefined' && window.FaceDetection) {
         const faceDetection = new window.FaceDetection({
@@ -90,16 +91,14 @@ export default function Exam({ exam }) {
       />
       {exam.questions.map((q, index) => (
         <div key={index} style={{ marginBottom: '20px' }}>
-          <p>{q.question}</p>
+          <p>{q.questionText}</p>
           {q.options.map((option, i) => (
             <label key={i}>
               <input
                 type="radio"
                 name={`question-${index}`}
                 value={option}
-                onChange={() =>
-                  setAnswers({ ...answers, [index]: option })
-                }
+                onChange={() => setAnswers({ ...answers, [index]: option })}
               />
               {option}
             </label>
@@ -119,7 +118,8 @@ export default function Exam({ exam }) {
 }
 
 export async function getServerSideProps({ params }) {
-  const res = await fetch(`http://localhost:3000/api/exam/${params.id}`);
+  // Note the updated URL to use the plural "exams" dynamic API route
+  const res = await fetch(`https://3000-idx-get-certified-1742011310099.cluster-nx3nmmkbnfe54q3dd4pfbgilpc.cloudworkstations.dev/api/exams/${params.id}`);
   const exam = await res.json();
   return { props: { exam } };
 }

@@ -200,7 +200,11 @@ function Exam({ exam }) {
     const videoRef = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useRef"])(null);
     const [cheatingDetected, setCheatingDetected] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])(false);
     (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useEffect"])(()=>{
-        if (status === 'unauthenticated') router.push('/');
+        // Redirect if not signed in
+        if (status === 'unauthenticated') {
+            router.push('/');
+            return;
+        }
         // Tab change detection
         const handleVisibilityChange = ()=>{
             if (document.visibilityState === 'hidden') {
@@ -209,40 +213,18 @@ function Exam({ exam }) {
             }
         };
         document.addEventListener('visibilitychange', handleVisibilityChange);
-        // Face detection setup
-        const setupFaceDetection = async ()=>{
-            const { FaceDetection } = await (()=>{
-                const e = new Error("Cannot find module '@mediapipe/face_detection'");
-                e.code = 'MODULE_NOT_FOUND';
-                throw e;
-            })();
-            const faceDetection = new FaceDetection({
-                locateFile: (file)=>`https://cdn.jsdelivr.net/npm/@mediapipe/face_detection/${file}`
-            });
-            faceDetection.setOptions({
-                model: 'short',
-                minDetectionConfidence: 0.5
-            });
-            faceDetection.onResults((results)=>{
-                if (!results.detections.length) {
-                    setCheatingDetected(true);
-                    alert('No face detected! Please stay in view.');
-                }
-            });
-            const video = videoRef.current;
-            navigator.mediaDevices.getUserMedia({
-                video: true
-            }).then((stream)=>{
-                video.srcObject = stream;
-                video.play();
-                const detect = ()=>faceDetection.send({
-                        image: video
-                    }).then(()=>requestAnimationFrame(detect));
-                detect();
-            });
+        // Face detection setup using global FaceDetection loaded via CDN
+        const setupFaceDetection = ()=>{
+            if ("TURBOPACK compile-time falsy", 0) {
+                "TURBOPACK unreachable";
+            } else {
+                console.error('FaceDetection is not available on window.');
+            }
         };
         setupFaceDetection();
-        return ()=>document.removeEventListener('visibilitychange', handleVisibilityChange);
+        return ()=>{
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+        };
     }, [
         status,
         router
@@ -274,19 +256,19 @@ function Exam({ exam }) {
                     crossOrigin: "anonymous"
                 }, void 0, false, {
                     fileName: "[project]/pages/exam/[id].js",
-                    lineNumber: 67,
+                    lineNumber: 80,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 66,
+                lineNumber: 78,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("h1", {
                 children: exam.title
             }, void 0, false, {
                 fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 69,
+                lineNumber: 85,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("video", {
@@ -300,7 +282,7 @@ function Exam({ exam }) {
                 }
             }, void 0, false, {
                 fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 70,
+                lineNumber: 86,
                 columnNumber: 7
             }, this),
             exam.questions.map((q, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
@@ -309,10 +291,10 @@ function Exam({ exam }) {
                     },
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("p", {
-                            children: q.question
+                            children: q.questionText
                         }, void 0, false, {
                             fileName: "[project]/pages/exam/[id].js",
-                            lineNumber: 73,
+                            lineNumber: 94,
                             columnNumber: 11
                         }, this),
                         q.options.map((option, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("label", {
@@ -327,20 +309,20 @@ function Exam({ exam }) {
                                             })
                                     }, void 0, false, {
                                         fileName: "[project]/pages/exam/[id].js",
-                                        lineNumber: 76,
+                                        lineNumber: 97,
                                         columnNumber: 15
                                     }, this),
                                     option
                                 ]
                             }, i, true, {
                                 fileName: "[project]/pages/exam/[id].js",
-                                lineNumber: 75,
+                                lineNumber: 96,
                                 columnNumber: 13
                             }, this))
                     ]
                 }, index, true, {
                     fileName: "[project]/pages/exam/[id].js",
-                    lineNumber: 72,
+                    lineNumber: 93,
                     columnNumber: 9
                 }, this)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("button", {
@@ -349,7 +331,7 @@ function Exam({ exam }) {
                 children: "Submit Exam"
             }, void 0, false, {
                 fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 87,
+                lineNumber: 108,
                 columnNumber: 7
             }, this),
             cheatingDetected && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("p", {
@@ -359,18 +341,19 @@ function Exam({ exam }) {
                 children: "Cheating detected! Resolve issues to submit."
             }, void 0, false, {
                 fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 90,
-                columnNumber: 28
+                lineNumber: 112,
+                columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/pages/exam/[id].js",
-        lineNumber: 65,
+        lineNumber: 77,
         columnNumber: 5
     }, this);
 }
 async function getServerSideProps({ params }) {
-    const res = await fetch(`http://localhost:3000/api/exam/${params.id}`);
+    // Note the updated URL to use the plural "exams" dynamic API route
+    const res = await fetch(`https://3000-idx-get-certified-1742011310099.cluster-nx3nmmkbnfe54q3dd4pfbgilpc.cloudworkstations.dev/api/exams/${params.id}`);
     const exam = await res.json();
     return {
         props: {
