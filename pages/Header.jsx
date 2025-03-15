@@ -1,6 +1,6 @@
 "use client";
 import { SessionProvider } from "next-auth/react";
-import UserButton from "./components/user-button";
+import UserButton from "../components/user-button";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 

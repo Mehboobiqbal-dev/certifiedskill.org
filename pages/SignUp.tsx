@@ -1,160 +1,72 @@
-"use client";
+import bcrypt from "bcryptjs";
+import { NextResponse } from "next/server";
+import User from "./models/user"; // Adjust the path as necessary
+import connectToDatabase from "../lib/db"; // Adjust the path as necessary
 
-import { Button } from "./components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardDescription,
-  CardContent,
-  CardTitle,
-} from "./components/ui/card";
-import { Input } from "./components/ui/input";
-import { Separator } from "./components/ui/separator"; // fixed import
+export async function POST(request: Request) {
+  try {
+    const { name, email, password, confirmPassword, role } = await request.json();
 
-import Link from "next/link";
-import { useState } from "react";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { TriangleAlert } from "lucide-react";
-import { signIn } from "next-auth/react";
-
-import { FaGithub } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-
-const SignUp = () => {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [pending, setPending] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-
-    setPending(true);
-    try {
-      const res = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form }),
-      });
-      const data = await res.json();
-
-      if (res.ok) {
-        toast.success(data.message);
-        router.push("/Sign-in");
-      } else {
-        setError(data.message || "An error occurred during sign up.");
-      }
-    } catch (err) {
-      console.error("Sign-up error:", err);
-      setError("An unexpected error occurred.");
-    } finally {
-      setPending(false);
+    if (!name || !email || !password || !confirmPassword) {
+      return NextResponse.json(
+        { message: "All fields are required" },
+        { status: 400 }
+      );
     }
-  };
 
-  const handleProvider = (
-    event: React.MouseEvent<HTMLButtonElement>,
-    provider: "github" | "google"
-  ) => {
-    event.preventDefault();
-    signIn(provider, { callbackUrl: "/" });
-  };
+    const isValidEmail = (email: string) =>
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!isValidEmail(email)) {
+      return NextResponse.json(
+        { message: "Invalid email format" },
+        { status: 400 }
+      );
+    }
 
-  return (
-    <div className="h-full flex items-center justify-center bg-[#1b0918]">
-      <Card className="md:h-auto w-[80%] sm:w-[420px] p-4 sm:p-8">
-        <CardHeader>
-          <CardTitle className="text-center text-white ml-7">Sign up</CardTitle>
-          <CardDescription className="text-sm text-center text-white ml-7">
-            Use email or service to create an account
-          </CardDescription>
-        </CardHeader>
+    if (password.length < 6) {
+      return NextResponse.json(
+        { message: "Password must be at least 6 characters long" },
+        { status: 400 }
+      );
+    }
 
-        {!!error && (
-          <div className="bg-red-100 p-3 rounded-md flex items-center gap-x-2 text-sm text-red-700 mb-6">
-            <TriangleAlert className="text-red-700" />
-            <p className="font-bold">{error}</p>
-          </div>
-        )}
+    if (password !== confirmPassword) {
+      return NextResponse.json(
+        { message: "Passwords do not match" },
+        { status: 400 }
+      );
+    }
 
-        <CardContent className="px-2 sm:px-6">
-          <form onSubmit={handleSubmit} className="space-y-3">
-            <Input
-              type="text"
-              disabled={pending}
-              placeholder="Full name"
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              required
-            />
-            <Input
-              type="email"
-              disabled={pending}
-              placeholder="Email"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              required
-            />
-            <Input
-              type="password"
-              disabled={pending}
-              placeholder="Password"
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
-              required
-            />
-            <Input
-              type="password"
-              disabled={pending}
-              placeholder="Confirm password"
-              value={form.confirmPassword}
-              onChange={(e) =>
-                setForm({ ...form, confirmPassword: e.target.value })
-              }
-              required
-            />
+    await connectToDatabase();
 
-            <button
-              type="submit"
-              disabled={pending}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              {pending ? "Submitting..." : "Continue"}
-            </button>
-          </form>
+    const existingUser = await User.findOne({ email }).exec();
+    if (existingUser) {
+      return NextResponse.json(
+        { message: "User already exists" },
+        { status: 400 }
+      );
+    }
 
-          <Separator />
-          <div className="flex my-2 justify-evenly items-center">
-            <Button
-              onClick={(e) => handleProvider(e, "google")}
-              className="bg-slate-300 hover:bg-slate-400 hover:scale-110"
-            >
-              <FcGoogle size={24} />
-            </Button>
-            <Button
-              onClick={(e) => handleProvider(e, "github")}
-              className="bg-slate-300 hover:bg-slate-400 hover:scale-110"
-            >
-              <FaGithub size={24} />
-            </Button>
-          </div>
-          <p className="text-white ml-7">
-            Already have an account?
-            <Link className="text-sky-700 ml-2 hover:underline" href="/SignIn">
-              Sign in
-            </Link>
-          </p>
-        </CardContent>
-      </Card>
-    </div>
-  );
-};
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-export default SignUp;
+    const newUser = new User({
+      name,
+      email,
+      password: hashedPassword,
+      role: role || "student",
+    });
+
+    await newUser.save();
+
+    return NextResponse.json(
+      { message: "User registered successfully" },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("Error in register API:", error);
+    return NextResponse.json(
+      { message: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
