@@ -34,16 +34,38 @@ var { g: global, d: __dirname } = __turbopack_context__;
 __turbopack_context__.s({
     "default": (()=>__TURBOPACK__default__export__)
 });
-const mongoose = __turbopack_context__.r("[externals]/mongoose [external] (mongoose, cjs)");
-const connectDB = async ()=>{
-    if (mongoose.connections[0].readyState) return;
-    await mongoose.connect(process.env.MONGO_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    });
-    console.log('MongoDB connected');
-};
-const __TURBOPACK__default__export__ = connectDB;
+var __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/mongoose [external] (mongoose, cjs)");
+;
+if (!process.env.MONGO_URI) {
+    throw new Error('Please define the MONGO_URI environment variable');
+}
+// Use a global variable to cache the connection
+let cached = global.mongoose;
+if (!cached) {
+    cached = global.mongoose = {
+        conn: null,
+        promise: null
+    };
+}
+async function connectToDatabase() {
+    if (cached.conn) {
+        return cached.conn;
+    }
+    if (!cached.promise) {
+        const options = {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        };
+        cached.promise = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["default"].connect(process.env.MONGO_URI, options).then((mongooseInstance)=>{
+            return {
+                db: mongooseInstance.connection.db
+            };
+        });
+    }
+    cached.conn = await cached.promise;
+    return cached.conn;
+}
+const __TURBOPACK__default__export__ = connectToDatabase;
 }}),
 "[project]/pages/models/Exam.js [api] (ecmascript)": ((__turbopack_context__) => {
 "use strict";

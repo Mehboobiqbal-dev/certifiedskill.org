@@ -1,5 +1,5 @@
 import connectToDatabase from '../../../lib/db';
-import { ObjectId } from "mongodb";
+import { ObjectId } from 'mongodb';
 
 export default async function handler(req, res) {
   if (req.method !== "GET") {
@@ -7,13 +7,16 @@ export default async function handler(req, res) {
   }
 
   try {
+    // Destructure { db } from the object returned by connectToDatabase()
     const { db } = await connectToDatabase();
     const { id } = req.query;
 
+    // Validate the ObjectId
     if (!ObjectId.isValid(id)) {
       return res.status(400).json({ message: "Invalid Exam ID" });
     }
 
+    // Query the database for the exam
     const exam = await db.collection("exams").findOne({ _id: new ObjectId(id) });
 
     if (!exam) {

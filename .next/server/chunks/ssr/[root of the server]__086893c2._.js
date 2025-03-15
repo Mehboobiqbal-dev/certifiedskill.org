@@ -190,63 +190,92 @@ var __TURBOPACK__imported__module__$5b$externals$5d2f$next$2f$head$2e$js__$5b$ex
 ;
 ;
 function Exam({ exam }) {
+    // The useRouter hook is available if you need it later
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
-        style: {
-            padding: '20px'
-        },
+        className: "p-6 max-w-3xl mx-auto",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f$next$2f$head$2e$js__$5b$external$5d$__$28$next$2f$head$2e$js$2c$__cjs$29$__["default"], {
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("title", {
                     children: exam.title
                 }, void 0, false, {
                     fileName: "[project]/pages/exam/[id].js",
-                    lineNumber: 10,
+                    lineNumber: 11,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 9,
+                lineNumber: 10,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("h1", {
+                className: "text-3xl font-bold mb-6",
                 children: exam.title
             }, void 0, false, {
                 fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 12,
+                lineNumber: 13,
                 columnNumber: 7
             }, this),
             exam.questions.map((q, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
-                    style: {
-                        marginBottom: '20px'
-                    },
-                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("p", {
-                        children: q.questionText
-                    }, void 0, false, {
-                        fileName: "[project]/pages/exam/[id].js",
-                        lineNumber: 15,
-                        columnNumber: 11
-                    }, this)
-                }, index, false, {
+                    className: "bg-white shadow-md rounded-lg p-4 mb-6 border border-gray-200",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("p", {
+                            className: "text-lg font-medium mb-3",
+                            children: q.questionText
+                        }, void 0, false, {
+                            fileName: "[project]/pages/exam/[id].js",
+                            lineNumber: 19,
+                            columnNumber: 11
+                        }, this),
+                        q.options && q.options.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("ul", {
+                            className: "list-disc pl-5 mb-3",
+                            children: q.options.map((option, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("li", {
+                                    className: "text-base leading-relaxed",
+                                    children: option
+                                }, i, false, {
+                                    fileName: "[project]/pages/exam/[id].js",
+                                    lineNumber: 23,
+                                    columnNumber: 17
+                                }, this))
+                        }, void 0, false, {
+                            fileName: "[project]/pages/exam/[id].js",
+                            lineNumber: 21,
+                            columnNumber: 13
+                        }, this),
+                        q.correctAnswer && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("p", {
+                            className: "mt-2 text-green-600 font-semibold",
+                            children: [
+                                "Correct Option: ",
+                                q.correctAnswer
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/pages/exam/[id].js",
+                            lineNumber: 30,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, index, true, {
                     fileName: "[project]/pages/exam/[id].js",
-                    lineNumber: 14,
+                    lineNumber: 15,
                     columnNumber: 9
                 }, this))
         ]
     }, void 0, true, {
         fileName: "[project]/pages/exam/[id].js",
-        lineNumber: 8,
+        lineNumber: 9,
         columnNumber: 5
     }, this);
 }
 async function getServerSideProps({ params, req }) {
+    // Ensure the protocol is correctly formatted
     const protocol = req.headers['x-forwarded-proto'] || 'http';
     const host = req.headers.host;
+    // Build the API URL with the proper protocol and host
     const apiUrl = `${protocol}://${host}/api/exams/${params.id}`;
     const res = await fetch(apiUrl);
     if (!res.ok) {
         const errorText = await res.text();
-        console.error("API error response:", errorText);
+        console.error('API error response:', errorText);
         return {
             notFound: true
         };

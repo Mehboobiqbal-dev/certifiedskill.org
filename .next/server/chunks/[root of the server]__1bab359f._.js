@@ -179,32 +179,39 @@ __turbopack_context__.s({
 });
 var __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/mongoose [external] (mongoose, cjs)");
 ;
+// Ensure that the MONGO_URI is defined
 if (!process.env.MONGO_URI) {
     throw new Error('Please define the MONGO_URI environment variable');
 }
-// Use a global variable to cache the connection
+// Check if there's already a cached connection.
+// The global object in Node.js is similar to the window object in browsers.
 let cached = global.mongoose;
 if (!cached) {
+    // If there's no existing cache, initialize one.
     cached = global.mongoose = {
         conn: null,
         promise: null
     };
 }
 async function connectToDatabase() {
+    // If there's an existing connection, return it
     if (cached.conn) {
         return cached.conn;
     }
+    // Otherwise, if there's no promise, create one and cache it.
     if (!cached.promise) {
         const options = {
             useNewUrlParser: true,
             useUnifiedTopology: true
         };
         cached.promise = __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__["default"].connect(process.env.MONGO_URI, options).then((mongooseInstance)=>{
+            // Return an object that contains the DB connection
             return {
                 db: mongooseInstance.connection.db
             };
         });
     }
+    // Await the promise to finish and cache the connection.
     cached.conn = await cached.promise;
     return cached.conn;
 }
