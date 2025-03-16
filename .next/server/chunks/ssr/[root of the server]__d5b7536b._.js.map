@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 23, "column": 0}, "map": {"version":3,"sources":["file:///home/user/get-certified/pages/_app.js"],"sourcesContent":["import \"../styles/globals.css\";\n\nimport { SessionProvider } from \"next-auth/react\";\n\nexport default function MyApp({ Component, pageProps }) {\n  return (\n    <SessionProvider session={pageProps.session}>\n      <Component {...pageProps} />\n    </SessionProvider>\n  );\n}"],"names":[],"mappings":";;;;AAEA;;;;AAEe,SAAS,MAAM,EAAE,SAAS,EAAE,SAAS,EAAE;IACpD,qBACE,qKAAC,mIAAA,CAAA,kBAAe;QAAC,SAAS,UAAU,OAAO;kBACzC,cAAA,qKAAC;YAAW,GAAG,SAAS;;;;;;;;;;;AAG9B","debugId":null}},
+    {"offset": {"line": 47, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

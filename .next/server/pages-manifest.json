@@ -1,22 +1,5 @@
 {
   "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/Header": "pages/Header.html",
-  "/SignUp": "pages/SignUp.html",
-  "/api/auth/signup/route": "pages/api/auth/signup/route.js",
-  "/api/exams/[id]": "pages/api/exams/[id].js",
-  "/api/exams/result": "pages/api/exams/result.js",
-  "/api/exams": "pages/api/exams.js",
-  "/api/hello": "pages/api/hello.js",
-  "/dashboard": "pages/dashboard.html",
-  "/exam/completed": "pages/exam/completed.html",
-  "/exam/question/[sessionId]": "pages/exam/question/[sessionId].html",
-  "/exam/question/dashboard": "pages/exam/question/dashboard.html",
-  "/exam/start": "pages/exam/start.html",
-  "/": "pages/index.html",
-  "/sign-in/page": "pages/sign-in/page.html",
-  "/teacher/create-exam": "pages/teacher/create-exam.html",
-  "/exam/[id]": "pages/exam/[id].js",
-  "/404": "pages/404.html"
+  "/": "pages/index.js"
 }

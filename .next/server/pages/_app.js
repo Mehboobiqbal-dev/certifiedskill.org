@@ -1,1 +1,5 @@
-(()=>{var e={};e.id=636,e.ids=[636],e.modules={2768:()=>{},4722:e=>{"use strict";e.exports=require("next-auth/react")},8732:e=>{"use strict";e.exports=require("react/jsx-runtime")},9542:(e,r,s)=>{"use strict";s.r(r),s.d(r,{default:()=>u});var t=s(8732);s(2768);var i=s(4722);function u({Component:e,pageProps:r}){return(0,t.jsx)(i.SessionProvider,{session:r.session,children:(0,t.jsx)(e,{...r})})}}};var r=require("../webpack-runtime.js");r.C(e);var s=r(r.s=9542);module.exports=s})();
+const CHUNK_PUBLIC_PATH = "server/pages/_app.js";
+const runtime = require("../chunks/ssr/[turbopack]_runtime.js");
+runtime.loadChunk("server/chunks/ssr/[root of the server]__d5b7536b._.js");
+runtime.getOrInstantiateRuntimeModule("[project]/pages/_app.js [ssr] (ecmascript)", CHUNK_PUBLIC_PATH);
+module.exports = runtime.getOrInstantiateRuntimeModule("[project]/pages/_app.js [ssr] (ecmascript)", CHUNK_PUBLIC_PATH).exports;
