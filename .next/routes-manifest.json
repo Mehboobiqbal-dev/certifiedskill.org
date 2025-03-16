@@ -61,12 +61,6 @@
       "namedRegex": "^/Header(?:/)?$"
     },
     {
-      "page": "/SignIn",
-      "regex": "^/SignIn(?:/)?$",
-      "routeKeys": {},
-      "namedRegex": "^/SignIn(?:/)?$"
-    },
-    {
       "page": "/SignUp",
       "regex": "^/SignUp(?:/)?$",
       "routeKeys": {},
@@ -115,8 +109,8 @@
       "routeKeys": {
         "nxtPid": "nxtPid"
       },
-      "dataRouteRegex": "^/_next/data/rfVVroUZJrFa0Yp7N5WDi/exam/([^/]+?)\\.json$",
-      "namedDataRouteRegex": "^/_next/data/rfVVroUZJrFa0Yp7N5WDi/exam/(?<nxtPid>[^/]+?)\\.json$"
+      "dataRouteRegex": "^/_next/data/yyjNcK7LhQH7pzXkOm03X/exam/([^/]+?)\\.json$",
+      "namedDataRouteRegex": "^/_next/data/yyjNcK7LhQH7pzXkOm03X/exam/(?<nxtPid>[^/]+?)\\.json$"
     }
   ],
   "rsc": {
