@@ -1,72 +1,56 @@
-import bcrypt from "bcryptjs";
-import { NextResponse } from "next/server";
-import User from "./models/user"; // Adjust the path as necessary
-import connectToDatabase from "../lib/db"; // Adjust the path as necessary
+// pages/SignUp.tsx
 
-export async function POST(request: Request) {
-  try {
-    const { name, email, password, confirmPassword, role } = await request.json();
+import { useState } from "react";
 
-    if (!name || !email || !password || !confirmPassword) {
-      return NextResponse.json(
-        { message: "All fields are required" },
-        { status: 400 }
-      );
-    }
+const SignUp = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-    const isValidEmail = (email: string) =>
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (!isValidEmail(email)) {
-      return NextResponse.json(
-        { message: "Invalid email format" },
-        { status: 400 }
-      );
-    }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-    if (password.length < 6) {
-      return NextResponse.json(
-        { message: "Password must be at least 6 characters long" },
-        { status: 400 }
-      );
-    }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-    if (password !== confirmPassword) {
-      return NextResponse.json(
-        { message: "Passwords do not match" },
-        { status: 400 }
-      );
-    }
-
-    await connectToDatabase();
-
-    const existingUser = await User.findOne({ email }).exec();
-    if (existingUser) {
-      return NextResponse.json(
-        { message: "User already exists" },
-        { status: 400 }
-      );
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const newUser = new User({
-      name,
-      email,
-      password: hashedPassword,
-      role: role || "student",
+    const response = await fetch("/api/auth/register", { // use your API endpoint
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
     });
 
-    await newUser.save();
+    const data = await response.json();
+    alert(data.message);
+  };
 
-    return NextResponse.json(
-      { message: "User registered successfully" },
-      { status: 201 }
-    );
-  } catch (error) {
-    console.error("Error in register API:", error);
-    return NextResponse.json(
-      { message: "Internal server error" },
-      { status: 500 }
-    );
-  }
-}
+  return (
+    <div className="signup-container">
+      <h1>Sign Up</h1>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Name</label>
+          <input type="text" name="name" value={formData.name} onChange={handleChange} />
+        </div>
+        <div>
+          <label>Email</label>
+          <input type="email" name="email" value={formData.email} onChange={handleChange} />
+        </div>
+        <div>
+          <label>Password</label>
+          <input type="password" name="password" value={formData.password} onChange={handleChange} />
+        </div>
+        <div>
+          <label>Confirm Password</label>
+          <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
+        </div>
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  );
+};
+
+export default SignUp;

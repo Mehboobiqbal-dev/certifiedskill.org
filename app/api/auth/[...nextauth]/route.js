@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
-import User from "../../../../pages/models/user";
+import User from "../../../../models/user";
 import connectToDatabase from "../../../../lib/db";
 import bcrypt from "bcryptjs";
 

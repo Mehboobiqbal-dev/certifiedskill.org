@@ -1,7 +1,7 @@
 // pages/api/exams/index.js
 import nextConnect from 'next-connect';
 import connectToDatabase from '../../../lib/db';
-import Exam from '../../models/Exam';
+import Exam from '../../../models/Exam';
 
 export default async function handler(req, res) {
   // Connect to the database

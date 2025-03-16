@@ -1,5 +1,5 @@
-import connectToDatabase from '../../../lib/db';
-import { ObjectId } from 'mongodb';
+import connectToDatabase from "../../../lib/db";
+import { ObjectId } from "mongodb";
 
 export default async function handler(req, res) {
   if (req.method !== "GET") {
@@ -7,23 +7,28 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Destructure { db } from the object returned by connectToDatabase()
     const { db } = await connectToDatabase();
-    const { id } = req.query;
+    const { sessionId } = req.query;
 
-    // Validate the ObjectId
-    if (!ObjectId.isValid(id)) {
-      return res.status(400).json({ message: "Invalid Exam ID" });
+    // Validate sessionId
+    if (!sessionId || !ObjectId.isValid(sessionId)) {
+      return res.status(400).json({ message: "Invalid or Missing Session ID" });
     }
 
-    // Query the database for the exam
-    const exam = await db.collection("exams").findOne({ _id: new ObjectId(id) });
+    // Fetch exam by sessionId
+    const exam = await db
+      .collection("exams")
+      .findOne({ _id: new ObjectId(sessionId) });
 
     if (!exam) {
       return res.status(404).json({ message: "Exam Not Found" });
     }
 
-    res.status(200).json(exam);
+    // Respond with sanitized exam data
+    res.status(200).json({
+      text: exam.questionText || "No question text available",
+      options: exam.options || [],
+    });
   } catch (error) {
     console.error("MongoDB Fetch Error:", error);
     res.status(500).json({ message: "Internal Server Error", error: error.message });

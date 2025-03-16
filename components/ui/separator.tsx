@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import * as SeparatorPrimitive from "@radix-ui/react-separator";
-import { cn } from "../../../lib/utils" // Ensure correct path
+import { cn } from "../../lib/utils" // Ensure correct path
 
 const Separator = React.forwardRef<
   React.ElementRef<typeof SeparatorPrimitive.Root>,
