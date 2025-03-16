@@ -5,7 +5,8 @@ import User from "../../../../models/user";
 import connectToDatabase from "../../../../lib/db";
 import bcrypt from "bcryptjs";
 
-const authOptions = {
+// Configure NextAuth options
+export const authOptions = {
   session: {
     strategy: "jwt",
   },
@@ -23,8 +24,10 @@ const authOptions = {
       async authorize(credentials) {
         try {
           await connectToDatabase();
-          const user = await User.findOne({ email: credentials?.email }).exec();
+          // Find the user by email
+          const user = await User.findOne({ email: credentials?.email });
           if (!user) throw new Error("No user found with that email.");
+          // Compare the password with the hashed password
           const isValidPassword = await bcrypt.compare(
             credentials?.password ?? "",
             user.password
@@ -40,15 +43,15 @@ const authOptions = {
   ],
   callbacks: {
     async signIn({ account, profile }) {
-      // For provider sign in, create a new user if one doesn't exist.
+      // For provider sign in (e.g., GitHub), create a new user if one doesn't exist.
       if (account?.provider === "github") {
         await connectToDatabase();
-        const existingUser = await User.findOne({ email: profile?.email }).exec();
+        const existingUser = await User.findOne({ email: profile?.email });
         if (!existingUser) {
           await User.create({
-            name: profile?.name,
+            name: profile?.name || profile?.login, // Fallback to login if name is not provided
             email: profile?.email,
-            role: 'student' // Default role; adjust as needed.
+            role: "student", // Default role, adjust as needed.
           });
         }
       }
@@ -59,7 +62,7 @@ const authOptions = {
         token.id = user._id.toString();
         token.email = user.email;
         token.name = user.name;
-        token.role = user.role || 'student';
+        token.role = user.role || "student";
       }
       return token;
     },
@@ -69,7 +72,7 @@ const authOptions = {
           id: token.id,
           email: token.email,
           name: token.name,
-          role: token.role || 'student',
+          role: token.role || "student",
         };
       }
       return session;
@@ -81,6 +84,11 @@ const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 };
 
+// Force dynamic rendering to prevent Next.js from trying to prerender your API route.
+export const dynamic = "force-dynamic";
+
 const handler = NextAuth(authOptions);
+
+// Export the handler for both GET and POST requests.
 export const GET = handler;
 export const POST = handler;
