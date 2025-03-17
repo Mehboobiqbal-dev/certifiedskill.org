@@ -68,7 +68,7 @@ const UserButton = () => {
             <span>Sign In</span>
           </Link>
           <Link
-            href="/SignUp"
+            href="/sign-up"
             className="relative inline-flex items-center justify-center px-2 py-1 md:px-3 md:py-1 font-medium tracking-wide text-[#141e30] bg-white rounded shadow-md hover:bg-gray-100 focus:outline-none transition duration-200 transform hover:-translate-y-0.5 text-xs md:text-base whitespace-nowrap"
           >
             <span>Sign Up</span>

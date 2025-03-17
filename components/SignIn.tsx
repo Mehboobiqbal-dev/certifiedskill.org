@@ -78,7 +78,7 @@ const SignIn = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <Button className="w-full" disabled={pending}>
+            <Button className="w-full text-sm text-center text-white" disabled={pending}>
               Continue
             </Button>
           </form>
@@ -99,7 +99,7 @@ const SignIn = () => {
               <FaGithub size={24} />
             </Button>
           </div>
-          <p className="text-center text-sm mt-2 text-gray-400">
+          <p className="text-sm text-center text-white">
             Create new account{" "}
             <Link className="text-sky-700 ml-4 hover:underline cursor-pointer" href="/signup">
               Sign up
