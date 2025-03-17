@@ -1,4 +1,9 @@
 {
+  "devFiles": [],
+  "ampDevFiles": [],
+  "polyfillFiles": [],
+  "lowPriorityFiles": [],
+  "rootMainFiles": [],
   "pages": {
     "/_app": [
       "static/chunks/node_modules_next_dist_a84eef54._.js",
@@ -10,13 +15,5 @@
       "static/chunks/pages__app_6e2d1e60._.js"
     ]
   },
-  "devFiles": [],
-  "ampDevFiles": [],
-  "polyfillFiles": [],
-  "lowPriorityFiles": [
-    "static/development/_ssgManifest.js",
-    "static/development/_buildManifest.js"
-  ],
-  "rootMainFiles": [],
   "ampFirstPages": []
 }

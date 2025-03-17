@@ -1,22 +1,15 @@
 "use client";
 
-import { Button } from "./ui/button";
-import {
-  Card,
-  CardHeader,
-  CardDescription,
-  CardContent,
-  CardTitle,
-} from "./ui/card";
-import { Input } from "./ui/input";
-import { Separator } from "./ui/separator";
-
-import Link from "next/link";
-import { FaGithub } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { Button } from "./ui/button";
+import { Card, CardHeader, CardDescription, CardContent, CardTitle } from "./ui/card";
+import { Input } from "./ui/input";
+import { Separator } from "./ui/separator";
+import { FaGithub } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import { toast } from "sonner";
 import { TriangleAlert } from "lucide-react";
 
@@ -24,8 +17,8 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [pending, setPending] = useState(false);
-  const router = useRouter();
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,7 +29,7 @@ const SignIn = () => {
       password,
     });
     if (res?.ok) {
-      router.push("/dashboard"); // Redirect to dashboard after sign-in
+      router.push("/dashboard");
       toast.success("Login successful");
     } else if (res?.status === 401) {
       setError("Invalid Credentials");
@@ -49,7 +42,7 @@ const SignIn = () => {
 
   const handleProvider = (event, provider) => {
     event.preventDefault();
-    signIn(provider, { callbackUrl: "/dashboard" }); // Provider sign-in redirects to dashboard
+    signIn(provider, { callbackUrl: "/dashboard" });
   };
 
   return (
@@ -89,7 +82,6 @@ const SignIn = () => {
               Continue
             </Button>
           </form>
-
           <Separator />
           <div className="flex my-2 justify-evenly mx-auto items-center">
             <Button
@@ -108,11 +100,8 @@ const SignIn = () => {
             </Button>
           </div>
           <p className="text-center text-sm mt-2 text-gray-400">
-            Create new account
-            <Link
-              className="text-sky-700 ml-4 hover:underline cursor-pointer"
-              href="/signup"
-            >
+            Create new account{" "}
+            <Link className="text-sky-700 ml-4 hover:underline cursor-pointer" href="/signup">
               Sign up
             </Link>
           </p>
