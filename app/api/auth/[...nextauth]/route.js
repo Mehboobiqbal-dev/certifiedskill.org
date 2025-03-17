@@ -1,94 +1,10 @@
 import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import GithubProvider from "next-auth/providers/github";
-import User from "../../../../models/user";
-import connectToDatabase from "../../../../lib/db";
-import bcrypt from "bcryptjs";
+import { authOptions } from "./authOptions";
 
-// Configure NextAuth options
-export const authOptions = {
-  session: {
-    strategy: "jwt",
-  },
-  providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-    }),
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        email: { label: "Email", type: "text", placeholder: "you@example.com" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials) {
-        try {
-          await connectToDatabase();
-          // Find the user by email
-          const user = await User.findOne({ email: credentials?.email });
-          if (!user) throw new Error("No user found with that email.");
-          // Compare the password with the hashed password
-          const isValidPassword = await bcrypt.compare(
-            credentials?.password ?? "",
-            user.password
-          );
-          if (!isValidPassword) throw new Error("Invalid password.");
-          return user;
-        } catch (error) {
-          console.error("Authorize error:", error);
-          return null;
-        }
-      },
-    }),
-  ],
-  callbacks: {
-    async signIn({ account, profile }) {
-      // For provider sign in (e.g., GitHub), create a new user if one doesn't exist.
-      if (account?.provider === "github") {
-        await connectToDatabase();
-        const existingUser = await User.findOne({ email: profile?.email });
-        if (!existingUser) {
-          await User.create({
-            name: profile?.name || profile?.login, // Fallback to login if name is not provided
-            email: profile?.email,
-            role: "student", // Default role, adjust as needed.
-          });
-        }
-      }
-      return true;
-    },
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user._id.toString();
-        token.email = user.email;
-        token.name = user.name;
-        token.role = user.role || "student";
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (token) {
-        session.user = {
-          id: token.id,
-          email: token.email,
-          name: token.name,
-          role: token.role || "student",
-        };
-      }
-      return session;
-    },
-  },
-  pages: {
-    signIn: "/sign-in",
-  },
-  secret: process.env.NEXTAUTH_SECRET,
-};
-
-// Force dynamic rendering to prevent Next.js from trying to prerender your API route.
+// Force dynamic rendering to prevent Next.js from pre-rendering the API route.
 export const dynamic = "force-dynamic";
 
 const handler = NextAuth(authOptions);
 
-// Export the handler for both GET and POST requests.
-export const GET = handler;
-export const POST = handler;
+// Export GET and POST handlers.
+export { handler as GET, handler as POST };
