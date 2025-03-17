@@ -1,5 +1,5 @@
 import connectDB from "../../lib/db";
-import Exam from '../../pages/models/Exam';
+import exam from '../../pages/models/exam';
 import { getSession } from 'next-auth/react';
 import mongoose from 'mongoose';
 

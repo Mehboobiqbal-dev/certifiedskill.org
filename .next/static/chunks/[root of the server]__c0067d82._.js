@@ -467,6 +467,7 @@ function triggerUpdate(msg) {
 
 var { g: global, d: __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
+// /pages/_app.js
 __turbopack_context__.s({
     "default": (()=>MyApp)
 });
@@ -475,9 +476,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth
 ;
 ;
 ;
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["SessionProvider"], {
-        session: pageProps.session,
+        session: session,
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Component, {
             ...pageProps
         }, void 0, false, {

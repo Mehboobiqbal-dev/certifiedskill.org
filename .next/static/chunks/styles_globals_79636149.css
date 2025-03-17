@@ -617,6 +617,11 @@
     aspect-ratio: 1;
   }
 
+  .size-1 {
+    width: calc(var(--spacing) * 1);
+    height: calc(var(--spacing) * 1);
+  }
+
   .h-2 {
     height: calc(var(--spacing) * 2);
   }

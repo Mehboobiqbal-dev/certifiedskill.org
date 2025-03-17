@@ -1,5 +1,5 @@
 import connectDB from "../../../../lib/db";
-import Exam from "../../../../pages/models/exam";
+import exam from "../../../../pages/models/exam";
 import { getSession } from 'next-auth/react';
 
 export default async function handler(req, res) {

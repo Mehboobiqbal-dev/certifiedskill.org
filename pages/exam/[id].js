@@ -1,10 +1,17 @@
-// /pages/exam/[id].js
+// pages/exam/[id].js
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router"; // using legacy pages router
 import Head from "next/head";
-import AntiCheating from "../../components/AntiCheating"; // adjust path as needed
+import AntiCheating from "../../components/AntiCheating";
 
-export default function Exam({ exam }) {
+// Import NextAuth server-side helper and your auth options
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../../app/api/auth/[...nextauth]/authOptions";
+
+import connectToDatabase from "../../lib/db";
+import Exam from "../../models/exam";
+
+export default function ExamPage({ exam }) {
   const router = useRouter();
   const [userAnswers, setUserAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
@@ -12,6 +19,7 @@ export default function Exam({ exam }) {
   const [cheatingCount, setCheatingCount] = useState(0);
   const [timeTaken, setTimeTaken] = useState(null);
 
+  // Timer effect
   useEffect(() => {
     if (submitted) return;
     const timer = setInterval(() => {
@@ -36,13 +44,14 @@ export default function Exam({ exam }) {
     if (submitted) return;
     setSubmitted(true);
 
+    // Calculate exam score
     const correctCount = exam.questions.reduce((count, question, idx) => {
       return userAnswers[idx] === question.correctAnswer ? count + 1 : count;
     }, 0);
     const total = exam.questions.length;
-    const passingScore = 40; // set your passing threshold
+    const passingScore = 40; // your passing threshold
     const passed = correctCount >= passingScore;
-    const computedTimeTaken = (40 * 60) - timeLeft;
+    const computedTimeTaken = 40 * 60 - timeLeft;
     setTimeTaken(computedTimeTaken);
 
     const resultData = {
@@ -56,18 +65,18 @@ export default function Exam({ exam }) {
     };
 
     try {
-      await fetch('/api/exams/result', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      await fetch("/api/exams/result", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(resultData),
       });
     } catch (error) {
-      console.error('Failed to save exam result:', error);
+      console.error("Failed to save exam result:", error);
     }
   };
 
   const handleCheatingDetected = () => {
-    setCheatingCount(prev => prev + 1);
+    setCheatingCount((prev) => prev + 1);
   };
 
   const getOptionClass = (question, option, qIndex) => {
@@ -102,11 +111,17 @@ export default function Exam({ exam }) {
         <h1 className="text-3xl font-bold mb-6">{exam.title}</h1>
         <form onSubmit={handleSubmit}>
           {exam.questions.map((q, index) => (
-            <div key={index} className="bg-white shadow-md rounded-lg p-4 mb-6 border border-gray-200">
+            <div
+              key={index}
+              className="bg-white shadow-md rounded-lg p-4 mb-6 border border-gray-200"
+            >
               <p className="text-lg font-medium mb-3">{q.questionText}</p>
               <div>
                 {q.options.map((option, i) => (
-                  <label key={i} className={`block p-2 mb-2 border rounded ${getOptionClass(q, option, index)}`}>
+                  <label
+                    key={i}
+                    className={`block p-2 mb-2 border rounded ${getOptionClass(q, option, index)}`}
+                  >
                     <input
                       type="radio"
                       name={`question-${index}`}
@@ -125,7 +140,9 @@ export default function Exam({ exam }) {
                   {userAnswers[index] === q.correctAnswer ? (
                     <span className="text-green-600 font-semibold">Correct!</span>
                   ) : (
-                    <span className="text-red-600 font-semibold">Incorrect. Correct answer: {q.correctAnswer}</span>
+                    <span className="text-red-600 font-semibold">
+                      Incorrect. Correct answer: {q.correctAnswer}
+                    </span>
                   )}
                 </p>
               )}
@@ -145,8 +162,8 @@ export default function Exam({ exam }) {
               </p>
               <p className="text-lg">
                 {correctCountForDisplay >= 40
-                  ? 'Congratulations! You have passed the exam.'
-                  : 'Sorry, you did not pass the exam.'}
+                  ? "Congratulations! You have passed the exam."
+                  : "Sorry, you did not pass the exam."}
               </p>
               {timeTaken !== null && (
                 <p className="text-lg">
@@ -162,19 +179,29 @@ export default function Exam({ exam }) {
   );
 }
 
-// In getServerSideProps, we sanitize the exam data.
-export async function getServerSideProps({ params, req }) {
-  const protocol = req.headers["x-forwarded-proto"] || "http";
-  const host = req.headers.host;
-  const apiUrl = `${protocol}://${host}/api/exams/${params.id}`;
+export async function getServerSideProps(context) {
+  // Verify that the user is authenticated
+  const session = await getServerSession(context.req, context.res, authOptions);
+  if (!session) {
+    return {
+      redirect: { destination: "/sign-in", permanent: false },
+    };
+  }
 
-  const res = await fetch(apiUrl);
-  if (!res.ok) {
-    console.error("API error response:", await res.text());
+  // Connect to the database and fetch the exam data directly
+  try {
+    await connectToDatabase();
+    const exam = await Exam.findById(context.params.id);
+
+    if (!exam || !exam.questions) {
+      return { notFound: true };
+    }
+
+    // Convert documents (like ObjectIDs) to plain objects
+    const examObj = JSON.parse(JSON.stringify(exam));
+    return { props: { exam: examObj } };
+  } catch (error) {
+    console.error("Error fetching exam:", error);
     return { notFound: true };
   }
-  let exam = await res.json();
-  // Convert exam to a plain object (e.g. convert ObjectIds to strings)
-  exam = JSON.parse(JSON.stringify(exam));
-  return { props: { exam } };
 }

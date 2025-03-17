@@ -1,5 +1,11 @@
 {
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js"
+  "/": "pages/index.js",
+  "/dashboard": "pages/dashboard.js",
+  "/api/exams": "pages/api/exams.js",
+  "/exam/[id]": "pages/exam/[id].js",
+  "/_error": "pages/_error.js",
+  "/teacher/create-exam": "pages/teacher/create-exam.js",
+  "/api/exams/[id]": "pages/api/exams/[id].js"
 }

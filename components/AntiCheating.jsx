@@ -1,88 +1,75 @@
-// /components/AntiCheating.jsx
-import { FaceDetection } from '@mediapipe/face_detection';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-function AntiCheating({ onCheatingDetected }) {
-  const videoRef = useRef(null);
-  const [isCheating, setIsCheating] = useState(false);
+function AntiCheatingMulti({ onCheatingDetected, detectionThreshold = 3000 }) {
+  const [cheating, setCheating] = useState(false);
+  const [cheatCount, setCheatCount] = useState(0);
+  // If the page is inactive for longer than this timeout, flag cheating.
+  let visibilityTimeout;
 
   useEffect(() => {
-    if (!videoRef.current) return;
-
-    // Initialize Face Detection from Mediapipe.
-    const faceDetection = new FaceDetection({
-      locateFile: (file) =>
-        `https://cdn.jsdelivr.net/npm/@mediapipe/face_detection/${file}`,
-    });
-
-    faceDetection.setOptions({
-      model: 'short',
-      minDetectionConfidence: 0.5,
-    });
-
-    faceDetection.onResults((results) => {
-      // If no faces are detected, flag cheating.
-      if (!results.detections || results.detections.length === 0) {
-        setIsCheating(true);
-        onCheatingDetected();
+    const handleVisibilityChange = () => {
+      // When page becomes hidden, start a timer.
+      if (document.hidden) {
+        visibilityTimeout = setTimeout(() => {
+          setCheating(true);
+          setCheatCount((prev) => prev + 1);
+          onCheatingDetected();
+        }, detectionThreshold);
       } else {
-        setIsCheating(false);
+        // When page is shown, clear any pending timeout.
+        clearTimeout(visibilityTimeout);
+        setCheating(false);
       }
-    });
-
-    // Dynamically load Camera Utils from CDN.
-    const loadCameraUtilsScript = () => {
-      return new Promise((resolve, reject) => {
-        if (document.getElementById('mediapipe-camera-utils')) {
-          resolve();
-        } else {
-          const script = document.createElement('script');
-          script.src =
-            'https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js';
-          script.id = 'mediapipe-camera-utils';
-          script.async = true;
-          script.onload = () => resolve();
-          script.onerror = () =>
-            reject(new Error('Failed to load Camera Utils script.'));
-          document.body.appendChild(script);
-        }
-      });
     };
 
-    let cameraInstance;
-    loadCameraUtilsScript()
-      .then(() => {
-        if (videoRef.current && window.Camera) {
-          cameraInstance = new window.Camera(videoRef.current, {
-            onFrame: async () => {
-              await faceDetection.send({ image: videoRef.current });
-            },
-            width: 640,
-            height: 480,
-          });
-          cameraInstance.start();
-        }
-      })
-      .catch((error) => console.error(error));
+    const handleBlur = () => {
+      // User left the window (e.g., switched tabs)
+      visibilityTimeout = setTimeout(() => {
+        setCheating(true);
+        setCheatCount((prev) => prev + 1);
+        onCheatingDetected();
+      }, detectionThreshold);
+    };
 
+    const handleFocus = () => {
+      clearTimeout(visibilityTimeout);
+      setCheating(false);
+    };
+
+    // Optional: detect when mouse leaves the window
+    const handleMouseLeave = (e) => {
+      // If mouse leaves near the top (e.g., to the browser toolbar)
+      if (e.clientY <= 0) {
+        setCheating(true);
+        setCheatCount((prev) => prev + 1);
+        onCheatingDetected();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("blur", handleBlur);
+    window.addEventListener("focus", handleFocus);
+    document.addEventListener("mouseleave", handleMouseLeave);
+
+    // Cleanup listeners
     return () => {
-      if (cameraInstance && cameraInstance.stop) {
-        cameraInstance.stop();
-      }
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("blur", handleBlur);
+      window.removeEventListener("focus", handleFocus);
+      document.removeEventListener("mouseleave", handleMouseLeave);
+      clearTimeout(visibilityTimeout);
     };
-  }, [onCheatingDetected]);
+  }, [onCheatingDetected, detectionThreshold]);
 
   return (
-    <div>
-      {/* Hidden video element used for processing */}
-      <video ref={videoRef} className="hidden" playsInline></video>
-      {isCheating && (
+    <>
+      {cheating && (
         <div className="fixed top-4 left-4 bg-red-600 text-white px-4 py-2 rounded shadow-md">
-          Warning: Cheating Detected!
+          Warning: Cheating Detected! (Count: {cheatCount})
         </div>
       )}
-    </div>
+    </>
   );
 }
 
-export default AntiCheating;
+export default AntiCheatingMulti;

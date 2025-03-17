@@ -62,7 +62,7 @@ const UserButton = () => {
       ) : (
         <div className="flex items-center gap-1 md:gap-4">
           <Link
-            href="/SignIn"
+            href="/sign-in"
             className="relative inline-flex items-center justify-center px-2 py-1 md:px-3 md:py-1 font-medium tracking-wide text-black bg-gradient-to-r from-purple-500 to-blue-500 rounded shadow-md hover:from-purple-600 hover:to-blue-600 focus:outline-none transition duration-200 transform hover:-translate-y-0.5 text-xs md:text-base whitespace-nowrap"
            > 
             <span>Sign In</span>

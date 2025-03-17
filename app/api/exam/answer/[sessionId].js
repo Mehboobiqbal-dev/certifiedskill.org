@@ -2,7 +2,7 @@
 import dbConnect from '../../../../lib/db'
 import ExamSession from '../../models/ExamSession'
 import Question from '../../models/Question'
-import Exam from '../../models/Exam'
+import exam from '../../models/exam'
 import { authenticate } from '../../../../middleware/auth'
 
 export default async function handler(req, res) {

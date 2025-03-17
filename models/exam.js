@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+// models/exam.js
+import mongoose from "mongoose";
 
 const examSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -14,4 +15,4 @@ const examSchema = new mongoose.Schema({
   endTime: { type: Date, required: true }
 });
 
-export default mongoose.models.Exam || mongoose.model('Exam', examSchema);
+export default mongoose.models.Exam || mongoose.model("Exam", examSchema);

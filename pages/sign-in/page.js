@@ -1,11 +1,8 @@
-import SignInComponent from "../../components/SignIn";
+// pages/sign-in/index.jsx
+import SignIn from "../../components/SignIn"; // Adjust the path if necessary
 
 const SignInPage = () => {
-    return (
-        <div>
-            <SignInComponent />
-        </div>
-    );
+  return <SignIn />;
 };
 
 export default SignInPage;
