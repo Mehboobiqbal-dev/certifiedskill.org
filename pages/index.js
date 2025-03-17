@@ -1,12 +1,13 @@
 // pages/index.js
 import Link from "next/link";
-import Header from './Header';; // Assuming it's a component
+import Header from "./Header"; // Assuming these paths are correct
+import Footer from "./Footer";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <Header /> 
+      <Header />
 
       {/* Hero Section */}
       <main className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -58,13 +59,7 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center">
-          <p className="text-gray-600">
-            &copy; {new Date().getFullYear()} GetCertified. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

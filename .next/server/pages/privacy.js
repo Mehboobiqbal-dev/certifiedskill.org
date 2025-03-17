@@ -1,4 +1,4 @@
-const CHUNK_PUBLIC_PATH = "server/pages/sign-in.js";
+const CHUNK_PUBLIC_PATH = "server/pages/privacy.js";
 const runtime = require("../chunks/ssr/[turbopack]_runtime.js");
 runtime.loadChunk("server/chunks/ssr/node_modules_8583e1b7._.js");
 runtime.loadChunk("server/chunks/ssr/[root of the server]__05ef388d._.js");

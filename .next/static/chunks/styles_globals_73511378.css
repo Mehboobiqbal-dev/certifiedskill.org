@@ -485,6 +485,10 @@
     margin-top: calc(var(--spacing) * 10);
   }
 
+  .mt-12 {
+    margin-top: calc(var(--spacing) * 12);
+  }
+
   .mt-16 {
     margin-top: calc(var(--spacing) * 16);
   }
@@ -511,6 +515,10 @@
 
   .mb-6 {
     margin-bottom: calc(var(--spacing) * 6);
+  }
+
+  .ml-1 {
+    margin-left: calc(var(--spacing) * 1);
   }
 
   .ml-2 {
@@ -1332,6 +1340,10 @@
 
   .text-black {
     color: var(--color-black);
+  }
+
+  .text-blue-600 {
+    color: var(--color-blue-600);
   }
 
   .text-gray-400 {
