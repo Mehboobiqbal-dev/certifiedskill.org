@@ -584,18 +584,19 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 
 var { g: global, d: __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
-// pages/exam/[id].js
 __turbopack_context__.s({
     "__N_SSP": (()=>__N_SSP),
     "default": (()=>ExamPage)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react/jsx-dev-runtime.js [client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react/index.js [client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/router.js [client] (ecmascript)"); // using legacy pages router
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/router.js [client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$head$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/head.js [client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$AntiCheating$2e$jsx__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/AntiCheating.jsx [client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next-auth/react/index.js [client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
+;
 ;
 ;
 ;
@@ -603,6 +604,8 @@ var _s = __turbopack_context__.k.signature();
 var __N_SSP = true;
 function ExamPage({ exam }) {
     _s();
+    // Always call hooks unconditionally.
+    const { data: session, status } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useSession"])();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const [userAnswers, setUserAnswers] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])({});
     const [submitted, setSubmitted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])(false);
@@ -645,16 +648,18 @@ function ExamPage({ exam }) {
         if (submitted) return;
         setSubmitted(true);
         // Calculate exam score
-        const correctCount = exam.questions.reduce((count, question, idx)=>{
-            return userAnswers[idx] === question.correctAnswer ? count + 1 : count;
-        }, 0);
+        const correctCount = exam.questions.reduce((count, question, idx)=>userAnswers[idx] === question.correctAnswer ? count + 1 : count, 0);
         const total = exam.questions.length;
         const passingScore = 40; // your passing threshold
         const passed = correctCount >= passingScore;
         const computedTimeTaken = 40 * 60 - timeLeft;
         setTimeTaken(computedTimeTaken);
+        // Use dynamic session values for userId and userName.
         const resultData = {
+            userId: session?.user?.id,
             examId: exam._id,
+            userName: session?.user?.name,
+            examName: exam.title,
             score: correctCount,
             total,
             passed,
@@ -662,17 +667,7 @@ function ExamPage({ exam }) {
             cheatingCount,
             createdAt: new Date()
         };
-        try {
-            await fetch("/api/exams/result", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(resultData)
-            });
-        } catch (error) {
-            console.error("Failed to save exam result:", error);
-        }
+        await onExamSubmit(resultData);
     };
     const handleCheatingDetected = ()=>{
         setCheatingCount((prev)=>prev + 1);
@@ -685,220 +680,275 @@ function ExamPage({ exam }) {
     };
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
-    const correctCountForDisplay = exam.questions.reduce((count, question, idx)=>{
-        return userAnswers[idx] === question.correctAnswer ? count + 1 : count;
-    }, 0);
+    const correctCountForDisplay = exam.questions.reduce((count, question, idx)=>userAnswers[idx] === question.correctAnswer ? count + 1 : count, 0);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "relative",
-        children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$AntiCheating$2e$jsx__$5b$client$5d$__$28$ecmascript$29$__["default"], {
-                onCheatingDetected: handleCheatingDetected
-            }, void 0, false, {
-                fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 99,
-                columnNumber: 7
-            }, this),
-            !submitted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "fixed top-4 right-4 bg-blue-600 text-white px-4 py-2 rounded shadow-md",
-                children: [
-                    "Time Remaining: ",
-                    minutes,
-                    ":",
-                    seconds < 10 ? `0${seconds}` : seconds
-                ]
-            }, void 0, true, {
-                fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 102,
-                columnNumber: 9
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "p-6 max-w-3xl mx-auto",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$head$2e$js__$5b$client$5d$__$28$ecmascript$29$__["default"], {
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("title", {
+        children: status === "loading" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+            children: "Loading..."
+        }, void 0, false, {
+            fileName: "[project]/pages/exam/[id].js",
+            lineNumber: 103,
+            columnNumber: 9
+        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["Fragment"], {
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$AntiCheating$2e$jsx__$5b$client$5d$__$28$ecmascript$29$__["default"], {
+                    onCheatingDetected: handleCheatingDetected
+                }, void 0, false, {
+                    fileName: "[project]/pages/exam/[id].js",
+                    lineNumber: 106,
+                    columnNumber: 11
+                }, this),
+                !submitted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "fixed top-4 right-4 bg-blue-600 text-white px-4 py-2 rounded shadow-md",
+                    children: [
+                        "Time Remaining: ",
+                        minutes,
+                        ":",
+                        seconds < 10 ? `0${seconds}` : seconds
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/pages/exam/[id].js",
+                    lineNumber: 109,
+                    columnNumber: 13
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "p-6 max-w-3xl mx-auto",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$head$2e$js__$5b$client$5d$__$28$ecmascript$29$__["default"], {
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("title", {
+                                children: exam.title
+                            }, void 0, false, {
+                                fileName: "[project]/pages/exam/[id].js",
+                                lineNumber: 116,
+                                columnNumber: 15
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/pages/exam/[id].js",
+                            lineNumber: 115,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                            className: "text-3xl font-bold mb-6",
                             children: exam.title
                         }, void 0, false, {
                             fileName: "[project]/pages/exam/[id].js",
-                            lineNumber: 109,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/pages/exam/[id].js",
-                        lineNumber: 108,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                        className: "text-3xl font-bold mb-6",
-                        children: exam.title
-                    }, void 0, false, {
-                        fileName: "[project]/pages/exam/[id].js",
-                        lineNumber: 111,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
-                        onSubmit: handleSubmit,
-                        children: [
-                            exam.questions.map((q, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "bg-white shadow-md rounded-lg p-4 mb-6 border border-gray-200",
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                            className: "text-lg font-medium mb-3",
-                                            children: q.questionText
-                                        }, void 0, false, {
-                                            fileName: "[project]/pages/exam/[id].js",
-                                            lineNumber: 118,
-                                            columnNumber: 15
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            children: q.options.map((option, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                    className: `block p-2 mb-2 border rounded ${getOptionClass(q, option, index)}`,
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                            type: "radio",
-                                                            name: `question-${index}`,
-                                                            value: option,
-                                                            checked: userAnswers[index] === option,
-                                                            onChange: ()=>handleOptionChange(index, option),
-                                                            className: "mr-2",
-                                                            disabled: submitted
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/pages/exam/[id].js",
-                                                            lineNumber: 125,
-                                                            columnNumber: 21
-                                                        }, this),
-                                                        option
-                                                    ]
-                                                }, i, true, {
-                                                    fileName: "[project]/pages/exam/[id].js",
-                                                    lineNumber: 121,
-                                                    columnNumber: 19
-                                                }, this))
-                                        }, void 0, false, {
-                                            fileName: "[project]/pages/exam/[id].js",
-                                            lineNumber: 119,
-                                            columnNumber: 15
-                                        }, this),
-                                        submitted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                            className: "mt-2",
-                                            children: userAnswers[index] === q.correctAnswer ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "text-green-600 font-semibold",
-                                                children: "Correct!"
+                            lineNumber: 118,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
+                            onSubmit: handleSubmit,
+                            children: [
+                                exam.questions.map((q, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "bg-white shadow-md rounded-lg p-4 mb-6 border border-gray-200",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "text-lg font-medium mb-3",
+                                                children: q.questionText
                                             }, void 0, false, {
                                                 fileName: "[project]/pages/exam/[id].js",
-                                                lineNumber: 141,
-                                                columnNumber: 21
-                                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "text-red-600 font-semibold",
-                                                children: [
-                                                    "Incorrect. Correct answer: ",
-                                                    q.correctAnswer
-                                                ]
-                                            }, void 0, true, {
+                                                lineNumber: 125,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                children: q.options.map((option, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                        className: `block p-2 mb-2 border rounded ${getOptionClass(q, option, index)}`,
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                type: "radio",
+                                                                name: `question-${index}`,
+                                                                value: option,
+                                                                checked: userAnswers[index] === option,
+                                                                onChange: ()=>handleOptionChange(index, option),
+                                                                className: "mr-2",
+                                                                disabled: submitted
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/pages/exam/[id].js",
+                                                                lineNumber: 136,
+                                                                columnNumber: 25
+                                                            }, this),
+                                                            option
+                                                        ]
+                                                    }, i, true, {
+                                                        fileName: "[project]/pages/exam/[id].js",
+                                                        lineNumber: 128,
+                                                        columnNumber: 23
+                                                    }, this))
+                                            }, void 0, false, {
                                                 fileName: "[project]/pages/exam/[id].js",
-                                                lineNumber: 143,
+                                                lineNumber: 126,
+                                                columnNumber: 19
+                                            }, this),
+                                            submitted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "mt-2",
+                                                children: userAnswers[index] === q.correctAnswer ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "text-green-600 font-semibold",
+                                                    children: "Correct!"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/pages/exam/[id].js",
+                                                    lineNumber: 152,
+                                                    columnNumber: 25
+                                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "text-red-600 font-semibold",
+                                                    children: [
+                                                        "Incorrect. Correct answer: ",
+                                                        q.correctAnswer
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/pages/exam/[id].js",
+                                                    lineNumber: 156,
+                                                    columnNumber: 25
+                                                }, this)
+                                            }, void 0, false, {
+                                                fileName: "[project]/pages/exam/[id].js",
+                                                lineNumber: 150,
                                                 columnNumber: 21
                                             }, this)
+                                        ]
+                                    }, index, true, {
+                                        fileName: "[project]/pages/exam/[id].js",
+                                        lineNumber: 121,
+                                        columnNumber: 17
+                                    }, this)),
+                                !submitted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    type: "submit",
+                                    className: "bg-blue-600 text-white px-6 py-2 rounded",
+                                    children: "Submit Answers"
+                                }, void 0, false, {
+                                    fileName: "[project]/pages/exam/[id].js",
+                                    lineNumber: 166,
+                                    columnNumber: 17
+                                }, this),
+                                submitted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "mt-4",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "text-xl font-bold",
+                                            children: [
+                                                "You got ",
+                                                correctCountForDisplay,
+                                                " out of",
+                                                " ",
+                                                exam.questions.length,
+                                                " correct!"
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/pages/exam/[id].js",
+                                            lineNumber: 176,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "text-lg",
+                                            children: correctCountForDisplay >= 40 ? "Congratulations! You have passed the exam." : "Sorry, you did not pass the exam."
                                         }, void 0, false, {
                                             fileName: "[project]/pages/exam/[id].js",
-                                            lineNumber: 139,
-                                            columnNumber: 17
+                                            lineNumber: 180,
+                                            columnNumber: 19
+                                        }, this),
+                                        timeTaken !== null && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "text-lg",
+                                            children: [
+                                                "Time Taken: ",
+                                                Math.floor(timeTaken / 60),
+                                                " minutes",
+                                                " ",
+                                                timeTaken % 60,
+                                                " seconds."
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/pages/exam/[id].js",
+                                            lineNumber: 186,
+                                            columnNumber: 21
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "text-lg",
+                                            children: [
+                                                "Cheating Attempts: ",
+                                                cheatingCount
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/pages/exam/[id].js",
+                                            lineNumber: 191,
+                                            columnNumber: 19
                                         }, this)
                                     ]
-                                }, index, true, {
+                                }, void 0, true, {
                                     fileName: "[project]/pages/exam/[id].js",
-                                    lineNumber: 114,
-                                    columnNumber: 13
-                                }, this)),
-                            !submitted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                type: "submit",
-                                className: "bg-blue-600 text-white px-6 py-2 rounded",
-                                children: "Submit Answers"
-                            }, void 0, false, {
-                                fileName: "[project]/pages/exam/[id].js",
-                                lineNumber: 153,
-                                columnNumber: 13
-                            }, this),
-                            submitted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "mt-4",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-xl font-bold",
-                                        children: [
-                                            "You got ",
-                                            correctCountForDisplay,
-                                            " out of ",
-                                            exam.questions.length,
-                                            " correct!"
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/pages/exam/[id].js",
-                                        lineNumber: 160,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-lg",
-                                        children: correctCountForDisplay >= 40 ? "Congratulations! You have passed the exam." : "Sorry, you did not pass the exam."
-                                    }, void 0, false, {
-                                        fileName: "[project]/pages/exam/[id].js",
-                                        lineNumber: 163,
-                                        columnNumber: 15
-                                    }, this),
-                                    timeTaken !== null && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-lg",
-                                        children: [
-                                            "Time Taken: ",
-                                            Math.floor(timeTaken / 60),
-                                            " minutes ",
-                                            timeTaken % 60,
-                                            " seconds."
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/pages/exam/[id].js",
-                                        lineNumber: 169,
-                                        columnNumber: 17
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-lg",
-                                        children: [
-                                            "Cheating Attempts: ",
-                                            cheatingCount
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/pages/exam/[id].js",
-                                        lineNumber: 173,
-                                        columnNumber: 15
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/pages/exam/[id].js",
-                                lineNumber: 159,
-                                columnNumber: 13
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/pages/exam/[id].js",
-                        lineNumber: 112,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 107,
-                columnNumber: 7
-            }, this)
-        ]
-    }, void 0, true, {
+                                    lineNumber: 175,
+                                    columnNumber: 17
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/pages/exam/[id].js",
+                            lineNumber: 119,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/pages/exam/[id].js",
+                    lineNumber: 114,
+                    columnNumber: 11
+                }, this)
+            ]
+        }, void 0, true)
+    }, void 0, false, {
         fileName: "[project]/pages/exam/[id].js",
-        lineNumber: 98,
+        lineNumber: 100,
         columnNumber: 5
     }, this);
 }
-_s(ExamPage, "ckELpHyaglzCYXjz1a8BKzCdfac=", false, function() {
+_s(ExamPage, "85SK0GV2ZzfkzZZq+KsAIM82DcE=", false, function() {
     return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useSession"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];
 });
 _c = ExamPage;
+// onExamSubmit: submits the exam result and (if passed) automatically triggers certificate generation.
+async function onExamSubmit(resultData) {
+    try {
+        // Save exam result.
+        const resultRes = await fetch("/api/exams/result", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(resultData),
+            cache: "no-store"
+        });
+        const resultJson = await resultRes.json();
+        if (!resultRes.ok) {
+            console.error(resultJson.message);
+            return;
+        }
+        // If passed, automatically generate certificate.
+        if (resultData.passed) {
+            const certRes = await fetch("/api/certificate/generate", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    userId: resultData.userId,
+                    examId: resultData.examId,
+                    userName: resultData.userName,
+                    examName: resultData.examName,
+                    passed: resultData.passed
+                }),
+                cache: "no-store"
+            });
+            const certJson = await certRes.json();
+            if (certRes.ok) {
+                alert("Certificate generated! Certificate Number: " + certJson.certificateNumber);
+            // Optionally: Redirect to certificate page
+            // router.push(`/certificate/${certJson.certificateNumber}`);
+            } else {
+                console.error(certJson.message);
+            }
+        }
+    } catch (error) {
+        console.error("Submission error:", error);
+    }
+}
 var _c;
 __turbopack_context__.k.register(_c, "ExamPage");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {

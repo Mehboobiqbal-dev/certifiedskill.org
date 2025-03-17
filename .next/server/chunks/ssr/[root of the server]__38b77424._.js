@@ -128,7 +128,6 @@ module.exports = mod;
 
 var { g: global, d: __dirname } = __turbopack_context__;
 {
-// /pages/_app.js
 __turbopack_context__.s({
     "default": (()=>MyApp)
 });
@@ -144,12 +143,12 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             ...pageProps
         }, void 0, false, {
             fileName: "[project]/pages/_app.js",
-            lineNumber: 8,
+            lineNumber: 7,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/pages/_app.js",
-        lineNumber: 7,
+        lineNumber: 6,
         columnNumber: 5
     }, this);
 }
@@ -815,7 +814,7 @@ __turbopack_context__.s({
 });
 var __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react/jsx-dev-runtime [external] (react/jsx-dev-runtime, cjs)");
 var __TURBOPACK__imported__module__$5b$externals$5d2f$next$2d$auth$2f$react__$5b$external$5d$__$28$next$2d$auth$2f$react$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/next-auth/react [external] (next-auth/react, cjs)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/router.js [ssr] (ecmascript)"); // or use next/navigation if using the App Router
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/router.js [ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/react [external] (react, cjs)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$Header$2e$jsx__$5b$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/pages/Header.jsx [ssr] (ecmascript)");
 var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
@@ -831,12 +830,22 @@ function Dashboard() {
     const { data: session, status } = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$next$2d$auth$2f$react__$5b$external$5d$__$28$next$2d$auth$2f$react$2c$__cjs$29$__["useSession"])();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
     const [exams, setExams] = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useState"])([]);
+    // Debug logging
+    console.log("Dashboard session:", session, "status:", status);
     (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react__$5b$external$5d$__$28$react$2c$__cjs$29$__["useEffect"])(()=>{
         if (status === "unauthenticated") {
             router.push("/");
             return;
         }
-        fetch("/api/exams").then((res)=>res.json()).then(setExams).catch((err)=>console.error("Error fetching exams:", err));
+        if (status === "authenticated") {
+            fetch("/api/exams", {
+                cache: "no-store"
+            }) // optionally disable cache
+            .then((res)=>res.json()).then((data)=>{
+                console.log("Fetched exams:", data);
+                setExams(data);
+            }).catch((err)=>console.error("Error fetching exams:", err));
+        }
     }, [
         session,
         status,
@@ -846,14 +855,14 @@ function Dashboard() {
         children: "Loading..."
     }, void 0, false, {
         fileName: "[project]/pages/dashboard/index.js",
-        lineNumber: 22,
+        lineNumber: 30,
         columnNumber: 36
     }, this);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["Fragment"], {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$Header$2e$jsx__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/pages/dashboard/index.js",
-                lineNumber: 26,
+                lineNumber: 34,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
@@ -867,7 +876,7 @@ function Dashboard() {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/pages/dashboard/index.js",
-                        lineNumber: 28,
+                        lineNumber: 36,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("button", {
@@ -878,7 +887,7 @@ function Dashboard() {
                         children: "Logout"
                     }, void 0, false, {
                         fileName: "[project]/pages/dashboard/index.js",
-                        lineNumber: 31,
+                        lineNumber: 37,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("h2", {
@@ -886,7 +895,7 @@ function Dashboard() {
                         children: "Available Exams"
                     }, void 0, false, {
                         fileName: "[project]/pages/dashboard/index.js",
-                        lineNumber: 37,
+                        lineNumber: 43,
                         columnNumber: 9
                     }, this),
                     exams.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("p", {
@@ -894,7 +903,7 @@ function Dashboard() {
                         children: "No exams available at the moment."
                     }, void 0, false, {
                         fileName: "[project]/pages/dashboard/index.js",
-                        lineNumber: 39,
+                        lineNumber: 45,
                         columnNumber: 11
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("ul", {
                         className: "mt-4 space-y-4",
@@ -907,37 +916,36 @@ function Dashboard() {
                                         children: exam.title
                                     }, void 0, false, {
                                         fileName: "[project]/pages/dashboard/index.js",
-                                        lineNumber: 49,
+                                        lineNumber: 50,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("p", {
                                         className: "text-sm text-gray-500",
                                         children: [
                                             new Date(exam.startTime).toLocaleString(),
-                                            " -",
-                                            " ",
+                                            " - ",
                                             new Date(exam.endTime).toLocaleString()
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/pages/dashboard/index.js",
-                                        lineNumber: 55,
+                                        lineNumber: 53,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, exam._id, true, {
                                 fileName: "[project]/pages/dashboard/index.js",
-                                lineNumber: 45,
+                                lineNumber: 49,
                                 columnNumber: 15
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/pages/dashboard/index.js",
-                        lineNumber: 43,
+                        lineNumber: 47,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/pages/dashboard/index.js",
-                lineNumber: 27,
+                lineNumber: 35,
                 columnNumber: 7
             }, this)
         ]

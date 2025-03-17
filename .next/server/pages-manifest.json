@@ -4,8 +4,9 @@
   "/": "pages/index.js",
   "/dashboard": "pages/dashboard.js",
   "/api/exams": "pages/api/exams.js",
-  "/exam/[id]": "pages/exam/[id].js",
+  "/verify-certificate": "pages/verify-certificate.js",
+  "/api/certificate/generate": "pages/api/certificate/generate.js",
   "/_error": "pages/_error.js",
-  "/teacher/create-exam": "pages/teacher/create-exam.js",
-  "/api/exams/[id]": "pages/api/exams/[id].js"
+  "/exam/[id]": "pages/exam/[id].js",
+  "/api/exams/result": "pages/api/exams/result.js"
 }

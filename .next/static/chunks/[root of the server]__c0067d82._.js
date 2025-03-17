@@ -467,7 +467,6 @@ function triggerUpdate(msg) {
 
 var { g: global, d: __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
-// /pages/_app.js
 __turbopack_context__.s({
     "default": (()=>MyApp)
 });
@@ -483,12 +482,12 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             ...pageProps
         }, void 0, false, {
             fileName: "[project]/pages/_app.js",
-            lineNumber: 8,
+            lineNumber: 7,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/pages/_app.js",
-        lineNumber: 7,
+        lineNumber: 6,
         columnNumber: 5
     }, this);
 }

@@ -667,7 +667,7 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 
 var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
 {
-const PAGE_PATH = "/teacher/create-exam";
+const PAGE_PATH = "/SignUp";
 (window.__NEXT_P = window.__NEXT_P || []).push([
     PAGE_PATH,
     ()=>{
