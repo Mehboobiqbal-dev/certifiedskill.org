@@ -1,12 +1,9 @@
 {
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
+  "/dashboard": "pages/dashboard.js",
+  "/api/exams": "pages/api/exams.js",
   "/exam/[id]": "pages/exam/[id].js",
   "/api/exams/result": "pages/api/exams/result.js",
-  "/api/certificate/generate": "pages/api/certificate/generate.js",
-  "/dashboard": "pages/dashboard.js",
-  "/sign-in": "pages/sign-in.js",
-  "/api/exams": "pages/api/exams.js",
-  "/api/certificate/verify": "pages/api/certificate/verify.js",
-  "/verify-certificate": "pages/verify-certificate.js"
+  "/api/certificate/generate": "pages/api/certificate/generate.js"
 }

@@ -5,7 +5,6 @@ import { useSession, SessionProvider } from "next-auth/react";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import UserButton from "../components/user-button";
-
 const HeaderContent = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);

@@ -762,17 +762,17 @@ const HeaderContent = ()=>{
                             children: "Home"
                         }, void 0, false, {
                             fileName: "[project]/pages/Header.jsx",
-                            lineNumber: 36,
+                            lineNumber: 35,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/pages/Header.jsx",
-                        lineNumber: 35,
+                        lineNumber: 34,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/pages/Header.jsx",
-                    lineNumber: 34,
+                    lineNumber: 33,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("nav", {
@@ -784,41 +784,41 @@ const HeaderContent = ()=>{
                             children: "Dashboard"
                         }, void 0, false, {
                             fileName: "[project]/pages/Header.jsx",
-                            lineNumber: 45,
+                            lineNumber: 44,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$user$2d$button$2e$tsx__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                             fileName: "[project]/pages/Header.jsx",
-                            lineNumber: 49,
+                            lineNumber: 48,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/pages/Header.jsx",
-                    lineNumber: 43,
+                    lineNumber: 42,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/pages/Header.jsx",
-            lineNumber: 32,
+            lineNumber: 31,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/pages/Header.jsx",
-        lineNumber: 31,
+        lineNumber: 30,
         columnNumber: 5
     }, this);
 };
 const Header = ()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f$next$2d$auth$2f$react__$5b$external$5d$__$28$next$2d$auth$2f$react$2c$__cjs$29$__["SessionProvider"], {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(HeaderContent, {}, void 0, false, {
             fileName: "[project]/pages/Header.jsx",
-            lineNumber: 58,
+            lineNumber: 57,
             columnNumber: 5
         }, this)
     }, void 0, false, {
         fileName: "[project]/pages/Header.jsx",
-        lineNumber: 57,
+        lineNumber: 56,
         columnNumber: 3
     }, this);
 const __TURBOPACK__default__export__ = Header;
