@@ -1,13 +1,15 @@
+// components/Header.jsx
 "use client";
-import { SessionProvider } from "next-auth/react";
-import UserButton from "../components/user-button";
+
+import { useSession, SessionProvider } from "next-auth/react";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-
+import UserButton from "../components/user-button";
 
 const HeaderContent = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
+  const { data: session, status } = useSession();
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -37,8 +39,15 @@ const HeaderContent = () => {
           </h1>
         </div>
 
-        {/* User Button */}
-        <UserButton />
+        {/* Navigation Links */}
+        <nav className="space-x-4 flex items-center">
+          {status === "authenticated" && (
+            <Link href="/dashboard" className="text-lg font-medium hover:underline">
+              Dashboard
+            </Link>
+          )}
+          <UserButton />
+        </nav>
       </div>
     </header>
   );
