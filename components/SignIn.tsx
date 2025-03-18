@@ -101,7 +101,7 @@ const SignIn = () => {
           </div>
           <p className="text-sm text-center text-white">
             Create new account{" "}
-            <Link className="text-sky-700 ml-4 hover:underline cursor-pointer" href="/signup">
+            <Link className="text-sky-700 ml-4 hover:underline cursor-pointer" href="/sign-up">
               Sign up
             </Link>
           </p>

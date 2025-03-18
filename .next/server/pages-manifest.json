@@ -1,7 +1,8 @@
 {
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
+  "/privacy": "pages/privacy.js",
   "/": "pages/index.js",
-  "/_error": "pages/_error.js",
-  "/privacy": "pages/privacy.js"
+  "/sign-up": "pages/sign-up.js",
+  "/sign-in": "pages/sign-in.js"
 }
