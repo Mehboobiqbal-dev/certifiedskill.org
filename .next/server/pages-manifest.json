@@ -2,5 +2,7 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
-  "/sign-up": "pages/sign-up.js"
+  "/sign-up": "pages/sign-up.js",
+  "/api/signup": "pages/api/signup.js",
+  "/sign-in": "pages/sign-in.js"
 }
