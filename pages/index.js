@@ -25,7 +25,7 @@ export default function Home() {
             ensuring that every talented individual has the opportunity to succeed.
           </p>
           <div className="mt-8">
-            <Link href="/Sign-up">
+            <Link href="/sign-up">
               <span className="inline-block bg-blue-600 hover:bg-blue-700 text-black font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 cursor-pointer">
                 Get Started Today
               </span>
