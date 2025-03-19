@@ -1,7 +1,5 @@
 {
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
-  "/sign-up": "pages/sign-up.js",
-  "/verify-certificate": "pages/verify-certificate.js",
-  "/api/certificate/verify": "pages/api/certificate/verify.js"
+  "/": "pages/index.js"
 }

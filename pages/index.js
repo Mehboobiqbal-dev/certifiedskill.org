@@ -31,6 +31,13 @@ export default function Home() {
               </span>
             </Link>
           </div>
+          <div className="mt-8">
+            <Link href="/verify-certificate">
+              <span className="inline-block bg-blue-600 hover:bg-blue-700 text-black font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 cursor-pointer">
+                Verify your Certificate
+              </span>
+            </Link>
+          </div>
         </section>
 
         {/* Features Section */}
