@@ -557,7 +557,7 @@ function AntiCheatingMulti({ onCheatingDetected, detectionThreshold = 3000 }) {
     ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["Fragment"], {
         children: cheating && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "fixed top-4 left-4 bg-red-600 text-white px-4 py-2 rounded shadow-md",
+            className: "fixed top-4 left-4 bg-red-600 text-black px-4 py-2 rounded shadow-md",
             children: [
                 "Warning: Cheating Detected! (Count: ",
                 cheatCount,
@@ -627,8 +627,14 @@ function ExamPage({ exam }) {
                     setQuestionTimeLeft({
                         "ExamPage.useEffect.timer": (prevTime)=>{
                             if (prevTime <= 1) {
-                                proceedToNextQuestion(); // Auto move on when time's up.
-                                return QUESTION_TIME;
+                                if (currentQuestionIndex === exam.questions.length - 1) {
+                                    // For the last question, if time expires, auto-submit.
+                                    handleSubmit();
+                                    return 0;
+                                } else {
+                                    proceedToNextQuestion();
+                                    return QUESTION_TIME;
+                                }
                             }
                             return prevTime - 1;
                         }
@@ -643,15 +649,14 @@ function ExamPage({ exam }) {
         submitted,
         currentQuestionIndex
     ]);
-    // Proceed to next question.
+    // Proceed to next question (only for non-final questions).
     const proceedToNextQuestion = ()=>{
         setTimeTaken((prev)=>prev + (QUESTION_TIME - questionTimeLeft));
         if (currentQuestionIndex < exam.questions.length - 1) {
             setCurrentQuestionIndex((prev)=>prev + 1);
             setQuestionTimeLeft(QUESTION_TIME);
-        } else {
-            handleSubmit();
         }
+    // Do not auto-submit on the last question.
     };
     // Called when the user selects an option.
     const handleOptionChange = (selectedOption)=>{
@@ -659,7 +664,15 @@ function ExamPage({ exam }) {
                 ...prev,
                 [currentQuestionIndex]: selectedOption
             }));
-        proceedToNextQuestion();
+        // Auto-advance if this is not the final question.
+        if (currentQuestionIndex < exam.questions.length - 1) {
+            proceedToNextQuestion();
+        }
+    // On last question, simply record the answer.
+    };
+    // Manual submit handler used on the “Submit” button.
+    const handleSubmitClick = ()=>{
+        handleSubmit();
     };
     // When the exam is finished.
     const handleSubmit = async ()=>{
@@ -693,7 +706,7 @@ function ExamPage({ exam }) {
             children: "No questions found."
         }, void 0, false, {
             fileName: "[project]/pages/exam/[id].js",
-            lineNumber: 102,
+            lineNumber: 117,
             columnNumber: 12
         }, this);
     }
@@ -704,7 +717,7 @@ function ExamPage({ exam }) {
             children: "Loading..."
         }, void 0, false, {
             fileName: "[project]/pages/exam/[id].js",
-            lineNumber: 110,
+            lineNumber: 125,
             columnNumber: 9
         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["Fragment"], {
             children: [
@@ -712,7 +725,7 @@ function ExamPage({ exam }) {
                     onCheatingDetected: handleCheatingDetected
                 }, void 0, false, {
                     fileName: "[project]/pages/exam/[id].js",
-                    lineNumber: 113,
+                    lineNumber: 128,
                     columnNumber: 11
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -723,12 +736,12 @@ function ExamPage({ exam }) {
                                 children: exam.title
                             }, void 0, false, {
                                 fileName: "[project]/pages/exam/[id].js",
-                                lineNumber: 116,
+                                lineNumber: 131,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/pages/exam/[id].js",
-                            lineNumber: 115,
+                            lineNumber: 130,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -736,7 +749,7 @@ function ExamPage({ exam }) {
                             children: exam.title
                         }, void 0, false, {
                             fileName: "[project]/pages/exam/[id].js",
-                            lineNumber: 118,
+                            lineNumber: 133,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -749,7 +762,7 @@ function ExamPage({ exam }) {
                             ]
                         }, void 0, true, {
                             fileName: "[project]/pages/exam/[id].js",
-                            lineNumber: 119,
+                            lineNumber: 134,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -760,7 +773,7 @@ function ExamPage({ exam }) {
                                     children: currentQuestion.questionText
                                 }, void 0, false, {
                                     fileName: "[project]/pages/exam/[id].js",
-                                    lineNumber: 123,
+                                    lineNumber: 138,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -776,19 +789,19 @@ function ExamPage({ exam }) {
                                                     className: "mr-2"
                                                 }, void 0, false, {
                                                     fileName: "[project]/pages/exam/[id].js",
-                                                    lineNumber: 132,
+                                                    lineNumber: 147,
                                                     columnNumber: 21
                                                 }, this),
                                                 option
                                             ]
                                         }, i, true, {
                                             fileName: "[project]/pages/exam/[id].js",
-                                            lineNumber: 128,
+                                            lineNumber: 143,
                                             columnNumber: 19
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/pages/exam/[id].js",
-                                    lineNumber: 126,
+                                    lineNumber: 141,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -802,31 +815,40 @@ function ExamPage({ exam }) {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/pages/exam/[id].js",
-                                        lineNumber: 145,
+                                        lineNumber: 160,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/pages/exam/[id].js",
-                                    lineNumber: 144,
+                                    lineNumber: 159,
                                     columnNumber: 15
+                                }, this),
+                                currentQuestionIndex === exam.questions.length - 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: handleSubmitClick,
+                                    className: "px-6 py-2 mt-4 text-white bg-blue-500 hover:bg-blue-600 rounded shadow",
+                                    children: "Submit"
+                                }, void 0, false, {
+                                    fileName: "[project]/pages/exam/[id].js",
+                                    lineNumber: 166,
+                                    columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/pages/exam/[id].js",
-                            lineNumber: 122,
+                            lineNumber: 137,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/pages/exam/[id].js",
-                    lineNumber: 114,
+                    lineNumber: 129,
                     columnNumber: 11
                 }, this)
             ]
         }, void 0, true)
     }, void 0, false, {
         fileName: "[project]/pages/exam/[id].js",
-        lineNumber: 108,
+        lineNumber: 123,
         columnNumber: 5
     }, this);
 }
@@ -867,12 +889,17 @@ async function onExamSubmit(resultData) {
                 }),
                 cache: "no-store"
             });
-            const certJson = await certRes.json();
+            // Since the certificate is a PDF, open it in a new window.
             if (certRes.ok) {
-                alert("Certificate generated! Certificate Number: " + certJson.certificateNumber);
+                const blob = await certRes.blob();
+                const blobUrl = window.URL.createObjectURL(blob);
+                window.open(blobUrl, "_blank");
             } else {
+                const certJson = await certRes.json();
                 console.error(certJson.message);
             }
+        } else {
+            alert("You did not pass the exam.");
         }
     } catch (error) {
         console.error("Submission error:", error);

@@ -165,7 +165,7 @@ export default function ExamPage({ exam }) {
               {currentQuestionIndex === exam.questions.length - 1 && (
                 <button
                   onClick={handleSubmitClick}
-                  className="px-6 py-2 mt-4 text-white bg-blue-500 hover:bg-blue-600 rounded shadow"
+                  className="px-6 py-2 mt-4 text-black bg-blue-500 hover:bg-blue-600 rounded shadow"
                 >
                   Submit
                 </button>

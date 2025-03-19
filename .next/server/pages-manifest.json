@@ -1,5 +1,10 @@
 {
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js"
+  "/": "pages/index.js",
+  "/verify-certificate": "pages/verify-certificate.js",
+  "/dashboard": "pages/dashboard.js",
+  "/api/exams": "pages/api/exams.js",
+  "/exam/[id]": "pages/exam/[id].js",
+  "/api/exams/result": "pages/api/exams/result.js"
 }
