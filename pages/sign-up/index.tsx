@@ -35,8 +35,8 @@ const SignUp = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-
     setPending(true);
+
     try {
       const res = await fetch("/api/signup", {
         method: "POST",
@@ -77,7 +77,7 @@ const SignUp = () => {
           </CardDescription>
         </CardHeader>
 
-        {!!error && (
+        {error && (
           <div className="bg-red-100 p-3 rounded-md flex items-center gap-x-2 text-sm text-red-700 mb-6">
             <TriangleAlert className="text-red-700" />
             <p className="font-bold">{error}</p>
@@ -109,6 +109,7 @@ const SignUp = () => {
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
               required
+              autoComplete="new-password"
             />
             <Input
               type="password"
@@ -119,6 +120,7 @@ const SignUp = () => {
                 setForm({ ...form, confirmPassword: e.target.value })
               }
               required
+              autoComplete="new-password"
             />
 
             <button
@@ -131,6 +133,7 @@ const SignUp = () => {
           </form>
 
           <Separator />
+
           <div className="flex my-2 justify-evenly items-center">
             <Button
               onClick={(e) => handleProvider(e, "google")}
@@ -150,7 +153,7 @@ const SignUp = () => {
             </Button>
           </div>
           <p className="text-white ml-7">
-            Already have an account?
+            Already have an account?{" "}
             <Link className="text-sky-700 ml-2 hover:underline" href="/sign-in">
               Sign in
             </Link>
