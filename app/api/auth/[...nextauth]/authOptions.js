@@ -1,69 +1,56 @@
+// authoption.js
 import CredentialsProvider from "next-auth/providers/credentials";
-import GithubProvider from "next-auth/providers/github";
+import bcrypt from "bcryptjs";
 import User from "../../../../models/user";
 import connectToDatabase from "../../../../lib/db";
-import bcrypt from "bcryptjs";
 
 export const authOptions = {
   session: {
     strategy: "jwt",
   },
   providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-    }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
         email: {
           label: "Email",
           type: "text",
-          placeholder: "you@example.com"
+          placeholder: "you@example.com",
         },
-        password: {
-          label: "Password",
-          type: "password"
-        },
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        try {
-          await connectToDatabase();
-          // Find the user by email
-          const user = await User.findOne({ email: credentials?.email });
-          if (!user)
-            throw new Error("No user found with that email.");
-          // Compare the password with the hashed password
-          const isValidPassword = await bcrypt.compare(
-            credentials?.password || "",
-            user.password
-          );
-          if (!isValidPassword)
-            throw new Error("Invalid password.");
-          return user;
-        } catch (error) {
-          console.error("Authorize error:", error);
-          return null;
+        // Verify that credentials, email, and password are provided
+        if (!credentials || !credentials.email || !credentials.password) {
+          throw new Error("Email and Password must be provided");
         }
+
+        // Connect to the database
+        await connectToDatabase();
+
+        // Find the user by email
+        const user = await User.findOne({ email: credentials.email });
+        if (!user) {
+          throw new Error("No user found with that email.");
+        }
+
+        // Compare the provided password with the stored hashed password
+        const isValidPassword = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
+        if (!isValidPassword) {
+          throw new Error("Invalid password.");
+        }
+
+        // Return the user object on successful authentication
+        return user;
       },
     }),
   ],
   callbacks: {
-    async signIn({ account, profile }) {
-      if (account?.provider === "github") {
-        await connectToDatabase();
-        const existingUser = await User.findOne({ email: profile?.email });
-        if (!existingUser) {
-          await User.create({
-            name: profile?.name || profile?.login,
-            email: profile?.email,
-            role: "student",
-          });
-        }
-      }
-      return true;
-    },
     async jwt({ token, user }) {
+      // At sign in, attach the user's info to the token
       if (user) {
         token.id = user._id.toString();
         token.email = user.email;
@@ -73,6 +60,7 @@ export const authOptions = {
       return token;
     },
     async session({ session, token }) {
+      // Expose user properties on the client via session object
       if (token) {
         session.user = {
           id: token.id,
@@ -85,6 +73,7 @@ export const authOptions = {
     },
   },
   pages: {
+    // Specify the sign-in page URL
     signIn: "/sign-in",
   },
   secret: process.env.NEXTAUTH_SECRET,
