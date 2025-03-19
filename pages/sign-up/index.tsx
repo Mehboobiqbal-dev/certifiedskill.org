@@ -68,30 +68,32 @@ const SignUp = () => {
   };
 
   return (
-    <div className="h-full flex items-center justify-center bg-[#1b0918]">
-      <Card className="md:h-auto w-[80%] sm:w-[420px] p-4 sm:p-8">
-        <CardHeader>
-          <CardTitle className="text-center text-white ml-7">Sign up</CardTitle>
-          <CardDescription className="text-sm text-center text-white ml-7">
-            Use email or service to create an account
+    <div className="min-h-screen flex items-center justify-center bg-[#1b0918]">
+      <Card className="w-full max-w-md p-6 shadow-lg">
+        <CardHeader className="text-center">
+          <CardTitle className="text-white text-2xl">Sign up</CardTitle>
+          <CardDescription className="text-white text-sm">
+            Use email or a service to create an account
           </CardDescription>
         </CardHeader>
 
         {error && (
-          <div className="bg-red-100 p-3 rounded-md flex items-center gap-x-2 text-sm text-red-700 mb-6">
+          <div className="bg-red-100 p-3 rounded-md flex items-center gap-x-2 text-sm text-red-700 my-4">
             <TriangleAlert className="text-red-700" />
             <p className="font-bold">{error}</p>
           </div>
         )}
 
-        <CardContent className="px-2 sm:px-6">
-          <form onSubmit={handleSubmit} className="space-y-3">
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
             <Input
               type="text"
               disabled={pending}
               placeholder="Full name"
               value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, name: e.target.value })
+              }
               required
             />
             <Input
@@ -99,7 +101,9 @@ const SignUp = () => {
               disabled={pending}
               placeholder="Email"
               value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, email: e.target.value })
+              }
               required
             />
             <Input
@@ -107,7 +111,9 @@ const SignUp = () => {
               disabled={pending}
               placeholder="Password"
               value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, password: e.target.value })
+              }
               required
               autoComplete="new-password"
             />
@@ -126,20 +132,20 @@ const SignUp = () => {
             <button
               type="submit"
               disabled={pending}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition"
             >
               {pending ? "Submitting..." : "Continue"}
             </button>
           </form>
 
-          <Separator />
+          <Separator className="my-4" />
 
-          <div className="flex my-2 justify-evenly items-center">
+          <div className="flex justify-around items-center">
             <Button
               onClick={(e) => handleProvider(e, "google")}
               variant="outline"
               size="lg"
-              className="bg-slate-300 hover:bg-slate-400 hover:scale-110"
+              className="bg-slate-300 hover:bg-slate-400 hover:scale-110 transition"
             >
               <FcGoogle size={24} />
             </Button>
@@ -147,14 +153,14 @@ const SignUp = () => {
               onClick={(e) => handleProvider(e, "github")}
               variant="outline"
               size="lg"
-              className="bg-slate-300 hover:bg-slate-400 hover:scale-110"
+              className="bg-slate-300 hover:bg-slate-400 hover:scale-110 transition"
             >
               <FaGithub size={24} />
             </Button>
           </div>
-          <p className="text-white ml-7">
+          <p className="text-center text-white mt-4">
             Already have an account?{" "}
-            <Link className="text-sky-700 ml-2 hover:underline" href="/sign-in">
+            <Link className="text-sky-700 hover:underline" href="/sign-in">
               Sign in
             </Link>
           </p>

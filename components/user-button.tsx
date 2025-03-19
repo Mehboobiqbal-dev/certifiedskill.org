@@ -19,6 +19,7 @@ const UserButton = () => {
     return <Loader className="w-6 h-6 mr-4 mt-4 animate-spin" />;
   }
 
+  // Show initials if the user's name is provided
   const avatarFallback = session?.user?.name?.charAt(0).toUpperCase();
 
   const handleSignOut = async () => {
@@ -27,12 +28,13 @@ const UserButton = () => {
   };
 
   return (
-    <nav>
+    <nav className="flex items-center px-4">
       {session ? (
         <DropdownMenu>
-          <DropdownMenuTrigger className="outline-none relative p-2 md:p-4">
+          <DropdownMenuTrigger className="outline-none p-2 md:p-4">
             <div className="flex items-center gap-2 md:gap-4">
-              <span className="hidden sm:block text-black font-semibold">
+              {/* Show name on sm and up */}
+              <span className="hidden sm:inline-block text-black font-semibold">
                 {session.user?.name}
               </span>
               <Avatar className="w-8 h-8 md:w-10 md:h-10 hover:opacity-75 transition">
@@ -60,18 +62,18 @@ const UserButton = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <div className="flex items-center gap-1 md:gap-4">
+        <div className="flex items-center gap-2">
           <Link
             href="/sign-in"
-            className="relative inline-flex items-center justify-center px-2 py-1 md:px-3 md:py-1 font-medium tracking-wide text-black bg-gradient-to-r from-purple-500 to-blue-500 rounded shadow-md hover:from-purple-600 hover:to-blue-600 focus:outline-none transition duration-200 transform hover:-translate-y-0.5 text-xs md:text-base whitespace-nowrap"
-           > 
-            <span>Sign In</span>
+            className="inline-flex items-center justify-center px-3 py-2 text-black bg-gradient-to-r from-purple-500 to-blue-500 rounded shadow-md hover:from-purple-600 hover:to-blue-600 transition text-sm whitespace-nowrap"
+          >
+            Sign In
           </Link>
           <Link
             href="/sign-up"
-            className="relative inline-flex items-center justify-center px-2 py-1 md:px-3 md:py-1 font-medium tracking-wide text-[#141e30] bg-white rounded shadow-md hover:bg-gray-100 focus:outline-none transition duration-200 transform hover:-translate-y-0.5 text-xs md:text-base whitespace-nowrap"
+            className="inline-flex items-center justify-center px-3 py-2 text-[#141e30] bg-white rounded shadow-md hover:bg-gray-100 transition text-sm whitespace-nowrap"
           >
-            <span>Sign Up</span>
+            Sign Up
           </Link>
         </div>
       )}

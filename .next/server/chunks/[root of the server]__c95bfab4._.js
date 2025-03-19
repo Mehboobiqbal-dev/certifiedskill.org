@@ -242,32 +242,26 @@ const authOptions = {
                 }
             },
             async authorize (credentials) {
-                // Verify that credentials exist
                 if (!credentials || !credentials.email || !credentials.password) {
                     throw new Error("Email and Password must be provided");
                 }
-                // Connect to the database
                 await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])();
-                // Find the user by email
                 const user = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$user$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].findOne({
                     email: credentials.email
                 });
                 if (!user) {
                     throw new Error("No user found with that email.");
                 }
-                // Compare the provided password with the stored hashed password
                 const isValidPassword = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$bcryptjs$2f$index$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"].compare(credentials.password, user.password);
                 if (!isValidPassword) {
                     throw new Error("Invalid password.");
                 }
-                // Return the user object on successful authentication
                 return user;
             }
         })
     ],
     callbacks: {
         async jwt ({ token, user }) {
-            // Attach user information to the token at sign in
             if (user) {
                 token.id = user._id.toString();
                 token.email = user.email;
@@ -277,7 +271,6 @@ const authOptions = {
             return token;
         },
         async session ({ session, token }) {
-            // Expose token values on the session object
             if (token) {
                 session.user = {
                     id: token.id,
@@ -292,6 +285,7 @@ const authOptions = {
     pages: {
         signIn: "/sign-in"
     },
+    // Ensure NEXTAUTH_SECRET is defined in your environment.
     secret: process.env.NEXTAUTH_SECRET
 };
 }}),
