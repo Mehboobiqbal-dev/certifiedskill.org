@@ -31,30 +31,35 @@ export default function ExamPage({ exam }) {
   // Timer effect for each question.
   useEffect(() => {
     if (submitted) return;
-
+    
     const timer = setInterval(() => {
       setQuestionTimeLeft((prevTime) => {
         if (prevTime <= 1) {
-          proceedToNextQuestion(); // Auto move on when time's up.
-          return QUESTION_TIME;
+          if (currentQuestionIndex === exam.questions.length - 1) {
+            // For the last question, if time expires, auto-submit.
+            handleSubmit();
+            return 0;
+          } else {
+            proceedToNextQuestion();
+            return QUESTION_TIME;
+          }
         }
         return prevTime - 1;
       });
     }, 1000);
-
+  
     return () => clearInterval(timer);
   }, [submitted, currentQuestionIndex]);
 
-  // Proceed to next question.
+  // Proceed to next question (only for non-final questions).
   const proceedToNextQuestion = () => {
     setTimeTaken((prev) => prev + (QUESTION_TIME - questionTimeLeft));
 
     if (currentQuestionIndex < exam.questions.length - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
       setQuestionTimeLeft(QUESTION_TIME);
-    } else {
-      handleSubmit();
     }
+    // Do not auto-submit on the last question.
   };
 
   // Called when the user selects an option.
@@ -63,7 +68,17 @@ export default function ExamPage({ exam }) {
       ...prev,
       [currentQuestionIndex]: selectedOption,
     }));
-    proceedToNextQuestion();
+
+    // Auto-advance if this is not the final question.
+    if (currentQuestionIndex < exam.questions.length - 1) {
+      proceedToNextQuestion();
+    }
+    // On last question, simply record the answer.
+  };
+
+  // Manual submit handler used on the “Submit” button.
+  const handleSubmitClick = () => {
+    handleSubmit();
   };
 
   // When the exam is finished.
@@ -146,6 +161,15 @@ export default function ExamPage({ exam }) {
                   Time left for this question: {questionTimeLeft} seconds
                 </p>
               </div>
+              {/* On the last question, display a Submit button */}
+              {currentQuestionIndex === exam.questions.length - 1 && (
+                <button
+                  onClick={handleSubmitClick}
+                  className="px-6 py-2 mt-4 text-white bg-blue-500 hover:bg-blue-600 rounded shadow"
+                >
+                  Submit
+                </button>
+              )}
             </div>
           </div>
         </>
@@ -181,15 +205,17 @@ async function onExamSubmit(resultData) {
         }),
         cache: "no-store",
       });
-      const certJson = await certRes.json();
+      // Since the certificate is a PDF, open it in a new window.
       if (certRes.ok) {
-        alert(
-          "Certificate generated! Certificate Number: " +
-            certJson.certificateNumber
-        );
+        const blob = await certRes.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+        window.open(blobUrl, "_blank");
       } else {
+        const certJson = await certRes.json();
         console.error(certJson.message);
       }
+    } else {
+      alert("You did not pass the exam.");
     }
   } catch (error) {
     console.error("Submission error:", error);

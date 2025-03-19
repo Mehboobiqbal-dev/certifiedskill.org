@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     let certificate = await db.collection('certificates').findOne({ userId, examId });
     
     if (certificate) {
-      // If a certificate already exists but certificateId is missing, update it.
+      // If a certificate exists but certificateId is missing, update it.
       if (!certificate.certificateId) {
         certificate.certificateId = uuidv4();
         await db.collection('certificates').updateOne(
@@ -31,19 +31,19 @@ export default async function handler(req, res) {
         );
       }
     } else {
-      // Create a new certificate entry with a valid certificateId.
+      // Create a new certificate entry.
       certificate = {
         userId,
         userName,
         examId,
         examName,
-        certificateId: uuidv4(), // Generate a unique id.
+        certificateId: uuidv4(), // Generate a unique ID.
         issuedAt: new Date()
       };
       await db.collection('certificates').insertOne(certificate);
     }
     
-    // Set headers so the PDF is rendered inline.
+    // Set headers to render the PDF inline.
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', 'inline; filename="certificate.pdf"');
 
@@ -54,23 +54,21 @@ export default async function handler(req, res) {
       margins: { top: 50, bottom: 50, left: 50, right: 50 }
     });
     
-    // Pipe PDF document directly to the response.
+    // Pipe the PDF document directly to the response.
     doc.pipe(res);
     
-    // Retrieve page dimensions.
+    // Get page dimensions.
     const { width, height } = doc.page;
     
     // --- Certificate Design ---
-    // Draw a light background.
-    doc.rect(0, 0, width, height).fill('#f9f9f9');
+    doc.rect(0, 0, width, height).fill('#f9f9f9'); // Light background.
     
-    // Add a decorative border.
+    // Decorative border.
     doc.rect(30, 30, width - 60, height - 60)
       .lineWidth(4)
       .stroke('#003366');
     
-    // Use absolute positioning for text to keep everything on one page.
-    // Certificate Title
+    // Certificate Title.
     doc.fillColor('#003366')
        .fontSize(48)
        .text('Certificate of Achievement', 0, 80, {
@@ -79,42 +77,26 @@ export default async function handler(req, res) {
          underline: true
        });
     
-    // "This certifies that"
+    // Subtitle.
     doc.fontSize(32)
        .text('This certifies that', 0, 160, { width, align: 'center' });
     
-    // Recipient Name
+    // Recipient's Name.
     doc.fontSize(40)
        .text(userName, 0, 210, { width, align: 'center' });
     
-    // "has successfully passed the exam for"
+    // Success message.
     doc.fontSize(28)
-       .text('has successfully passed the exam for', 0, 280, {
-         width,
-         align: 'center'
-       });
+       .text('has successfully passed the exam for', 0, 280, { width, align: 'center' });
     
-    // Exam Name
+    // Exam Name.
     doc.fontSize(36)
        .text(examName, 0, 320, { width, align: 'center' });
     
-    // Issue Details
-    doc.fontSize(20)
-       .text(`Issued on: ${new Date(certificate.issuedAt).toLocaleDateString()}`, 0, 400, {
-         width,
-         align: 'center'
-       });
-    
-    doc.fontSize(20)
-       .text(`Certificate ID: ${certificate.certificateId}`, 0, 430, {
-         width,
-         align: 'center'
-       });
-    // -----------------------
-    
+    // Finalize PDF.
     doc.end();
   } catch (error) {
-    console.error('Error generating certificate:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    console.error("Certificate generation error:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 }
