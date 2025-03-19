@@ -43,7 +43,7 @@ export default async function handler(req, res) {
     doc.fillColor('#333333')
       .font('Helvetica-Bold')
       .fontSize(20)
-      .text('CertifySkill.org', 0, 60, { align: 'center' });
+      .text('CertifiedSkill.org', 0, 60, { align: 'center' });
     doc.font('Helvetica')
       .fontSize(12)
       .text('Your trusted partner in professional certifications', { align: 'center' });
@@ -73,8 +73,8 @@ export default async function handler(req, res) {
     doc.moveDown(1.5);
     doc.font('Helvetica')
       .fontSize(14)
-      .text('This is an authentic certificate digitally issued by CertifySkill.org.', { align: 'center' });
-    doc.text('Visit CertifySkill.org.com to verify its authenticity.', { align: 'center' });
+      .text('This is an authentic certificate digitally issued by CertifiedSkill.org.', { align: 'center' });
+    doc.text('Visit CertifiedSkill.org.com to verify its authenticity.', { align: 'center' });
 
     const issuedOn = new Date(certificate.issuedAt).toLocaleDateString();
     doc.font('Helvetica')
