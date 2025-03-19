@@ -76,7 +76,7 @@ function Document() {
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("meta", {
                         name: "description",
-                        content: "GetCertified - Your Certification Platform"
+                        content: "CertifySkill.org - Your Certification Platform"
                     }, void 0, false, {
                         fileName: "[project]/pages/_document.js",
                         lineNumber: 10,
@@ -816,7 +816,7 @@ const Footer = ()=>{
                     children: [
                         "© ",
                         new Date().getFullYear(),
-                        " GetCertified. All rights reserved."
+                        " CertifySkill.org. All rights reserved."
                     ]
                 }, void 0, true, {
                     fileName: "[project]/pages/Footer.js",

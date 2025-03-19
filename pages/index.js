@@ -16,7 +16,7 @@ export default function Home() {
             Empowering Skilled Individuals
           </h1>
           <p className="mt-4 text-lg text-gray-600">
-            GetCertified is a non-profit organization dedicated to recognizing and rewarding talent.
+            CertifySkill.org is a non-profit organization dedicated to recognizing and rewarding talent.
             We provide free certifications to skilled individuals, helping you showcase your abilities
             and advance your career.
           </p>

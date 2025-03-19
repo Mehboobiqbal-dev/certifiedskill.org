@@ -1,6 +1,6 @@
 // app/layout.jsx
 export const metadata = {
-    title: "GetCertified",
+    title: "CertifySkill.org",
     description: "Your Certification Platform",
   };
   

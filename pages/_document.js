@@ -7,7 +7,7 @@ export default function Document() {
       <Head>
         {/* Include universal meta tags that apply to all pages */}
         <meta charSet="UTF-8" />
-        <meta name="description" content="GetCertified - Your Certification Platform" />
+        <meta name="description" content="CertifySkill.org - Your Certification Platform" />
         {/* Do not include <title> or viewport meta here */}
       </Head>
       <body className="antialiased">

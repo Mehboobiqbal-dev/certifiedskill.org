@@ -1113,7 +1113,7 @@ const Footer = ()=>{
                     children: [
                         "© ",
                         new Date().getFullYear(),
-                        " GetCertified. All rights reserved."
+                        " CertifySkill.org. All rights reserved."
                     ]
                 }, void 0, true, {
                     fileName: "[project]/pages/Footer.js",

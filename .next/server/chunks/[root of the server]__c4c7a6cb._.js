@@ -132,7 +132,7 @@ async function handler(req, res) {
         const { width, height } = doc.page;
         doc.rect(0, 0, width, height).fill('#ffffff');
         doc.rect(40, 40, width - 80, height - 80).lineWidth(2).stroke('#333333');
-        doc.fillColor('#333333').font('Helvetica-Bold').fontSize(20).text('GetCertified', 0, 60, {
+        doc.fillColor('#333333').font('Helvetica-Bold').fontSize(20).text('CertifySkill.org', 0, 60, {
             align: 'center'
         });
         doc.font('Helvetica').fontSize(12).text('Your trusted partner in professional certifications', {
@@ -160,10 +160,10 @@ async function handler(req, res) {
             align: 'center'
         });
         doc.moveDown(1.5);
-        doc.font('Helvetica').fontSize(14).text('This is an authentic certificate digitally issued by GetCertified.', {
+        doc.font('Helvetica').fontSize(14).text('This is an authentic certificate digitally issued by CertifySkill.org.', {
             align: 'center'
         });
-        doc.text('Visit GetCertified.com to verify its authenticity.', {
+        doc.text('Visit CertifySkill.org.com to verify its authenticity.', {
             align: 'center'
         });
         const issuedOn = new Date(certificate.issuedAt).toLocaleDateString();

@@ -72,7 +72,7 @@ export default async function handler(req, res) {
     doc.fillColor('#333333')
       .font('Helvetica-Bold')
       .fontSize(20)
-      .text('GetCertified', 0, 60, { align: 'center' });
+      .text('CertifySkill.org', 0, 60, { align: 'center' });
     doc.font('Helvetica')
       .fontSize(12)
       .text('Your trusted partner in professional certifications', {
@@ -111,11 +111,11 @@ export default async function handler(req, res) {
     doc.font('Helvetica')
       .fontSize(14)
       .text(
-        'This is an authentic certificate digitally issued by GetCertified.',
+        'This is an authentic certificate digitally issued by CertifySkill.org.',
         { align: 'center' }
       );
     doc.text(
-      'Visit GetCertified.com to verify its authenticity.',
+      'Visit CertifySkill.org.com to verify its authenticity.',
       { align: 'center' }
     );
 

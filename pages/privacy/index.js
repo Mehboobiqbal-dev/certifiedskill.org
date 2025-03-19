@@ -5,7 +5,7 @@ export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Head>
-        <title>Privacy Policy - GetCertified</title>
+        <title>Privacy Policy - CertifySkill.org</title>
       </Head>
 
       {/* Main Content */}
@@ -25,7 +25,7 @@ export default function PrivacyPolicy() {
           <div className="bg-white p-6 rounded-lg shadow">
             <h2 className="text-2xl font-bold text-gray-800">Introduction</h2>
             <p className="mt-2 text-gray-600">
-              Welcome to GetCertified ("we", "us", "our"). Your privacy is extremely important to us. This Privacy Policy describes how we collect, use, and protect your information when you access our website and services.
+              Welcome to CertifySkill.org ("we", "us", "our"). Your privacy is extremely important to us. This Privacy Policy describes how we collect, use, and protect your information when you access our website and services.
             </p>
           </div>
 
@@ -68,8 +68,8 @@ export default function PrivacyPolicy() {
             </h2>
             <p className="mt-2 text-gray-600">
               Depending on your location, you may have rights regarding your Personal Information, including the right to access, update, or delete your data. If you wish to exercise these rights, please contact us at 
-              <a href="mailto:privacy@getcertified.com" className="text-blue-600 hover:underline ml-1">
-                privacy@getcertified.com
+              <a href="mailto:privacy@CertifySkill.org.com" className="text-blue-600 hover:underline ml-1">
+                privacy@CertifySkill.org.com
               </a>.
             </p>
           </div>
@@ -101,8 +101,8 @@ export default function PrivacyPolicy() {
             </p>
             <p className="mt-2 text-gray-600">
               <strong>Email:</strong>{" "}
-              <a href="mailto:privacy@getcertified.com" className="text-blue-600 hover:underline">
-                privacy@getcertified.com
+              <a href="mailto:privacy@CertifySkill.org.com" className="text-blue-600 hover:underline">
+                privacy@CertifySkill.org.com
               </a>
             </p>
            
@@ -114,7 +114,7 @@ export default function PrivacyPolicy() {
       <footer className="bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center">
           <p className="text-gray-600">
-            &copy; {new Date().getFullYear()} GetCertified. All rights reserved.
+            &copy; {new Date().getFullYear()} CertifySkill.org. All rights reserved.
           </p>
         </div>
       </footer>
