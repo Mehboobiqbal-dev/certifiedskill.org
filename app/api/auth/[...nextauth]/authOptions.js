@@ -1,4 +1,4 @@
-// authoption.js
+// authOptions.js
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import User from "../../../../models/user";
@@ -20,7 +20,7 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        // Verify that credentials, email, and password are provided
+        // Verify that credentials exist
         if (!credentials || !credentials.email || !credentials.password) {
           throw new Error("Email and Password must be provided");
         }
@@ -50,7 +50,7 @@ export const authOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
-      // At sign in, attach the user's info to the token
+      // Attach user information to the token at sign in
       if (user) {
         token.id = user._id.toString();
         token.email = user.email;
@@ -60,7 +60,7 @@ export const authOptions = {
       return token;
     },
     async session({ session, token }) {
-      // Expose user properties on the client via session object
+      // Expose token values on the session object
       if (token) {
         session.user = {
           id: token.id,
@@ -73,7 +73,6 @@ export const authOptions = {
     },
   },
   pages: {
-    // Specify the sign-in page URL
     signIn: "/sign-in",
   },
   secret: process.env.NEXTAUTH_SECRET,

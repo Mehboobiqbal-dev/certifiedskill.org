@@ -1,0 +1,9 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 6, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"","debugId":null}},
+    {"offset": {"line": 6, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}},
+    {"offset": {"line": 140, "column": 0}, "map": {"version":3,"sources":["file:///home/user/get-certified/app/api/auth/%5B...nextauth%5D/route.js"],"sourcesContent":["// route.js\nimport NextAuth from \"next-auth\";\nimport { authOptions } from \"./authoption\";\n\n// Force dynamic rendering so Next.js doesn’t pre-render this API route.\nexport const dynamic = \"force-dynamic\";\n\nconst handler = NextAuth(authOptions);\n\n// Export GET and POST so that your route works in the App Router.\nexport { handler as GET, handler as POST };\n"],"names":[],"mappings":"AAAA,WAAW;;;;;;AACX;;;;;;;;AAIO,MAAM,UAAU;AAEvB,MAAM,UAAU,CAAA,GAAA,uIAAA,CAAA,UAAQ,AAAD,EAAE","debugId":null}},
+    {"offset": {"line": 157, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}
