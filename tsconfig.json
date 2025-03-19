@@ -29,7 +29,7 @@
     "**/*.tsx",
     "next-env.d.ts",
     ".next/types/**/*.ts"
-, "pages/dashboard/index.js", "models/exam.js", "app/api/auth/[...nextauth]/route.js", "pages/api/auth/signup/route.ts"  ],
+, "pages/dashboard/index.js", "models/exam.js", "app/api/auth/[...nextauth]/route.js", "pages/api/signup/route.ts"  ],
   "exclude": [
     "node_modules"
   ]

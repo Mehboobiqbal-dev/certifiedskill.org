@@ -1,5 +1,11 @@
 {
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js"
+  "/sign-up": "pages/sign-up.js",
+  "/verify-certificate": "pages/verify-certificate.js",
+  "/api/certificate/verify": "pages/api/certificate/verify.js",
+  "/": "pages/index.js",
+  "/api/signup": "pages/api/signup.js",
+  "/_error": "pages/_error.js",
+  "/sign-in": "pages/sign-in.js"
 }
