@@ -21,6 +21,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "face-api.js": "^0.22.2",
+    "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.479.0",
     "mongodb": "^6.14.2",
