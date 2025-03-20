@@ -1,80 +1,60 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import bcrypt from 'bcryptjs';
-import User from '../../models/user';
-import connectToDatabase from '../../lib/db';
+// pages/api/signup.ts
+
+import type { NextApiRequest, NextApiResponse } from "next";
+import bcrypt from "bcryptjs";
+import User from "../../models/user";
+import connectToDatabase from "../../lib/db";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' });
+  // Only allow POST requests.
+  if (req.method !== "POST") {
+    res.setHeader("Allow", ["POST"]);
+    return res.status(405).json({ message: `Method ${req.method} not allowed.` });
   }
 
-  // Check for correct Content-Type header
-  const contentType = req.headers['content-type'] || '';
-  if (!contentType.includes('application/json')) {
-    return res
-      .status(400)
-      .json({ message: 'Content-Type must be application/json' });
+  // Connect to the database.
+  await connectToDatabase();
+
+  const { name, email, password, confirmPassword } = req.body;
+
+  // Basic validations.
+  if (!name || !email || !password || !confirmPassword) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
+
+  if (password !== confirmPassword) {
+    return res.status(400).json({ message: "Passwords do not match." });
   }
 
   try {
-    // Parse body (Next.js automatically parses JSON for API routes if the header is set)
-    const { name, email, password, confirmPassword, role } = req.body;
-
-    // Validate required fields
-    if (!name || !email || !password || !confirmPassword) {
-      return res.status(400).json({ message: 'All fields are required' });
-    }
-
-    // Validate email format
-    const isValidEmail = (email: string) =>
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (!isValidEmail(email)) {
-      return res.status(400).json({ message: 'Invalid email format' });
-    }
-
-    // Validate password length
-    if (password.length < 6) {
-      return res
-        .status(400)
-        .json({ message: 'Password must be at least 6 characters long' });
-    }
-
-    // Check that the passwords match
-    if (password !== confirmPassword) {
-      return res
-        .status(400)
-        .json({ message: 'Passwords do not match' });
-    }
-
-    // Connect to MongoDB
-    await connectToDatabase();
-
-    // Check if the user already exists
-    const existingUser = await User.findOne({ email }).exec();
+    // Check if a user with the given email already exists.
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: 'User already exists' });
+      return res
+        .status(400)
+        .json({ message: "User with this email already exists." });
     }
 
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // Hash the password before saving.
+    const hashedPassword = await bcrypt.hash(password, 12);
 
-    // Create new user
-    const newUser = new User({
+    // Create the new user.
+    await User.create({
       name,
       email,
       password: hashedPassword,
-      role: role || 'student',
     });
 
-    await newUser.save();
-
-    // Respond with a success message
-    return res.status(201).json({ message: 'User registered successfully' });
-  } catch (error) {
-    console.error('Error in register API:', error);
-    return res.status(500).json({ message: 'Internal server error' });
+    return res
+      .status(201)
+      .json({ message: "User registered successfully!" });
+  } catch (error: any) {
+    console.error("Signup API error:", error);
+    return res
+      .status(500)
+      .json({ message: error.message || "Internal Server Error" });
   }
 }

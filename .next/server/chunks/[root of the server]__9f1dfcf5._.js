@@ -8,6 +8,14 @@ const mod = __turbopack_context__.x("next/dist/compiled/next-server/pages-api.ru
 
 module.exports = mod;
 }}),
+"[externals]/next/server.js [external] (next/server.js, cjs)": (function(__turbopack_context__) {
+
+var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+{
+const mod = __turbopack_context__.x("next/server.js", () => require("next/server.js"));
+
+module.exports = mod;
+}}),
 "[externals]/bcryptjs [external] (bcryptjs, esm_import)": ((__turbopack_context__) => {
 "use strict";
 
@@ -98,8 +106,9 @@ var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_con
 __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 // pages/api/signup.ts
 __turbopack_context__.s({
-    "default": (()=>handler)
+    "POST": (()=>POST)
 });
+var __TURBOPACK__imported__module__$5b$externals$5d2f$next$2f$server$2e$js__$5b$external$5d$__$28$next$2f$server$2e$js$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/next/server.js [external] (next/server.js, cjs)");
 var __TURBOPACK__imported__module__$5b$externals$5d2f$bcryptjs__$5b$external$5d$__$28$bcryptjs$2c$__esm_import$29$__ = __turbopack_context__.i("[externals]/bcryptjs [external] (bcryptjs, esm_import)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$user$2e$ts__$5b$api$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/models/user.ts [api] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$js__$5b$api$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/db.js [api] (ecmascript)");
@@ -110,55 +119,59 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ;
 ;
 ;
-async function handler(req, res) {
-    // Only allow POST requests.
-    if (req.method !== "POST") {
-        res.setHeader("Allow", [
-            "POST"
-        ]);
-        return res.status(405).json({
-            message: `Method ${req.method} not allowed.`
-        });
-    }
-    // Connect to the database.
+;
+async function POST(request) {
+    // Connect to the database
     await (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$js__$5b$api$5d$__$28$ecmascript$29$__["default"])();
-    const { name, email, password, confirmPassword } = req.body;
-    // Basic validations.
-    if (!name || !email || !password || !confirmPassword) {
-        return res.status(400).json({
-            message: "All fields are required."
-        });
-    }
-    if (password !== confirmPassword) {
-        return res.status(400).json({
-            message: "Passwords do not match."
-        });
-    }
     try {
-        // Check if a user with the given email already exists.
+        // Parse the request body
+        const body = await request.json();
+        const { name, email, password, confirmPassword } = body;
+        // Basic validations
+        if (!name || !email || !password || !confirmPassword) {
+            return __TURBOPACK__imported__module__$5b$externals$5d2f$next$2f$server$2e$js__$5b$external$5d$__$28$next$2f$server$2e$js$2c$__cjs$29$__["NextResponse"].json({
+                message: "All fields are required."
+            }, {
+                status: 400
+            });
+        }
+        if (password !== confirmPassword) {
+            return __TURBOPACK__imported__module__$5b$externals$5d2f$next$2f$server$2e$js__$5b$external$5d$__$28$next$2f$server$2e$js$2c$__cjs$29$__["NextResponse"].json({
+                message: "Passwords do not match."
+            }, {
+                status: 400
+            });
+        }
+        // Check if a user with the given email already exists
         const existingUser = await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$user$2e$ts__$5b$api$5d$__$28$ecmascript$29$__["default"].findOne({
             email
         });
         if (existingUser) {
-            return res.status(400).json({
+            return __TURBOPACK__imported__module__$5b$externals$5d2f$next$2f$server$2e$js__$5b$external$5d$__$28$next$2f$server$2e$js$2c$__cjs$29$__["NextResponse"].json({
                 message: "User with this email already exists."
+            }, {
+                status: 400
             });
         }
-        // Hash the password before saving.
+        // Hash the password before saving
         const hashedPassword = await __TURBOPACK__imported__module__$5b$externals$5d2f$bcryptjs__$5b$external$5d$__$28$bcryptjs$2c$__esm_import$29$__["default"].hash(password, 12);
-        // Create the new user.
+        // Create the new user
         await __TURBOPACK__imported__module__$5b$project$5d2f$models$2f$user$2e$ts__$5b$api$5d$__$28$ecmascript$29$__["default"].create({
             name,
             email,
             password: hashedPassword
         });
-        return res.status(201).json({
+        return __TURBOPACK__imported__module__$5b$externals$5d2f$next$2f$server$2e$js__$5b$external$5d$__$28$next$2f$server$2e$js$2c$__cjs$29$__["NextResponse"].json({
             message: "User registered successfully!"
+        }, {
+            status: 201
         });
     } catch (error) {
         console.error("Signup API error:", error);
-        return res.status(500).json({
+        return __TURBOPACK__imported__module__$5b$externals$5d2f$next$2f$server$2e$js__$5b$external$5d$__$28$next$2f$server$2e$js$2c$__cjs$29$__["NextResponse"].json({
             message: error.message || "Internal Server Error"
+        }, {
+            status: 500
         });
     }
 }
@@ -281,4 +294,4 @@ __turbopack_async_result__();
 
 };
 
-//# sourceMappingURL=%5Broot%20of%20the%20server%5D__0b53df15._.js.map
+//# sourceMappingURL=%5Broot%20of%20the%20server%5D__9f1dfcf5._.js.map

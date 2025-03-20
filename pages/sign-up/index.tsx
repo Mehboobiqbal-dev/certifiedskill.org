@@ -10,14 +10,12 @@ import {
 } from "../../components/ui/card";
 import { Input } from "../../components/ui/input";
 import { Separator } from "../../components/ui/separator";
-
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { TriangleAlert } from "lucide-react";
 import { signIn } from "next-auth/react";
-
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
@@ -128,7 +126,6 @@ const SignUp = () => {
               required
               autoComplete="new-password"
             />
-
             <button
               type="submit"
               disabled={pending}
