@@ -1,0 +1,28 @@
+{
+    "version": 2,
+    "env": {
+      "MONGO_URI": "@mongo_uri",
+      "NEXTAUTH_URL": "https://certifiedskill.org",
+      "NEXTAUTH_SECRET": "@nextauth_secret"
+    },
+    "build": {
+      "env": {
+        "MONGO_URI": "@mongo_uri",
+        "NEXTAUTH_URL": "https://certifiedskill.org",
+        "NEXTAUTH_SECRET": "@nextauth_secret"
+      }
+    },
+    "builds": [
+      {
+        "src": "next.config.js",
+        "use": "@vercel/next"
+      }
+    ],
+    "rewrites": [
+      {
+        "source": "/api/(.*)",
+        "destination": "/api/$1"
+      }
+    ]
+  }
+  
