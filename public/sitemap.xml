@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
+  <url>
+    <loc>https://certifiedskill.org/</loc>
+    <lastmod>2023-10-05</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <!-- Sign-Up Page -->
+  <url>
+    <loc>https://certifiedskill.org/sign-up</loc>
+    <lastmod>2023-10-05</lastmod>
+    <priority>0.8</priority>
+  </url>
+   <url>
+    <loc>https://certifiedskill.org/sign-in</loc>
+    <lastmod>2023-10-05</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <!-- Verify Certificate Page -->
+  <url>
+    <loc>https://certifiedskill.org/verify-certificate</loc>
+    <lastmod>2023-10-05</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <!-- About Page (if applicable) -->
+  <url>
+    <loc>https://certifiedskill.org/about</loc>
+    <lastmod>2023-10-05</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <!-- Privacy Policy Page (if applicable) -->
+  <url>
+    <loc>https://certifiedskill.org/privacy</loc>
+    <lastmod>2023-10-05</lastmod>
+    <priority>0.5</priority>
+  </url>
+</urlset>
