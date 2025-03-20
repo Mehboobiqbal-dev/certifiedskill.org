@@ -55,7 +55,7 @@ const SignIn = () => {
           </CardDescription>
         </CardHeader>
         {!!error && (
-          <div className="bg-red-200 p-3 rounded-md flex items-center gap-x-2 text-sm text-red-700 mb-6">
+          <div className="bg-red-200 p-3 rounded-md flex items-center gap-x-2 text-sm text-white mb-6">
             <TriangleAlert />
             <p>{error}</p>
           </div>
