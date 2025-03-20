@@ -1,10 +1,6 @@
 {
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
-  "/teacher/create-exam": "pages/teacher/create-exam.js",
   "/": "pages/index.js",
-  "/sign-up": "pages/sign-up.js",
-  "/api/signup": "pages/api/signup.js",
-  "/_error": "pages/_error.js",
-  "/sign-in": "pages/sign-in.js"
+  "/_error": "pages/_error.js"
 }
