@@ -41,17 +41,31 @@ const SignUp = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      const data = await res.json();
+
+      // Attempt to parse the response as JSON
+      let data;
+      try {
+        data = await res.json();
+      } catch (jsonError) {
+        console.error("Failed to parse JSON response:", jsonError);
+        throw new Error(`Response is not JSON. HTTP status: ${res.status}`);
+      }
 
       if (res.ok) {
         toast.success(data.message);
         router.push("/sign-in");
       } else {
-        setError(data.message || "An error occurred during sign up.");
+        // Log the detailed error info and update the state accordingly
+        console.error("Error response from API:", { status: res.status, data });
+        const errorMsg = `Error ${res.status}: ${data.message || "An error occurred during sign up."}`;
+        setError(errorMsg);
+        toast.error(errorMsg);
       }
-    } catch (err) {
-      console.error("Sign-up error:", err);
-      setError("An unexpected error occurred.");
+    } catch (err: any) {
+      const errorDetails = err instanceof Error ? err.message : String(err);
+      console.error("Sign-up error:", errorDetails, err);
+      setError(`Sign-up error: ${errorDetails}`);
+      toast.error(`Sign-up error: ${errorDetails}`);
     } finally {
       setPending(false);
     }
