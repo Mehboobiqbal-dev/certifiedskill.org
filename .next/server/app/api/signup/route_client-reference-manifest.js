@@ -1,0 +1,1 @@
+globalThis.__RSC_MANIFEST=(globalThis.__RSC_MANIFEST||{});globalThis.__RSC_MANIFEST["/api/signup/route"]={"moduleLoading":{"prefix":"/_next/","crossOrigin":null},"ssrModuleMapping":{},"edgeSSRModuleMapping":{},"clientModules":{},"entryCSSFiles":{"/home/user/get-certified/":[],"/home/user/get-certified/app/api/signup/route":[]},"rscModuleMapping":{},"edgeRscModuleMapping":{}}

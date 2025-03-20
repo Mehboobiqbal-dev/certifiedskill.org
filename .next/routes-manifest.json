@@ -121,8 +121,8 @@
       "routeKeys": {
         "nxtPid": "nxtPid"
       },
-      "dataRouteRegex": "^/_next/data/XfVhWlMWHTGcOkX7iTO8S/exam/([^/]+?)\\.json$",
-      "namedDataRouteRegex": "^/_next/data/XfVhWlMWHTGcOkX7iTO8S/exam/(?<nxtPid>[^/]+?)\\.json$"
+      "dataRouteRegex": "^/_next/data/XmY_7FYfLAZG92HNWCuF3/exam/([^/]+?)\\.json$",
+      "namedDataRouteRegex": "^/_next/data/XmY_7FYfLAZG92HNWCuF3/exam/(?<nxtPid>[^/]+?)\\.json$"
     }
   ],
   "rsc": {
