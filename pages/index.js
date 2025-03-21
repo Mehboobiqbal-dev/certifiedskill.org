@@ -1,7 +1,7 @@
 // pages/index.js
 import Head from "next/head";
 import Link from "next/link";
-import Header from "./Header"; // Ensure these paths are correct
+import Header from "./Header"; // updated path if using components folder
 import Footer from "./Footer";
 
 export default function Home() {
@@ -19,6 +19,8 @@ export default function Home() {
         />
         <meta name="author" content="CertifiedSkill.org" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://certifiedskill.org" />
 
         {/* OpenGraph Tags */}
         <meta property="og:title" content="Free Certification Programs | CertifiedSkill.org" />
@@ -39,24 +41,41 @@ export default function Home() {
         />
         <meta name="twitter:image" content="https://certifiedskill.org/og-image.jpg" />
 
-        {/* JSON-LD Structured Data */}
-        <script type="application/ld+json">
-          {`
-          {
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "CertifiedSkill.org",
-            "url": "https://certifiedskill.org",
-            "logo": "https://certifiedskill.org/logo.png",
-            "description": "CertifiedSkill.org offers free certifications and exams to skilled individuals, helping you showcase your abilities and advance your career.",
-            "sameAs": [
-              "https://facebook.com/certifiedskill",
-              "https://twitter.com/certifiedskill",
-              "https://linkedin.com/company/certifiedskill"
-            ]
-          }
-          `}
-        </script>
+        {/* JSON-LD Structured Data for Organization */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: `
+            {
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "CertifiedSkill.org",
+              "url": "https://certifiedskill.org",
+              "logo": "https://certifiedskill.org/logo.png",
+              "description": "CertifiedSkill.org offers free certifications and exams to skilled individuals, helping you showcase your abilities and advance your career.",
+              "sameAs": [
+                "https://facebook.com/certifiedskill",
+                "https://twitter.com/certifiedskill",
+                "https://linkedin.com/company/certifiedskill"
+              ]
+            }
+          `
+        }} />
+
+        {/* Optional: JSON-LD for WebSite */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: `
+            {
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "url": "https://certifiedskill.org",
+              "name": "CertifiedSkill.org",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://certifiedskill.org/search?query={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          `
+        }} />
       </Head>
 
       <div className="min-h-screen bg-gray-50">

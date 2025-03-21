@@ -7,7 +7,7 @@
   "chunks": [
     "static/chunks/node_modules_next_744c5c6d._.js",
     "static/chunks/node_modules_react-dom_82bb97c6._.js",
-    "static/chunks/node_modules_4db64184._.js",
+    "static/chunks/node_modules_8d47fd4e._.js",
     "static/chunks/[root of the server]__bdc38f33._.js"
   ],
   "source": "entry"

@@ -73,7 +73,6 @@ const __TURBOPACK__default__export__ = connectToDatabase;
 
 var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
 __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
-// pages/api/certificates/index.js
 __turbopack_context__.s({
     "default": (()=>handler)
 });
@@ -98,14 +97,117 @@ async function handler(req, res) {
             message: 'Database connection failed'
         });
     }
-    // Use the native Db instance. Replace 'myDatabase' with your database name if needed.
-    // If your MONGO_URI already specifies a default DB, connection.db should exist.
+    // Use the native Db instance. Replace 'myDatabase' with the name of your database if needed.
     const db = connection.db || connection.useDb('myDatabase');
-    // Alternatively, if you know your connection always has a DB, you can use:
-    // const db = connection.db;
     if (req.method === 'GET') {
-        // GET: List certificates for a user (query by userEmail or userId).
-        const { userEmail, userId } = req.query;
+        const { certificateNumber, userEmail, userId } = req.query;
+        // If a certificateNumber is provided, generate a PDF for that certificate.
+        if (certificateNumber) {
+            try {
+                const certificate = await db.collection('certificates').findOne({
+                    certificateId: certificateNumber
+                });
+                if (!certificate) {
+                    return res.status(404).json({
+                        message: 'Certificate not found'
+                    });
+                }
+                // (Optional) You could add extra verification here to ensure that the certificate belongs to the currently authenticated user.
+                // Set headers to render the PDF inline.
+                res.setHeader('Content-Type', 'application/pdf');
+                res.setHeader('Content-Disposition', 'inline; filename="certificate.pdf"');
+                // Generate a PDF using PDFKit.
+                const doc = new __TURBOPACK__imported__module__$5b$externals$5d2f$pdfkit__$5b$external$5d$__$28$pdfkit$2c$__cjs$29$__["default"]({
+                    size: 'A4',
+                    layout: 'landscape',
+                    margins: {
+                        top: 50,
+                        bottom: 50,
+                        left: 50,
+                        right: 50
+                    }
+                });
+                doc.pipe(res);
+                const { width, height } = doc.page;
+                // ----- PDF Certificate Design -----
+                // 1. Background & border.
+                doc.rect(0, 0, width, height).fill('#ffffff'); // White background.
+                doc.rect(40, 40, width - 80, height - 80).lineWidth(2).stroke('#333333');
+                // 2. Header
+                doc.fillColor('#333333').font('Helvetica-Bold').fontSize(20).text('CertifiedSkill.org', 0, 60, {
+                    align: 'center'
+                });
+                doc.font('Helvetica').fontSize(12).text('Your trusted partner in professional certifications', {
+                    align: 'center'
+                });
+                // 3. Certificate Title.
+                doc.moveDown(2);
+                doc.font('Helvetica-Bold').fontSize(36).text('Certificate of Achievement', {
+                    align: 'center',
+                    underline: true
+                });
+                // 4. Certificate Details.
+                doc.moveDown(1.5);
+                doc.font('Helvetica').fontSize(18).text('This certificate verifies that', {
+                    align: 'center'
+                });
+                doc.moveDown(0.5);
+                doc.font('Helvetica-Bold').fontSize(28).text(certificate.userName, {
+                    align: 'center'
+                });
+                doc.moveDown(0.5);
+                doc.font('Helvetica').fontSize(18).text('has successfully passed the exam:', {
+                    align: 'center'
+                });
+                doc.moveDown(0.5);
+                doc.font('Helvetica-Bold').fontSize(24).text(certificate.examName, {
+                    align: 'center'
+                });
+                // 5. Authenticity Assurance.
+                doc.moveDown(1.5);
+                doc.font('Helvetica').fontSize(14).text('This is an authentic certificate digitally issued by CertifiedSkill.org.', {
+                    align: 'center'
+                });
+                doc.text('Visit CertifiedSkill.org.com to verify its authenticity.', {
+                    align: 'center'
+                });
+                // 6. Footer Details: Certificate ID and Issued Date.
+                const issuedOn = new Date(certificate.issuedAt).toLocaleDateString();
+                doc.font('Helvetica').fontSize(10).text(`Certificate ID: ${certificate.certificateId}`, 50, height - 70, {
+                    align: 'left'
+                });
+                doc.font('Helvetica').fontSize(10).text(`Issued on: ${issuedOn}`, -50, height - 70, {
+                    align: 'right'
+                });
+                // 7. Signature Placeholder.
+                const signY = height - 100;
+                const signX = width - 200;
+                doc.moveTo(signX, signY).lineTo(signX + 100, signY).stroke('#333333');
+                doc.font('Helvetica').fontSize(10).text('Authorized Signature', signX, signY + 5, {
+                    align: 'center',
+                    width: 100
+                });
+                // 8. GetCertify Stamp (optional).
+                const stampDiameter = 100;
+                const stampX = 50;
+                const stampY = height - stampDiameter - 50;
+                doc.circle(stampX + stampDiameter / 2, stampY + stampDiameter / 2, stampDiameter / 2).lineWidth(2).stroke('#003366');
+                doc.circle(stampX + stampDiameter / 2, stampY + stampDiameter / 2, stampDiameter / 2).fillOpacity(0.1).fill('#003366');
+                doc.fillOpacity(1).font('Helvetica-Bold').fontSize(14).fillColor('#003366').text('GetCertify', stampX, stampY + stampDiameter / 2 - 7, {
+                    width: stampDiameter,
+                    align: 'center'
+                });
+                // Finalize and send the PDF.
+                doc.end();
+                return;
+            } catch (error) {
+                console.error('Error generating certificate PDF:', error);
+                return res.status(500).json({
+                    message: 'Internal Server Error'
+                });
+            }
+        }
+        // Otherwise, if no certificateNumber is provided, list certificates:
         if (!userEmail && !userId) {
             return res.status(400).json({
                 message: 'Please provide a userEmail or userId in the query string'
@@ -125,10 +227,8 @@ async function handler(req, res) {
             });
         }
     } else if (req.method === 'POST') {
-        // POST: Generate a certificate PDF for a passed exam.
-        // Expected Payload: { userId, userName, examId, examName, passed, [userEmail] }
+        // POST: Generate or update a certificate after a passed exam.
         const { userId, userName, examId, examName, passed, userEmail } = req.body;
-        // Allow a boolean true or string "true" to indicate a passing exam.
         if (passed !== true && passed !== 'true') {
             console.error('Exam not passed:', req.body);
             return res.status(400).json({
@@ -136,14 +236,13 @@ async function handler(req, res) {
             });
         }
         try {
-            // Check if a certificate already exists for this user and exam.
+            // Check if a certificate already exists.
             let certificate = await db.collection('certificates').findOne({
                 userId,
                 examId
             });
             if (certificate) {
                 console.log('Existing certificate found:', certificate);
-                // If certificate exists but is missing a certificateId, update it.
                 if (!certificate.certificateId) {
                     certificate.certificateId = (0, __TURBOPACK__imported__module__$5b$externals$5d2f$uuid__$5b$external$5d$__$28$uuid$2c$__esm_import$29$__["v4"])();
                     await db.collection('certificates').updateOne({
@@ -156,7 +255,6 @@ async function handler(req, res) {
                     console.log('Updated certificate with new certificateId:', certificate.certificateId);
                 }
             } else {
-                // Create a new certificate record.
                 certificate = {
                     userId,
                     userName,
@@ -171,98 +269,7 @@ async function handler(req, res) {
                 await db.collection('certificates').insertOne(certificate);
                 console.log('Created new certificate:', certificate);
             }
-            // Set headers to render the PDF inline.
-            res.setHeader('Content-Type', 'application/pdf');
-            res.setHeader('Content-Disposition', 'inline; filename="certificate.pdf"');
-            // Create a new PDF document with a landscape layout.
-            const doc = new __TURBOPACK__imported__module__$5b$externals$5d2f$pdfkit__$5b$external$5d$__$28$pdfkit$2c$__cjs$29$__["default"]({
-                size: 'A4',
-                layout: 'landscape',
-                margins: {
-                    top: 50,
-                    bottom: 50,
-                    left: 50,
-                    right: 50
-                }
-            });
-            // Pipe the PDF document directly to the response.
-            doc.pipe(res);
-            // Get the page dimensions.
-            const { width, height } = doc.page;
-            // -------------------------------
-            // Professional Certificate Design
-            // -------------------------------
-            // 1. Background & Border.
-            doc.rect(0, 0, width, height).fill('#ffffff'); // White background.
-            doc.rect(40, 40, width - 80, height - 80).lineWidth(2).stroke('#333333'); // Clean, modern border.
-            // 2. Header: Brand Information.
-            doc.fillColor('#333333').font('Helvetica-Bold').fontSize(20).text('CertifiedSkill.org', 0, 60, {
-                align: 'center'
-            });
-            doc.font('Helvetica').fontSize(12).text('Your trusted partner in professional certifications', {
-                align: 'center'
-            });
-            // 3. Certificate Title.
-            doc.moveDown(2);
-            doc.font('Helvetica-Bold').fontSize(36).text('Certificate of Achievement', {
-                align: 'center',
-                underline: true
-            });
-            // 4. Certificate Details.
-            doc.moveDown(1.5);
-            doc.font('Helvetica').fontSize(18).text('This certificate verifies that', {
-                align: 'center'
-            });
-            doc.moveDown(0.5);
-            doc.font('Helvetica-Bold').fontSize(28).text(userName, {
-                align: 'center'
-            });
-            doc.moveDown(0.5);
-            doc.font('Helvetica').fontSize(18).text('has successfully passed the exam:', {
-                align: 'center'
-            });
-            doc.moveDown(0.5);
-            doc.font('Helvetica-Bold').fontSize(24).text(examName, {
-                align: 'center'
-            });
-            // 5. Authenticity Assurance Text.
-            doc.moveDown(1.5);
-            doc.font('Helvetica').fontSize(14).text('This is an authentic certificate digitally issued by CertifiedSkill.org.', {
-                align: 'center'
-            });
-            doc.text('Visit CertifiedSkill.org.com to verify its authenticity.', {
-                align: 'center'
-            });
-            // 6. Footer Details.
-            const issuedOn = new Date(certificate.issuedAt).toLocaleDateString();
-            doc.font('Helvetica').fontSize(10).text(`Certificate ID: ${certificate.certificateId}`, 50, height - 70, {
-                align: 'left'
-            });
-            doc.font('Helvetica').fontSize(10).text(`Issued on: ${issuedOn}`, -50, height - 70, {
-                align: 'right'
-            });
-            // 7. Signature Placeholder at the bottom-right.
-            const signY = height - 100;
-            const signX = width - 200;
-            doc.moveTo(signX, signY).lineTo(signX + 100, signY).stroke('#333333');
-            doc.font('Helvetica').fontSize(10).text('Authorized Signature', signX, signY + 5, {
-                align: 'center',
-                width: 100
-            });
-            // 8. Add GetCertify Stamp.
-            const stampDiameter = 100;
-            const stampX = 50; // Adjust as needed.
-            const stampY = height - stampDiameter - 50; // Adjust as needed.
-            doc.circle(stampX + stampDiameter / 2, stampY + stampDiameter / 2, stampDiameter / 2).lineWidth(2).stroke('#003366');
-            doc.circle(stampX + stampDiameter / 2, stampY + stampDiameter / 2, stampDiameter / 2).fillOpacity(0.1).fill('#003366');
-            doc.fillOpacity(1);
-            doc.font('Helvetica-Bold').fontSize(14).fillColor('#003366').text('GetCertify', stampX, stampY + stampDiameter / 2 - 7, {
-                width: stampDiameter,
-                align: 'center'
-            });
-            // Finalize and end the PDF stream.
-            doc.end();
-            console.log('Certificate PDF generated successfully.');
+            return res.status(200).json(certificate);
         } catch (error) {
             console.error('Certificate generation error:', error);
             return res.status(500).json({

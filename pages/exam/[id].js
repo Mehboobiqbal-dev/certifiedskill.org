@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import AntiCheating from "../../components/AntiCheating";
 import { useSession } from "next-auth/react";
+import { toast } from "sonner"; // Formal toast notifications
 
 // Import NextAuth server-side helper and your auth options
 import { getServerSession } from "next-auth/next";
@@ -36,8 +37,7 @@ export default function ExamPage({ exam }) {
       setQuestionTimeLeft((prevTime) => {
         if (prevTime <= 1) {
           if (currentQuestionIndex === exam.questions.length - 1) {
-            // For the last question, if time expires, auto-submit.
-            handleSubmit();
+            handleSubmit(); // Auto-submit on last question
             return 0;
           } else {
             proceedToNextQuestion();
@@ -51,7 +51,7 @@ export default function ExamPage({ exam }) {
     return () => clearInterval(timer);
   }, [submitted, currentQuestionIndex]);
 
-  // Proceed to next question (only for non-final questions).
+  // Proceed to next question (for non-final questions).
   const proceedToNextQuestion = () => {
     setTimeTaken((prev) => prev + (QUESTION_TIME - questionTimeLeft));
 
@@ -59,7 +59,6 @@ export default function ExamPage({ exam }) {
       setCurrentQuestionIndex((prev) => prev + 1);
       setQuestionTimeLeft(QUESTION_TIME);
     }
-    // Do not auto-submit on the last question.
   };
 
   // Called when the user selects an option.
@@ -69,14 +68,13 @@ export default function ExamPage({ exam }) {
       [currentQuestionIndex]: selectedOption,
     }));
 
-    // Auto-advance if this is not the final question.
+    // Auto-advance if not the final question.
     if (currentQuestionIndex < exam.questions.length - 1) {
       proceedToNextQuestion();
     }
-    // On last question, simply record the answer.
   };
 
-  // Manual submit handler used on the “Submit” button.
+  // Manual submit handler for the "Submit" button.
   const handleSubmitClick = () => {
     handleSubmit();
   };
@@ -180,6 +178,7 @@ export default function ExamPage({ exam }) {
 
 async function onExamSubmit(resultData) {
   try {
+    // Submit the exam results
     const resultRes = await fetch("/api/exams/result", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -188,11 +187,13 @@ async function onExamSubmit(resultData) {
     });
     const resultJson = await resultRes.json();
     if (!resultRes.ok) {
+      toast.error("There was an error submitting your exam results. Please try again later.");
       console.error(resultJson.message);
       return;
     }
 
     if (resultData.passed) {
+      toast.success("Congratulations! You have passed the exam. Your certificate is being generated.");
       const certRes = await fetch("/api/certificate/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -205,19 +206,20 @@ async function onExamSubmit(resultData) {
         }),
         cache: "no-store",
       });
-      // Since the certificate is a PDF, open it in a new window.
       if (certRes.ok) {
         const blob = await certRes.blob();
         const blobUrl = window.URL.createObjectURL(blob);
         window.open(blobUrl, "_blank");
       } else {
         const certJson = await certRes.json();
+        toast.error("An error occurred while generating your certificate. Please try again later.");
         console.error(certJson.message);
       }
     } else {
-      alert("You did not pass the exam.");
+      toast.error("Regretfully, you did not pass the exam. Kindly review your responses and consider retaking the exam.");
     }
   } catch (error) {
+    toast.error("An unexpected error occurred during submission. Please contact support.");
     console.error("Submission error:", error);
   }
 }

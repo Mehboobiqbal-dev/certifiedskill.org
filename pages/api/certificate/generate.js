@@ -47,48 +47,32 @@ export default async function handler(req, res) {
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', 'inline; filename="certificate.pdf"');
 
-    // Create a new PDF document with landscape orientation.
     const doc = new PDFDocument({
       size: 'A4',
       layout: 'landscape',
       margins: { top: 50, bottom: 50, left: 50, right: 50 }
     });
-
-    // Pipe the PDF document directly to the response.
+    
     doc.pipe(res);
-
-    // Get page dimensions.
+    
     const { width, height } = doc.page;
+    
+    doc.rect(0, 0, width, height).fill('#ffffff');
+    doc.rect(40, 40, width - 80, height - 80).lineWidth(2).stroke('#333333');
 
-    // --- Professional Certificate Design ---
-
-    // 1. Background & Border:
-    doc.rect(0, 0, width, height).fill('#ffffff'); // White background.
-    doc.rect(40, 40, width - 80, height - 80)
-      .lineWidth(2)
-      .stroke('#333333'); // Clean, modern border.
-
-    // 2. Header: Brand Information.
     doc.fillColor('#333333')
       .font('Helvetica-Bold')
       .fontSize(20)
       .text('CertifiedSkill.org', 0, 60, { align: 'center' });
     doc.font('Helvetica')
       .fontSize(12)
-      .text('Your trusted partner in professional certifications', {
-        align: 'center'
-      });
+      .text('Your trusted partner in professional certifications', { align: 'center' });
 
-    // 3. Certificate Title.
     doc.moveDown(2);
     doc.font('Helvetica-Bold')
       .fontSize(36)
-      .text('Certificate of Achievement', {
-        align: 'center',
-        underline: true
-      });
+      .text('Certificate of Achievement', { align: 'center', underline: true });
 
-    // 4. Certificate Details.
     doc.moveDown(1.5);
     doc.font('Helvetica')
       .fontSize(18)
@@ -96,7 +80,7 @@ export default async function handler(req, res) {
     doc.moveDown(0.5);
     doc.font('Helvetica-Bold')
       .fontSize(28)
-      .text(userName, { align: 'center' });
+      .text(certificate.userName, { align: 'center' });
     doc.moveDown(0.5);
     doc.font('Helvetica')
       .fontSize(18)
@@ -104,81 +88,39 @@ export default async function handler(req, res) {
     doc.moveDown(0.5);
     doc.font('Helvetica-Bold')
       .fontSize(24)
-      .text(examName, { align: 'center' });
+      .text(certificate.examName, { align: 'center' });
 
-    // 5. Authenticity Assurance Text.
     doc.moveDown(1.5);
     doc.font('Helvetica')
       .fontSize(14)
-      .text(
-        'This is an authentic certificate digitally issued by CertifiedSkill.org.',
-        { align: 'center' }
-      );
-    doc.text(
-      'Visit CertifiedSkill.org.com to verify its authenticity.',
-      { align: 'center' }
-    );
+      .text('This is an authentic certificate digitally issued by CertifiedSkill.org.', { align: 'center' });
+    doc.text('Visit CertifiedSkill.org.com to verify its authenticity.', { align: 'center' });
 
-    // 6. Footer Details.
     const issuedOn = new Date(certificate.issuedAt).toLocaleDateString();
-    // Display Certificate ID on the bottom left:
     doc.font('Helvetica')
       .fontSize(10)
-      .text(`Certificate ID: ${certificate.certificateId}`, 50, height - 70, {
-        align: 'left'
-      });
-    // Display issued date on the bottom right.
+      .text(`Certificate ID: ${certificate.certificateId}`, 50, height - 70, { align: 'left' });
     doc.font('Helvetica')
       .fontSize(10)
-      .text(`Issued on: ${issuedOn}`, -50, height - 70, {
-        align: 'right'
-      });
+      .text(`Issued on: ${issuedOn}`, -50, height - 70, { align: 'right' });
 
-    // 7. Signature Placeholder at the bottom-right.
+    // Signature Section
     const signY = height - 100;
     const signX = width - 200;
-    doc.moveTo(signX, signY)
-      .lineTo(signX + 100, signY)
-      .stroke('#333333');
+    const signaturePath = path.join(process.cwd(), 'public/image.png');
+
+    if (fs.existsSync(signaturePath)) {
+      doc.image(signaturePath, signX, signY - 40, { width: 100, height: 50 });
+    }
+
+    doc.moveTo(signX, signY).lineTo(signX + 100, signY).stroke('#333333');
     doc.font('Helvetica')
       .fontSize(10)
-      .text('Authorized Signature', signX, signY + 5, {
-        align: 'center',
-        width: 100
-      });
-      
-    // 8. Add GetCertify Stamp.
-    // We'll draw a circular stamp on the bottom left.
-    const stampDiameter = 100;
-    const stampX = 50; // Adjust X coordinate as needed.
-    const stampY = height - stampDiameter - 50; // Adjust Y coordinate as needed.
+      .text('Authorized Signature', signX, signY + 5, { align: 'center', width: 100 });
 
-    // Draw the circular border.
-    doc.circle(stampX + stampDiameter / 2, stampY + stampDiameter / 2, stampDiameter / 2)
-       .lineWidth(2)
-       .stroke('#003366');
-       
-    // Fill the circle with a semi-transparent fill.
-    doc.circle(stampX + stampDiameter / 2, stampY + stampDiameter / 2, stampDiameter / 2)
-       .fillOpacity(0.1)
-       .fill('#003366');
-
-    // Restore full opacity for text.
-    doc.fillOpacity(1);
-
-    // Add the stamp text "GetCertify" inside the circle.
-    doc.font('Helvetica-Bold')
-       .fontSize(14)
-       .fillColor('#003366')
-       .text('GetCertify', stampX, stampY + stampDiameter / 2 - 7, {
-         width: stampDiameter,
-         align: 'center'
-       });
-      
-    // Finalize the PDF and end the stream.
     doc.end();
   } catch (error) {
-    console.error("Certificate generation error:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+    console.error('Error verifying certificate:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 }

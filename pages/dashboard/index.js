@@ -1,6 +1,7 @@
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import Header from "../Header";
 
 export default function Dashboard() {
@@ -17,11 +18,9 @@ export default function Dashboard() {
     }
   }, [status, router]);
 
-  // Fetch certificates when session loads
+  // Fetch certificates and exams when session loads
   useEffect(() => {
     if (status === "authenticated" && session) {
-      // Use session.user.id if available, otherwise fallback to session.user.email.
-      // Adjust this logic to match your session shape.
       const fetchUrl = session.user.id 
         ? `/api/certificates?userId=${session.user.id}` 
         : `/api/certificates?userEmail=${session.user.email}`;
@@ -38,7 +37,7 @@ export default function Dashboard() {
           setLoading(false);
         });
 
-      // Fetch exams if needed
+      // Fetch exams
       fetch("/api/exams", { cache: "no-store" })
         .then((res) => res.json())
         .then((data) => {
@@ -81,8 +80,7 @@ export default function Dashboard() {
                     Certificate for: {certificate.examName}
                   </p>
                   <p className="text-sm text-gray-500">
-                    Issued on:{" "}
-                    {new Date(certificate.issuedAt).toLocaleDateString()}
+                    Issued on: {new Date(certificate.issuedAt).toLocaleDateString()}
                   </p>
                   <p className="text-sm text-gray-500">
                     Certificate ID: {certificate.certificateId}
@@ -101,7 +99,7 @@ export default function Dashboard() {
           )}
         </section>
 
-        {/* Optional: Exams Section */}
+        {/* Exams Section */}
         <section className="mt-8">
           <h2 className="text-2xl font-semibold">Your Exams</h2>
           {exams.length === 0 ? (
@@ -112,11 +110,15 @@ export default function Dashboard() {
             <ul className="mt-4 space-y-4">
               {exams.map((exam) => (
                 <li key={exam._id} className="border p-4 rounded shadow hover:bg-gray-50">
-                  <p className="text-lg font-medium text-indigo-600">{exam.title}</p>
-                  <p className="text-sm text-gray-500">
-                    Scheduled: {new Date(exam.startTime).toLocaleDateString()} -{" "}
-                    {new Date(exam.endTime).toLocaleDateString()}
-                  </p>
+                  <Link href={`/exam/${exam._id}`} className="block">
+                    <div className="flex justify-between items-center">
+                      <p className="text-lg font-medium text-indigo-600">{exam.title}</p>
+                      <button className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition">
+                        Take Exam
+                      </button>
+                    </div>
+                    <p className="mt-1 text-sm text-gray-500">Available Anytime</p>
+                  </Link>
                 </li>
               ))}
             </ul>
