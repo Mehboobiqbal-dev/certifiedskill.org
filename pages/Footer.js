@@ -10,6 +10,14 @@ const Footer = () => {
         </p>
         <nav>
           <Link
+            href="/careers"
+            className="text-sm font-medium hover:underline"
+          >
+            Careers
+          </Link>
+        </nav>
+        <nav>
+          <Link
             href="/privacy"
             className="text-sm font-medium hover:underline"
           >
