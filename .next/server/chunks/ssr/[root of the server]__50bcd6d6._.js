@@ -2,7 +2,7 @@ module.exports = {
 
 "[externals]/next/dist/compiled/next-server/pages.runtime.dev.js [external] (next/dist/compiled/next-server/pages.runtime.dev.js, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("next/dist/compiled/next-server/pages.runtime.dev.js", () => require("next/dist/compiled/next-server/pages.runtime.dev.js"));
 
@@ -10,7 +10,7 @@ module.exports = mod;
 }}),
 "[externals]/react/jsx-dev-runtime [external] (react/jsx-dev-runtime, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("react/jsx-dev-runtime", () => require("react/jsx-dev-runtime"));
 
@@ -18,7 +18,7 @@ module.exports = mod;
 }}),
 "[externals]/react/jsx-runtime [external] (react/jsx-runtime, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("react/jsx-runtime", () => require("react/jsx-runtime"));
 
@@ -26,7 +26,7 @@ module.exports = mod;
 }}),
 "[externals]/react [external] (react, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("react", () => require("react"));
 
@@ -34,7 +34,7 @@ module.exports = mod;
 }}),
 "[externals]/path [external] (path, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("path", () => require("path"));
 
@@ -42,7 +42,7 @@ module.exports = mod;
 }}),
 "[externals]/next/dist/compiled/@opentelemetry/api [external] (next/dist/compiled/@opentelemetry/api, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("next/dist/compiled/@opentelemetry/api", () => require("next/dist/compiled/@opentelemetry/api"));
 
@@ -51,7 +51,7 @@ module.exports = mod;
 "[project]/pages/_document.js [ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname } = __turbopack_context__;
+var { g: global, __dirname } = __turbopack_context__;
 {
 // /pages/_document.js
 __turbopack_context__.s({
@@ -117,7 +117,7 @@ function Document() {
 }}),
 "[externals]/next-auth/react [external] (next-auth/react, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("next-auth/react", () => require("next-auth/react"));
 
@@ -126,7 +126,7 @@ module.exports = mod;
 "[externals]/sonner [external] (sonner, esm_import)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
+var { g: global, __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
 __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 const mod = await __turbopack_context__.y("sonner");
 
@@ -136,7 +136,7 @@ __turbopack_async_result__();
 "[project]/pages/_app.js [ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
+var { g: global, __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
 __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 __turbopack_context__.s({
     "default": (()=>MyApp)

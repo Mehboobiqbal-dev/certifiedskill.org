@@ -3,7 +3,7 @@
 "[turbopack]/browser/dev/hmr-client/hmr-client.ts [client] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname } = __turbopack_context__;
+var { g: global, __dirname } = __turbopack_context__;
 {
 /// <reference path="../../../shared/runtime-types.d.ts" />
 /// <reference path="../../runtime/base/dev-globals.d.ts" />
@@ -413,9 +413,9 @@ function finalizeUpdate() {
         globalThis.__NEXT_HMR_CB = null;
     }
 }
-function subscribeToChunkUpdate(chunkPath, sendMessage, callback) {
+function subscribeToChunkUpdate(chunkListPath, sendMessage, callback) {
     return subscribeToUpdate({
-        path: chunkPath
+        path: chunkListPath
     }, sendMessage, callback);
 }
 function subscribeToUpdate(resource, sendMessage, callback) {
@@ -465,7 +465,7 @@ function triggerUpdate(msg) {
 "[project]/lib/utils.ts [client] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
+var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
 __turbopack_context__.s({
     "cn": (()=>cn)
@@ -484,7 +484,7 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 "[project]/components/ui/avatar.tsx [client] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
+var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
 __turbopack_context__.s({
     "Avatar": (()=>Avatar),
@@ -548,7 +548,7 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 "[project]/components/ui/dropdown-menu.tsx [client] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
+var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
 __turbopack_context__.s({
     "DropdownMenu": (()=>DropdownMenu),
@@ -776,7 +776,7 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 "[project]/components/user-button.tsx [client] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
+var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
 __turbopack_context__.s({
     "default": (()=>__TURBOPACK__default__export__)
@@ -944,7 +944,7 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 "[project]/pages/Header.jsx [client] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
+var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
 __turbopack_context__.s({
     "default": (()=>__TURBOPACK__default__export__)
@@ -1088,7 +1088,7 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 "[project]/pages/Footer.js [client] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
+var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
 // components/Footer.jsx
 __turbopack_context__.s({
@@ -1169,7 +1169,7 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 "[project]/pages/index.js [client] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
+var { g: global, __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
 // pages/index.js
 __turbopack_context__.s({
@@ -1577,7 +1577,7 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 }}),
 "[next]/entry/page-loader.ts { PAGE => \"[project]/pages/index.js [client] (ecmascript)\" } [client] (ecmascript)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const PAGE_PATH = "/";
 (window.__NEXT_P = window.__NEXT_P || []).push([
@@ -1599,7 +1599,7 @@ if (module.hot) {
 "[project]/pages/index (hmr-entry)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, m: module } = __turbopack_context__;
+var { g: global, __dirname, m: module } = __turbopack_context__;
 {
 __turbopack_context__.r("[next]/entry/page-loader.ts { PAGE => \"[project]/pages/index.js [client] (ecmascript)\" } [client] (ecmascript)");
 }}),

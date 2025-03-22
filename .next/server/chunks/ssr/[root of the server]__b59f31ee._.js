@@ -2,7 +2,7 @@ module.exports = {
 
 "[externals]/next/dist/compiled/next-server/pages.runtime.dev.js [external] (next/dist/compiled/next-server/pages.runtime.dev.js, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("next/dist/compiled/next-server/pages.runtime.dev.js", () => require("next/dist/compiled/next-server/pages.runtime.dev.js"));
 
@@ -10,7 +10,7 @@ module.exports = mod;
 }}),
 "[externals]/react/jsx-dev-runtime [external] (react/jsx-dev-runtime, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("react/jsx-dev-runtime", () => require("react/jsx-dev-runtime"));
 
@@ -18,7 +18,7 @@ module.exports = mod;
 }}),
 "[externals]/react/jsx-runtime [external] (react/jsx-runtime, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("react/jsx-runtime", () => require("react/jsx-runtime"));
 
@@ -26,7 +26,7 @@ module.exports = mod;
 }}),
 "[externals]/react [external] (react, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("react", () => require("react"));
 
@@ -34,7 +34,7 @@ module.exports = mod;
 }}),
 "[externals]/path [external] (path, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("path", () => require("path"));
 
@@ -42,7 +42,7 @@ module.exports = mod;
 }}),
 "[externals]/next/dist/compiled/@opentelemetry/api [external] (next/dist/compiled/@opentelemetry/api, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("next/dist/compiled/@opentelemetry/api", () => require("next/dist/compiled/@opentelemetry/api"));
 
@@ -51,7 +51,7 @@ module.exports = mod;
 "[project]/pages/_document.js [ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname } = __turbopack_context__;
+var { g: global, __dirname } = __turbopack_context__;
 {
 // /pages/_document.js
 __turbopack_context__.s({
@@ -117,7 +117,7 @@ function Document() {
 }}),
 "[externals]/next-auth/react [external] (next-auth/react, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("next-auth/react", () => require("next-auth/react"));
 
@@ -126,7 +126,7 @@ module.exports = mod;
 "[externals]/sonner [external] (sonner, esm_import)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
+var { g: global, __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
 __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 const mod = await __turbopack_context__.y("sonner");
 
@@ -136,7 +136,7 @@ __turbopack_async_result__();
 "[project]/pages/_app.js [ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
+var { g: global, __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
 __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 __turbopack_context__.s({
     "default": (()=>MyApp)
@@ -181,7 +181,7 @@ __turbopack_async_result__();
 } catch(e) { __turbopack_async_result__(e); } }, false);}),
 "[externals]/next/head.js [external] (next/head.js, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("next/head.js", () => require("next/head.js"));
 
@@ -190,7 +190,7 @@ module.exports = mod;
 "[externals]/@radix-ui/react-avatar [external] (@radix-ui/react-avatar, esm_import)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
+var { g: global, __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
 __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 const mod = await __turbopack_context__.y("@radix-ui/react-avatar");
 
@@ -200,7 +200,7 @@ __turbopack_async_result__();
 "[externals]/clsx [external] (clsx, esm_import)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
+var { g: global, __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
 __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 const mod = await __turbopack_context__.y("clsx");
 
@@ -210,7 +210,7 @@ __turbopack_async_result__();
 "[externals]/tailwind-merge [external] (tailwind-merge, esm_import)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
+var { g: global, __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
 __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 const mod = await __turbopack_context__.y("tailwind-merge");
 
@@ -220,7 +220,7 @@ __turbopack_async_result__();
 "[project]/lib/utils.ts [ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
+var { g: global, __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
 __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 __turbopack_context__.s({
     "cn": (()=>cn)
@@ -242,7 +242,7 @@ __turbopack_async_result__();
 "[project]/components/ui/avatar.tsx [ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
+var { g: global, __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
 __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 __turbopack_context__.s({
     "Avatar": (()=>Avatar),
@@ -299,7 +299,7 @@ __turbopack_async_result__();
 "[externals]/@radix-ui/react-dropdown-menu [external] (@radix-ui/react-dropdown-menu, esm_import)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
+var { g: global, __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
 __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 const mod = await __turbopack_context__.y("@radix-ui/react-dropdown-menu");
 
@@ -309,7 +309,7 @@ __turbopack_async_result__();
 "[project]/components/ui/dropdown-menu.tsx [ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
+var { g: global, __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
 __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 __turbopack_context__.s({
     "DropdownMenu": (()=>DropdownMenu),
@@ -512,7 +512,7 @@ __turbopack_async_result__();
 } catch(e) { __turbopack_async_result__(e); } }, false);}),
 "[externals]/next/dist/server/app-render/action-async-storage.external.js [external] (next/dist/server/app-render/action-async-storage.external.js, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("next/dist/server/app-render/action-async-storage.external.js", () => require("next/dist/server/app-render/action-async-storage.external.js"));
 
@@ -520,7 +520,7 @@ module.exports = mod;
 }}),
 "[externals]/next/dist/server/app-render/work-unit-async-storage.external.js [external] (next/dist/server/app-render/work-unit-async-storage.external.js, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("next/dist/server/app-render/work-unit-async-storage.external.js", () => require("next/dist/server/app-render/work-unit-async-storage.external.js"));
 
@@ -528,7 +528,7 @@ module.exports = mod;
 }}),
 "[externals]/next/dist/server/app-render/work-async-storage.external.js [external] (next/dist/server/app-render/work-async-storage.external.js, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("next/dist/server/app-render/work-async-storage.external.js", () => require("next/dist/server/app-render/work-async-storage.external.js"));
 
@@ -537,7 +537,7 @@ module.exports = mod;
 "[project]/components/user-button.tsx [ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
+var { g: global, __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
 __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 __turbopack_context__.s({
     "default": (()=>__TURBOPACK__default__export__)
@@ -697,7 +697,7 @@ __turbopack_async_result__();
 "[project]/pages/Header.jsx [ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
+var { g: global, __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
 __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 __turbopack_context__.s({
     "default": (()=>__TURBOPACK__default__export__)
@@ -825,7 +825,7 @@ __turbopack_async_result__();
 "[project]/pages/Footer.js [ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname } = __turbopack_context__;
+var { g: global, __dirname } = __turbopack_context__;
 {
 // components/Footer.jsx
 __turbopack_context__.s({
@@ -900,7 +900,7 @@ const __TURBOPACK__default__export__ = Footer;
 "[project]/pages/index.js [ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
+var { g: global, __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
 __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 // pages/index.js
 __turbopack_context__.s({

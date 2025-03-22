@@ -2,7 +2,7 @@ module.exports = {
 
 "[externals]/path [external] (path, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("path", () => require("path"));
 
@@ -10,7 +10,7 @@ module.exports = mod;
 }}),
 "[externals]/url [external] (url, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("url", () => require("url"));
 
@@ -18,7 +18,7 @@ module.exports = mod;
 }}),
 "[externals]/fs [external] (fs, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("fs", () => require("fs"));
 
@@ -27,7 +27,7 @@ module.exports = mod;
 "[project]/postcss.config.mjs [postcss] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname } = __turbopack_context__;
+var { g: global, __dirname } = __turbopack_context__;
 {
 __turbopack_context__.s({
     "default": (()=>__TURBOPACK__default__export__)
@@ -42,7 +42,7 @@ const __TURBOPACK__default__export__ = config;
 "[project]/postcss.config.mjs/transform.ts { CONFIG => \"[project]/postcss.config.mjs [postcss] (ecmascript)\" } [postcss] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname } = __turbopack_context__;
+var { g: global, __dirname } = __turbopack_context__;
 {
 __turbopack_context__.s({
     "default": (()=>transform),

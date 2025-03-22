@@ -2,7 +2,7 @@ module.exports = {
 
 "[externals]/react/jsx-dev-runtime [external] (react/jsx-dev-runtime, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("react/jsx-dev-runtime", () => require("react/jsx-dev-runtime"));
 
@@ -10,7 +10,7 @@ module.exports = mod;
 }}),
 "[externals]/next-auth/react [external] (next-auth/react, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("next-auth/react", () => require("next-auth/react"));
 
@@ -19,7 +19,7 @@ module.exports = mod;
 "[externals]/sonner [external] (sonner, esm_import)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
+var { g: global, __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
 __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 const mod = await __turbopack_context__.y("sonner");
 
@@ -29,7 +29,7 @@ __turbopack_async_result__();
 "[project]/pages/_app.js [ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
+var { g: global, __dirname, a: __turbopack_async_module__ } = __turbopack_context__;
 __turbopack_async_module__(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 __turbopack_context__.s({
     "default": (()=>MyApp)

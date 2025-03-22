@@ -3,7 +3,7 @@
 "[turbopack]/browser/dev/hmr-client/hmr-client.ts [app-client] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname } = __turbopack_context__;
+var { g: global, __dirname } = __turbopack_context__;
 {
 /// <reference path="../../../shared/runtime-types.d.ts" />
 /// <reference path="../../runtime/base/dev-globals.d.ts" />
@@ -413,9 +413,9 @@ function finalizeUpdate() {
         globalThis.__NEXT_HMR_CB = null;
     }
 }
-function subscribeToChunkUpdate(chunkPath, sendMessage, callback) {
+function subscribeToChunkUpdate(chunkListPath, sendMessage, callback) {
     return subscribeToUpdate({
-        path: chunkPath
+        path: chunkListPath
     }, sendMessage, callback);
 }
 function subscribeToUpdate(resource, sendMessage, callback) {

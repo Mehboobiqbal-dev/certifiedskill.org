@@ -2,14 +2,14 @@ module.exports = {
 
 "[turbopack-node]/globals.ts [postcss] (ecmascript)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 // @ts-ignore
 process.turbopack = {};
 }}),
 "[externals]/node:net [external] (node:net, cjs)": (function(__turbopack_context__) {
 
-var { g: global, d: __dirname, m: module, e: exports } = __turbopack_context__;
+var { g: global, __dirname, m: module, e: exports } = __turbopack_context__;
 {
 const mod = __turbopack_context__.x("node:net", () => require("node:net"));
 
@@ -18,7 +18,7 @@ module.exports = mod;
 "[turbopack-node]/compiled/stacktrace-parser/index.js [postcss] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname } = __turbopack_context__;
+var { g: global, __dirname } = __turbopack_context__;
 {
 __turbopack_context__.s({
     "parse": (()=>parse)
@@ -128,7 +128,7 @@ function parseNode(e) {
 "[turbopack-node]/ipc/error.ts [postcss] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname } = __turbopack_context__;
+var { g: global, __dirname } = __turbopack_context__;
 {
 // merged from next.js
 // https://github.com/vercel/next.js/blob/e657741b9908cf0044aaef959c0c4defb19ed6d8/packages/next/src/lib/is-error.ts
@@ -178,7 +178,7 @@ function isPlainObject(value) {
 "[turbopack-node]/ipc/index.ts [postcss] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname } = __turbopack_context__;
+var { g: global, __dirname } = __turbopack_context__;
 {
 __turbopack_context__.s({
     "IPC": (()=>IPC),
@@ -378,7 +378,7 @@ improveConsole("assert", "stderr", true);
 "[turbopack-node]/ipc/evaluate.ts [postcss] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname } = __turbopack_context__;
+var { g: global, __dirname } = __turbopack_context__;
 {
 __turbopack_context__.s({
     "run": (()=>run)
@@ -485,7 +485,7 @@ const run = async (moduleFactory)=>{
 "[turbopack-node]/ipc/evaluate.ts/evaluate.js { INNER => \"[project]/postcss.config.mjs/transform.ts { CONFIG => \\\"[project]/postcss.config.mjs [postcss] (ecmascript)\\\" } [postcss] (ecmascript)\", RUNTIME => \"[turbopack-node]/ipc/evaluate.ts [postcss] (ecmascript)\" } [postcss] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
-var { g: global, d: __dirname } = __turbopack_context__;
+var { g: global, __dirname } = __turbopack_context__;
 {
 __turbopack_context__.s({});
 var __TURBOPACK__imported__module__$5b$turbopack$2d$node$5d2f$ipc$2f$evaluate$2e$ts__$5b$postcss$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[turbopack-node]/ipc/evaluate.ts [postcss] (ecmascript)");
