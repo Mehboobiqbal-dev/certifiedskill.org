@@ -20,7 +20,7 @@
     "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "face-api.js": "^0.22.2",
+    "face-api.js": "^0.20.0",
     "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.479.0",
@@ -38,7 +38,7 @@
     "sonner": "^2.0.1",
     "tailwind-merge": "^3.0.2",
     "uuid": "^11.1.0",
-    "vercel": "^41.4.1"
+    "vercel": "^25.2.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
