@@ -47,9 +47,69 @@ export default function CareersPage() {
         <title>Volunteer Opportunities | CertifiedSkill.org</title>
         <meta
           name="description"
-          content="Apply to volunteer as a Frontend Developer, Backend Developer, or Exam Creator/Professor at CertifiedSkill.org. Join our mission to democratize education."
+          content="Apply to volunteer as a Frontend Developer, Backend Developer, or Exam Creator/Professor at CertifiedSkill.org. Join our mission to democratize education and gain valuable experience."
         />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="canonical" href="https://certifiedskill.org/careers" />
+        <meta name="robots" content="index, follow" />
+
+        {/* OpenGraph Tags */}
+        <meta property="og:title" content="Volunteer Opportunities | CertifiedSkill.org" />
+        <meta
+          property="og:description"
+          content="Apply to volunteer as a Frontend Developer, Backend Developer, or Exam Creator/Professor at CertifiedSkill.org. Join our mission to democratize education and gain valuable experience."
+        />
+        <meta property="og:url" content="https://certifiedskill.org/careers" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://certifiedskill.org/og-image-volunteer.jpg" />
+
+        {/* Twitter Card Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Volunteer Opportunities | CertifiedSkill.org" />
+        <meta
+          name="twitter:description"
+          content="Apply to volunteer as a Frontend Developer, Backend Developer, or Exam Creator/Professor at CertifiedSkill.org. Join our mission to democratize education and gain valuable experience."
+        />
+        <meta name="twitter:image" content="https://certifiedskill.org/og-image-volunteer.jpg" />
+
+        {/* Structured Data: Job Posting Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org/",
+              "@type": "JobPosting",
+              "title": "Volunteer Opportunity",
+              "description":
+                "Volunteer positions available at CertifiedSkill.org for Frontend Developer, Backend Developer, and Exam Creator/Professor roles. Join our nonprofit mission to democratize education and gain valuable experience.",
+              "identifier": {
+                "@type": "PropertyValue",
+                "name": "CertifiedSkill.org",
+                "value": "volunteer-opportunity-001",
+              },
+              "datePosted": new Date().toISOString(),
+              "hiringOrganization": {
+                "@type": "Organization",
+                "name": "CertifiedSkill.org",
+                "sameAs": "https://certifiedskill.org",
+                "logo": "https://certifiedskill.org/logo.png",
+              },
+              "jobLocation": {
+                "@type": "Place",
+                "address": {
+                  "@type": "PostalAddress",
+                  "streetAddress": "Remote/Virtual",
+                  "addressLocality": "",
+                  "addressRegion": "",
+                  "postalCode": "",
+                  "addressCountry": "Worldwide",
+                },
+              },
+              "employmentType": "VOLUNTEER",
+              "incentiveCompensation": "Unpaid",
+            }),
+          }}
+        />
       </Head>
       <div className="min-h-screen bg-gray-50">
         {/* Header */}
@@ -60,9 +120,7 @@ export default function CareersPage() {
             Volunteer Opportunities
           </h1>
           <p className="text-lg text-gray-700 mb-6">
-            CertifiedSkill.org is a nonprofit organization committed to
-            democratizing education. We are looking for passionate volunteers to
-            join our team in the following roles:
+            CertifiedSkill.org is a nonprofit organization committed to democratizing education. We are looking for passionate volunteers to join our team in the following roles:
           </p>
 
           <div className="space-y-4 mb-8">
@@ -71,9 +129,7 @@ export default function CareersPage() {
                 Frontend Developer
               </h2>
               <p className="text-gray-600">
-                Help create a responsive and intuitive user interface using
-                modern web technologies (React/Next.js, Tailwind CSS) to make our
-                platform accessible and engaging.
+                Help create a responsive and intuitive user interface using modern web technologies (React/Next.js, Tailwind CSS) to make our platform accessible and engaging.
               </p>
             </div>
             <div className="p-4 bg-white rounded shadow">
@@ -81,9 +137,7 @@ export default function CareersPage() {
                 Backend Developer
               </h2>
               <p className="text-gray-600">
-                Contribute to building robust APIs and server-side functionality
-                using Node.js, Next.js API routes, and database management to
-                ensure our platform performs reliably.
+                Contribute to building robust APIs and server-side functionality using Node.js, Next.js API routes, and database management to ensure our platform performs reliably.
               </p>
             </div>
             <div className="p-4 bg-white rounded shadow">
@@ -91,17 +145,13 @@ export default function CareersPage() {
                 Exam Creator / Professor
               </h2>
               <p className="text-gray-600">
-                Assist in designing and curating exam content that is both
-                comprehensive and effective—ideal for seasoned educators and
-                professionals passionate about teaching.
+                Assist in designing and curating exam content that is both comprehensive and effective—ideal for seasoned educators and professionals passionate about teaching.
               </p>
             </div>
           </div>
 
           <p className="text-lg text-gray-700 mb-6">
-            Please note that all volunteer opportunities at CertifiedSkill.org
-            are unpaid. We appreciate your dedication and commitment to our
-            mission.
+            Please note that all volunteer opportunities at CertifiedSkill.org are unpaid. We appreciate your dedication and commitment to our mission.
           </p>
 
           <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">
@@ -151,15 +201,9 @@ export default function CareersPage() {
                 className="mt-1 p-2 w-full border rounded"
               >
                 <option value="">-- Choose a Role --</option>
-                <option value="frontend-developer">
-                  Volunteer Frontend Developer
-                </option>
-                <option value="backend-developer">
-                  Volunteer Backend Developer
-                </option>
-                <option value="exam-creator">
-                  Volunteer Exam Creator / Professor
-                </option>
+                <option value="frontend-developer">Volunteer Frontend Developer</option>
+                <option value="backend-developer">Volunteer Backend Developer</option>
+                <option value="exam-creator">Volunteer Exam Creator / Professor</option>
               </select>
             </div>
             <div className="mb-4">

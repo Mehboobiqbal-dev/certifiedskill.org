@@ -29,6 +29,91 @@ export default function FAQTermsPage() {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="canonical" href="https://certifiedskill.org/faq-tc" />
+        <meta name="robots" content="index, follow" />
+
+        {/* Preload Critical Asset */}
+        <link
+          rel="preload"
+          href="/og-image-faq.jpg"
+          as="image"
+          type="image/jpeg"
+        />
+
+        {/* OpenGraph Tags */}
+        <meta
+          property="og:title"
+          content="FAQ & Terms and Conditions | CertifiedSkill.org"
+        />
+        <meta
+          property="og:description"
+          content="Find answers to frequently asked questions and review our Terms and Conditions at CertifiedSkill.org."
+        />
+        <meta property="og:url" content="https://certifiedskill.org/faq-tc" />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:image"
+          content="https://certifiedskill.org/og-image-faq.jpg"
+        />
+
+        {/* Twitter Card Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="FAQ & Terms and Conditions | CertifiedSkill.org"
+        />
+        <meta
+          name="twitter:description"
+          content="Find answers to frequently asked questions and review our Terms and Conditions at CertifiedSkill.org."
+        />
+        <meta
+          name="twitter:image"
+          content="https://certifiedskill.org/og-image-faq.jpg"
+        />
+
+        {/* JSON‑LD Structured Data for FAQ Page */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "What does CertifiedSkill.org offer?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "We provide free certification programs and exams to help you showcase your skills and advance your career."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Who is eligible to participate?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Anyone with a passion for learning is welcome. Our programs are designed for individuals seeking to validate their skills through free certifications."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "How do I register for a course or exam?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Simply click on the 'Sign Up' button on our homepage, create an account, and browse our available certification programs."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Is there any cost associated with the certifications?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. All our certification programs and exams are completely free."
+                  }
+                }
+              ]
+            }),
+          }}
+        />
       </Head>
 
       <div className="min-h-screen bg-gray-50">

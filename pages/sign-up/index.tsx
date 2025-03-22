@@ -91,6 +91,14 @@ const SignUp = () => {
         <link rel="canonical" href="https://certifiedskill.org/sign-up" />
         <meta name="robots" content="index, follow" />
 
+        {/* Preload Critical Resource */}
+        <link
+          rel="preload"
+          href="/og-image-signup.jpg"
+          as="image"
+          type="image/jpeg"
+        />
+
         {/* OpenGraph Tags */}
         <meta property="og:title" content="Sign Up | CertifiedSkill.org" />
         <meta
@@ -98,7 +106,10 @@ const SignUp = () => {
           content="Create an account at CertifiedSkill.org using your email or sign in with Google or GitHub. Join us to access free certifications and grow your career."
         />
         <meta property="og:url" content="https://certifiedskill.org/sign-up" />
-        <meta property="og:image" content="https://certifiedskill.org/og-image-signup.jpg" />
+        <meta
+          property="og:image"
+          content="https://certifiedskill.org/og-image-signup.jpg"
+        />
         <meta property="og:type" content="website" />
 
         {/* Twitter Card Tags */}
@@ -108,7 +119,10 @@ const SignUp = () => {
           name="twitter:description"
           content="Create an account at CertifiedSkill.org using your email or sign in with Google or GitHub. Grow your career with our free certifications."
         />
-        <meta name="twitter:image" content="https://certifiedskill.org/og-image-signup.jpg" />
+        <meta
+          name="twitter:image"
+          content="https://certifiedskill.org/og-image-signup.jpg"
+        />
       </Head>
 
       <div className="min-h-screen flex items-center justify-center bg-[#1b0918] px-4">
