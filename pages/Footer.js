@@ -16,6 +16,14 @@ const Footer = () => {
             Privacy Policy
           </Link>
         </nav>
+        <nav>
+          <Link
+            href="/faq-tc"
+            className="text-sm font-medium hover:underline"
+          >
+            FAQ
+          </Link>
+        </nav>
       </div>
     </footer>
   );
