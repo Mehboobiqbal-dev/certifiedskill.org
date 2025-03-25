@@ -1,7 +1,8 @@
 // pages/index.js
+
 import Head from "next/head";
 import Link from "next/link";
-import Header from "./Header"; // Adjust path if using a components folder
+import Header from "./Header"; // updated path if using components folder
 import Footer from "./Footer";
 
 export default function Home() {
@@ -49,21 +50,19 @@ export default function Home() {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: `
-              {
-                "@context": "https://schema.org",
-                "@type": "Organization",
-                "name": "CertifiedSkill.org",
-                "url": "https://certifiedskill.org",
-                "logo": "https://certifiedskill.org/logo.png",
-                "description": "CertifiedSkill.org offers free certifications and exams to skilled individuals, helping you showcase your abilities and advance your career.",
-                "sameAs": [
-                  "https://facebook.com/certifiedskill",
-                  "https://twitter.com/certifiedskill",
-                  "https://linkedin.com/company/certifiedskill"
-                ]
-              }
-            `,
+            __html: `{
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "CertifiedSkill.org",
+              "url": "https://certifiedskill.org",
+              "logo": "https://certifiedskill.org/logo.png",
+              "description": "CertifiedSkill.org offers free certifications and exams to skilled individuals, helping you showcase your abilities and advance your career.",
+              "sameAs": [
+                "https://facebook.com/certifiedskill",
+                "https://twitter.com/certifiedskill",
+                "https://linkedin.com/company/certifiedskill"
+              ]
+            }`,
           }}
         />
 
@@ -71,83 +70,81 @@ export default function Home() {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: `
-              {
-                "@context": "https://schema.org",
-                "@type": "WebSite",
-                "url": "https://certifiedskill.org",
-                "name": "CertifiedSkill.org",
-                "potentialAction": {
-                  "@type": "SearchAction",
-                  "target": "https://certifiedskill.org/search?query={search_term_string}",
-                  "query-input": "required name=search_term_string"
-                }
+            __html: `{
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "url": "https://certifiedskill.org",
+              "name": "CertifiedSkill.org",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://certifiedskill.org/search?query={search_term_string}",
+                "query-input": "required name=search_term_string"
               }
-            `,
+            }`,
           }}
         />
       </Head>
 
-      <div className="min-h-screen bg-gray-900 flex flex-col">
-        {/* Header with glassmorphism */}
+      <div className="min-h-screen bg-gray-50">
+        {/* Header */}
         <Header />
 
-        <main className="flex-1">
-          {/* Hero Section */}
-          <section className="relative flex items-center justify-center h-screen overflow-hidden">
-            {/* Background Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-800 via-pink-600 to-red-600 opacity-90"></div>
-            {/* Hero Content */}
-            <div className="relative z-10 text-center max-w-3xl px-6 text-black">
-              <h1 className="text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-lg text-black">
-                Empower Your Future with Free Certifications
-              </h1>
-              <p className="text-xl md:text-2xl font-medium mb-8 drop-shadow-lg text-black">
-                Unlock your potential and set yourself apart. With our free certification exams and specialized training, 
-                we help you shine in your professional journey.
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
-                <Link
-                  href="/sign-up"
-                  className="bg-blue-500 hover:bg-blue-700 transition-all duration-300 text-black font-bold py-3 px-8 rounded shadow-lg transform hover:scale-105"
-                >
+        {/* Hero Section */}
+        <main className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+          <section className="text-center">
+            <h1 className="text-4xl font-extrabold text-gray-900">
+              Empowering Skilled Individuals through Free Certification Programs
+            </h1>
+            <p className="mt-4 text-lg text-gray-600">
+              CertifiedSkill.org is a non-profit organization dedicated to recognizing and rewarding talent. We offer
+              free certifications and certification free exams that help you showcase your skills and advance your
+              career.
+            </p>
+            <p className="mt-4 text-lg text-gray-600">
+              Our mission is to democratize access to quality credentials and support lifelong learning, ensuring that
+              every talented individual has the opportunity to succeed.
+            </p>
+
+            <div className="mt-8">
+              <Link href="/sign-up">
+                <span className="inline-block bg-blue-600 hover:bg-blue-700 text-black font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 cursor-pointer">
                   Get Started Today
-                </Link>
-                <Link
-                  href="/verify-certificate"
-                  className="bg-green-500 hover:bg-green-700 transition-all duration-300 text-black font-bold py-3 px-8 rounded shadow-lg transform hover:scale-105"
-                >
-                  Verify Certificate
-                </Link>
-              </div>
+                </span>
+              </Link>
+            </div>
+
+            <div className="mt-8">
+              <Link href="/verify-certificate">
+                <span className="inline-block bg-blue-600 hover:bg-blue-700 text-black font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 cursor-pointer">
+                  Verify your Certificate
+                </span>
+              </Link>
             </div>
           </section>
 
           {/* Features Section */}
-          <section className="py-16 bg-gray-800">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <h2 className="text-3xl font-bold text-center text-black mb-12">
-                Why Choose CertifiedSkill.org?
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="bg-gray-700 p-8 rounded-lg shadow hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                  <h3 className="text-2xl font-bold mb-4 text-black">Free Certification</h3>
-                  <p className="text-black">
-                    Access high-quality certification programs at no cost, boosting your career growth opportunities.
-                  </p>
-                </div>
-                <div className="bg-gray-700 p-8 rounded-lg shadow hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                  <h3 className="text-2xl font-bold mb-4 text-black">Career Advancement</h3>
-                  <p className="text-black">
-                    Our certifications open doors to new career opportunities and professional development avenues.
-                  </p>
-                </div>
-                <div className="bg-gray-700 p-8 rounded-lg shadow hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                  <h3 className="text-2xl font-bold mb-4 text-black">Lifelong Learning</h3>
-                  <p className="text-black">
-                    Continuous learning is at the heart of success. Our programs motivate you to unlock lifelong learning.
-                  </p>
-                </div>
+          <section className="mt-16">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="p-6 bg-white rounded-lg shadow">
+                <h3 className="text-2xl font-bold text-gray-800">Free Certification</h3>
+                <p className="mt-2 text-gray-600">
+                  Access our certification programs at no cost and enhance your professional profile.
+                </p>
+              </div>
+
+              <div className="p-6 bg-white rounded-lg shadow">
+                <h3 className="text-2xl font-bold text-gray-800">Empowering Careers</h3>
+                <p className="mt-2 text-gray-600">
+                  Our certificates help you stand out in the job market and open new career opportunities.
+                </p>
+              </div>
+
+              <div className="p-6 bg-white rounded-lg shadow">
+                <h3 className="text-2xl font-bold text-gray-800">Lifelong Learning</h3>
+                <p className="mt-2 text-gray-600">
+                  We promote continuous learning and skill development through our free courses and certification
+                  programs.
+                </p>
               </div>
             </div>
           </section>
