@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 43, "column": 0}, "map": {"version":3,"sources":["file:///home/user/get-certified/pages/_app.js"],"sourcesContent":["import \"../styles/globals.css\";\nimport { SessionProvider } from \"next-auth/react\";\nimport { Toaster } from \"sonner\";\nimport { Analytics } from \"@vercel/analytics/react\"\n\nexport default function MyApp({ Component, pageProps: { session, ...pageProps } }) {\n  return (\n    <SessionProvider session={session}>\n      <Component {...pageProps} />\n      <Toaster richColors />\n    </SessionProvider>\n  );\n}\n"],"names":[],"mappings":";;;;AACA;AACA;AACA;;;;;;;;;;;AAEe,SAAS,MAAM,EAAE,SAAS,EAAE,WAAW,EAAE,OAAO,EAAE,GAAG,WAAW,EAAE;IAC/E,qBACE,qKAAC,mIAAA,CAAA,kBAAe;QAAC,SAAS;;0BACxB,qKAAC;gBAAW,GAAG,SAAS;;;;;;0BACxB,qKAAC,4GAAA,CAAA,UAAO;gBAAC,UAAU;;;;;;;;;;;;AAGzB","debugId":null}}]
+}
