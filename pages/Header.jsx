@@ -27,7 +27,14 @@ const HeaderContent = () => {
   }, [menuOpen]);
 
   return (
-    <header className="bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 text-black py-4 px-6 sticky top-0 w-full z-50 shadow-lg transition-all duration-300 ease-in-out transform">
+    <header
+      style={{
+        background: "rgba(255, 255, 255, 0.1)", // even more transparent
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)"
+      }}
+      className="text-black py-4 px-6 sticky top-0 w-full z-50 shadow-lg transition-all duration-300 ease-in-out transform"
+    >
       <div className="max-w-screen-xl mx-auto flex items-center justify-between">
         {/* Logo with Structured Data */}
         <div className="flex-shrink-0" itemScope itemType="http://schema.org/Organization">

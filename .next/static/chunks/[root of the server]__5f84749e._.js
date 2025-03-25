@@ -989,7 +989,12 @@ const HeaderContent = ()=>{
         menuOpen
     ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("header", {
-        className: "bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 text-black py-4 px-6 sticky top-0 w-full z-50 shadow-lg transition-all duration-300 ease-in-out transform",
+        style: {
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)"
+        },
+        className: "text-black py-4 px-6 sticky top-0 w-full z-50 shadow-lg transition-all duration-300 ease-in-out transform",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "max-w-screen-xl mx-auto flex items-center justify-between",
             children: [
@@ -1008,17 +1013,17 @@ const HeaderContent = ()=>{
                             children: "CertifiedSkill.org"
                         }, void 0, false, {
                             fileName: "[project]/pages/Header.jsx",
-                            lineNumber: 40,
+                            lineNumber: 47,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/pages/Header.jsx",
-                        lineNumber: 34,
+                        lineNumber: 41,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/pages/Header.jsx",
-                    lineNumber: 33,
+                    lineNumber: 40,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -1033,24 +1038,24 @@ const HeaderContent = ()=>{
                             children: "Dashboard"
                         }, void 0, false, {
                             fileName: "[project]/pages/Header.jsx",
-                            lineNumber: 56,
+                            lineNumber: 63,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$user$2d$button$2e$tsx__$5b$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                             fileName: "[project]/pages/Header.jsx",
-                            lineNumber: 64,
+                            lineNumber: 71,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/pages/Header.jsx",
-                    lineNumber: 50,
+                    lineNumber: 57,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/pages/Header.jsx",
-            lineNumber: 31,
+            lineNumber: 38,
             columnNumber: 7
         }, this)
     }, void 0, false, {
@@ -1068,12 +1073,12 @@ _c = HeaderContent;
 const Header = ()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["SessionProvider"], {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(HeaderContent, {}, void 0, false, {
             fileName: "[project]/pages/Header.jsx",
-            lineNumber: 73,
+            lineNumber: 80,
             columnNumber: 5
         }, this)
     }, void 0, false, {
         fileName: "[project]/pages/Header.jsx",
-        lineNumber: 72,
+        lineNumber: 79,
         columnNumber: 3
     }, this);
 _c1 = Header;
