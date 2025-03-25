@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file:///home/user/get-certified/app/layout.jsx"],"sourcesContent":["// app/layout.jsx\nexport const metadata = {\n    title: \"CertifiedSkill.org\",\n    description: \"Your Certification Platform\",\n  };\n  \n  export default function RootLayout({ children }) {\n    return (\n      <html lang=\"en\">\n        <head />\n        <body>\n          {children}\n        </body>\n      </html>\n    );\n  }\n  "],"names":[],"mappings":"AAAA,iBAAiB;;;;;;;AACV,MAAM,WAAW;IACpB,OAAO;IACP,aAAa;AACf;AAEe,SAAS,WAAW,EAAE,QAAQ,EAAE;IAC7C,qBACE,8OAAC;QAAK,MAAK;;0BACT,8OAAC;;;;;0BACD,8OAAC;0BACE;;;;;;;;;;;;AAIT","debugId":null}},
-    {"offset": {"line": 46, "column": 0}, "map": {"version":3,"sources":["file:///home/user/get-certified/node_modules/next/src/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.ts"],"sourcesContent":["module.exports = require('../../module.compiled').vendored[\n  'react-rsc'\n].ReactJsxDevRuntime\n"],"names":["module","exports","require","vendored","ReactJsxDevRuntime"],"mappings":";AAAAA,OAAOC,OAAO,GAAGC,QAAQ,4HAAyBC,QAAQ,CACxD,YACD,CAACC,kBAAkB","ignoreList":[0],"debugId":null}}]
-}
