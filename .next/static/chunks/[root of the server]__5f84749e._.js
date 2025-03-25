@@ -1199,7 +1199,7 @@ __turbopack_context__.s({
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react/jsx-dev-runtime.js [client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$head$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/head.js [client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/link.js [client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$Header$2e$jsx__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/pages/Header.jsx [client] (ecmascript)"); // Adjust path if using a components folder
+var __TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$Header$2e$jsx__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/pages/Header.jsx [client] (ecmascript)"); // updated path if using components folder
 var __TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$Footer$2e$js__$5b$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/pages/Footer.js [client] (ecmascript)");
 ;
 ;
@@ -1215,7 +1215,7 @@ function Home() {
                         children: "Free Certification Programs | CertifiedSkill.org"
                     }, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 11,
+                        lineNumber: 12,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -1223,7 +1223,7 @@ function Home() {
                         content: "CertifiedSkill.org is dedicated to recognizing and rewarding talent with free certifications and certification free exams. Showcase your skills and advance your career with our free certification programs."
                     }, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 12,
+                        lineNumber: 13,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -1231,7 +1231,7 @@ function Home() {
                         content: "free certification, certification free exam, free certificate, free certification program, free exam, skill certification, talent recognition"
                     }, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 16,
+                        lineNumber: 17,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -1239,7 +1239,7 @@ function Home() {
                         content: "CertifiedSkill.org"
                     }, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 20,
+                        lineNumber: 21,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -1247,7 +1247,7 @@ function Home() {
                         content: "width=device-width, initial-scale=1.0"
                     }, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 21,
+                        lineNumber: 22,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -1255,7 +1255,7 @@ function Home() {
                         content: "index, follow"
                     }, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 22,
+                        lineNumber: 23,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("link", {
@@ -1263,7 +1263,7 @@ function Home() {
                         href: "https://certifiedskill.org"
                     }, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 23,
+                        lineNumber: 24,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("link", {
@@ -1273,7 +1273,7 @@ function Home() {
                         type: "image/jpeg"
                     }, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 26,
+                        lineNumber: 27,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("link", {
@@ -1283,7 +1283,7 @@ function Home() {
                         type: "image/png"
                     }, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 27,
+                        lineNumber: 28,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -1291,7 +1291,7 @@ function Home() {
                         content: "Free Certification Programs | CertifiedSkill.org"
                     }, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 30,
+                        lineNumber: 31,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -1299,7 +1299,7 @@ function Home() {
                         content: "Join our free certification programs and certification free exams to boost your career. Empower your skills with CertifiedSkill.org."
                     }, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 31,
+                        lineNumber: 32,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -1307,7 +1307,7 @@ function Home() {
                         content: "https://certifiedskill.org/og-image.jpg"
                     }, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 35,
+                        lineNumber: 36,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -1315,7 +1315,7 @@ function Home() {
                         content: "https://certifiedskill.org"
                     }, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 36,
+                        lineNumber: 37,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -1323,7 +1323,7 @@ function Home() {
                         content: "website"
                     }, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 37,
+                        lineNumber: 38,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -1331,7 +1331,7 @@ function Home() {
                         content: "summary_large_image"
                     }, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 40,
+                        lineNumber: 41,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -1339,7 +1339,7 @@ function Home() {
                         content: "Free Certification Programs | CertifiedSkill.org"
                     }, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 41,
+                        lineNumber: 42,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -1347,7 +1347,7 @@ function Home() {
                         content: "Experience free certification and certification free exams to elevate your skills. Join CertifiedSkill.org and advance your career."
                     }, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 42,
+                        lineNumber: 43,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -1355,263 +1355,251 @@ function Home() {
                         content: "https://certifiedskill.org/og-image.jpg"
                     }, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 46,
+                        lineNumber: 47,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("script", {
                         type: "application/ld+json",
                         dangerouslySetInnerHTML: {
-                            __html: `
-              {
-                "@context": "https://schema.org",
-                "@type": "Organization",
-                "name": "CertifiedSkill.org",
-                "url": "https://certifiedskill.org",
-                "logo": "https://certifiedskill.org/logo.png",
-                "description": "CertifiedSkill.org offers free certifications and exams to skilled individuals, helping you showcase your abilities and advance your career.",
-                "sameAs": [
-                  "https://facebook.com/certifiedskill",
-                  "https://twitter.com/certifiedskill",
-                  "https://linkedin.com/company/certifiedskill"
-                ]
-              }
-            `
+                            __html: `{
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "CertifiedSkill.org",
+              "url": "https://certifiedskill.org",
+              "logo": "https://certifiedskill.org/logo.png",
+              "description": "CertifiedSkill.org offers free certifications and exams to skilled individuals, helping you showcase your abilities and advance your career.",
+              "sameAs": [
+                "https://facebook.com/certifiedskill",
+                "https://twitter.com/certifiedskill",
+                "https://linkedin.com/company/certifiedskill"
+              ]
+            }`
                         }
                     }, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 49,
+                        lineNumber: 50,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("script", {
                         type: "application/ld+json",
                         dangerouslySetInnerHTML: {
-                            __html: `
-              {
-                "@context": "https://schema.org",
-                "@type": "WebSite",
-                "url": "https://certifiedskill.org",
-                "name": "CertifiedSkill.org",
-                "potentialAction": {
-                  "@type": "SearchAction",
-                  "target": "https://certifiedskill.org/search?query={search_term_string}",
-                  "query-input": "required name=search_term_string"
-                }
+                            __html: `{
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "url": "https://certifiedskill.org",
+              "name": "CertifiedSkill.org",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://certifiedskill.org/search?query={search_term_string}",
+                "query-input": "required name=search_term_string"
               }
-            `
+            }`
                         }
                     }, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 71,
+                        lineNumber: 70,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/pages/index.js",
-                lineNumber: 10,
+                lineNumber: 11,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "min-h-screen bg-gray-900 flex flex-col",
+                className: "min-h-screen bg-gray-50",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$Header$2e$jsx__$5b$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 93,
+                        lineNumber: 90,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
-                        className: "flex-1",
+                        className: "max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-                                className: "relative flex items-center justify-center h-screen overflow-hidden",
+                                className: "text-center",
                                 children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "absolute inset-0 bg-gradient-to-br from-purple-800 via-pink-600 to-red-600 opacity-90"
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                                        className: "text-4xl font-extrabold text-gray-900",
+                                        children: "Empowering Skilled Individuals through Free Certification Programs"
                                     }, void 0, false, {
                                         fileName: "[project]/pages/index.js",
-                                        lineNumber: 99,
+                                        lineNumber: 95,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "mt-4 text-lg text-gray-600",
+                                        children: "CertifiedSkill.org is a non-profit organization dedicated to recognizing and rewarding talent. We offer free certifications and certification free exams that help you showcase your skills and advance your career."
+                                    }, void 0, false, {
+                                        fileName: "[project]/pages/index.js",
+                                        lineNumber: 98,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "mt-4 text-lg text-gray-600",
+                                        children: "Our mission is to democratize access to quality credentials and support lifelong learning, ensuring that every talented individual has the opportunity to succeed."
+                                    }, void 0, false, {
+                                        fileName: "[project]/pages/index.js",
+                                        lineNumber: 103,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "relative z-10 text-center max-w-3xl px-6 text-black",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                                className: "text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-lg text-black",
-                                                children: "Empower Your Future with Free Certifications"
+                                        className: "mt-8",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$client$5d$__$28$ecmascript$29$__["default"], {
+                                            href: "/sign-up",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "inline-block bg-blue-600 hover:bg-blue-700 text-black font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 cursor-pointer",
+                                                children: "Get Started Today"
                                             }, void 0, false, {
                                                 fileName: "[project]/pages/index.js",
-                                                lineNumber: 102,
-                                                columnNumber: 15
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "text-xl md:text-2xl font-medium mb-8 drop-shadow-lg text-black",
-                                                children: "Unlock your potential and set yourself apart. With our free certification exams and specialized training, we help you shine in your professional journey."
-                                            }, void 0, false, {
-                                                fileName: "[project]/pages/index.js",
-                                                lineNumber: 105,
-                                                columnNumber: 15
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "flex flex-col sm:flex-row justify-center items-center gap-6",
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$client$5d$__$28$ecmascript$29$__["default"], {
-                                                        href: "/sign-up",
-                                                        className: "bg-blue-500 hover:bg-blue-700 transition-all duration-300 text-black font-bold py-3 px-8 rounded shadow-lg transform hover:scale-105",
-                                                        children: "Get Started Today"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/pages/index.js",
-                                                        lineNumber: 110,
-                                                        columnNumber: 17
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$client$5d$__$28$ecmascript$29$__["default"], {
-                                                        href: "/verify-certificate",
-                                                        className: "bg-green-500 hover:bg-green-700 transition-all duration-300 text-black font-bold py-3 px-8 rounded shadow-lg transform hover:scale-105",
-                                                        children: "Verify Certificate"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/pages/index.js",
-                                                        lineNumber: 116,
-                                                        columnNumber: 17
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/pages/index.js",
-                                                lineNumber: 109,
-                                                columnNumber: 15
+                                                lineNumber: 110,
+                                                columnNumber: 17
                                             }, this)
-                                        ]
-                                    }, void 0, true, {
+                                        }, void 0, false, {
+                                            fileName: "[project]/pages/index.js",
+                                            lineNumber: 109,
+                                            columnNumber: 15
+                                        }, this)
+                                    }, void 0, false, {
                                         fileName: "[project]/pages/index.js",
-                                        lineNumber: 101,
+                                        lineNumber: 108,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "mt-8",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$client$5d$__$28$ecmascript$29$__["default"], {
+                                            href: "/verify-certificate",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "inline-block bg-blue-600 hover:bg-blue-700 text-black font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 cursor-pointer",
+                                                children: "Verify your Certificate"
+                                            }, void 0, false, {
+                                                fileName: "[project]/pages/index.js",
+                                                lineNumber: 118,
+                                                columnNumber: 17
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/pages/index.js",
+                                            lineNumber: 117,
+                                            columnNumber: 15
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/pages/index.js",
+                                        lineNumber: 116,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/pages/index.js",
-                                lineNumber: 97,
+                                lineNumber: 94,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-                                className: "py-16 bg-gray-800",
+                                className: "mt-16",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+                                    className: "grid grid-cols-1 md:grid-cols-3 gap-8",
                                     children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                            className: "text-3xl font-bold text-center text-black mb-12",
-                                            children: "Why Choose CertifiedSkill.org?"
-                                        }, void 0, false, {
-                                            fileName: "[project]/pages/index.js",
-                                            lineNumber: 129,
-                                            columnNumber: 15
-                                        }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "grid grid-cols-1 md:grid-cols-3 gap-8",
+                                            className: "p-6 bg-white rounded-lg shadow",
                                             children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "bg-gray-700 p-8 rounded-lg shadow hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2",
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                            className: "text-2xl font-bold mb-4 text-black",
-                                                            children: "Free Certification"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/pages/index.js",
-                                                            lineNumber: 134,
-                                                            columnNumber: 19
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "text-black",
-                                                            children: "Access high-quality certification programs at no cost, boosting your career growth opportunities."
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/pages/index.js",
-                                                            lineNumber: 135,
-                                                            columnNumber: 19
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                    className: "text-2xl font-bold text-gray-800",
+                                                    children: "Free Certification"
+                                                }, void 0, false, {
                                                     fileName: "[project]/pages/index.js",
-                                                    lineNumber: 133,
+                                                    lineNumber: 129,
                                                     columnNumber: 17
                                                 }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "bg-gray-700 p-8 rounded-lg shadow hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2",
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                            className: "text-2xl font-bold mb-4 text-black",
-                                                            children: "Career Advancement"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/pages/index.js",
-                                                            lineNumber: 140,
-                                                            columnNumber: 19
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "text-black",
-                                                            children: "Our certifications open doors to new career opportunities and professional development avenues."
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/pages/index.js",
-                                                            lineNumber: 141,
-                                                            columnNumber: 19
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                    className: "mt-2 text-gray-600",
+                                                    children: "Access our certification programs at no cost and enhance your professional profile."
+                                                }, void 0, false, {
                                                     fileName: "[project]/pages/index.js",
-                                                    lineNumber: 139,
-                                                    columnNumber: 17
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "bg-gray-700 p-8 rounded-lg shadow hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2",
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                            className: "text-2xl font-bold mb-4 text-black",
-                                                            children: "Lifelong Learning"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/pages/index.js",
-                                                            lineNumber: 146,
-                                                            columnNumber: 19
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "text-black",
-                                                            children: "Continuous learning is at the heart of success. Our programs motivate you to unlock lifelong learning."
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/pages/index.js",
-                                                            lineNumber: 147,
-                                                            columnNumber: 19
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/pages/index.js",
-                                                    lineNumber: 145,
+                                                    lineNumber: 130,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/pages/index.js",
-                                            lineNumber: 132,
+                                            lineNumber: 128,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "p-6 bg-white rounded-lg shadow",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                    className: "text-2xl font-bold text-gray-800",
+                                                    children: "Empowering Careers"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/pages/index.js",
+                                                    lineNumber: 136,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                    className: "mt-2 text-gray-600",
+                                                    children: "Our certificates help you stand out in the job market and open new career opportunities."
+                                                }, void 0, false, {
+                                                    fileName: "[project]/pages/index.js",
+                                                    lineNumber: 137,
+                                                    columnNumber: 17
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/pages/index.js",
+                                            lineNumber: 135,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "p-6 bg-white rounded-lg shadow",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                    className: "text-2xl font-bold text-gray-800",
+                                                    children: "Lifelong Learning"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/pages/index.js",
+                                                    lineNumber: 143,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                    className: "mt-2 text-gray-600",
+                                                    children: "We promote continuous learning and skill development through our free courses and certification programs."
+                                                }, void 0, false, {
+                                                    fileName: "[project]/pages/index.js",
+                                                    lineNumber: 144,
+                                                    columnNumber: 17
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/pages/index.js",
+                                            lineNumber: 142,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/pages/index.js",
-                                    lineNumber: 128,
+                                    lineNumber: 127,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/pages/index.js",
-                                lineNumber: 127,
+                                lineNumber: 126,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 95,
+                        lineNumber: 93,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$pages$2f$Footer$2e$js__$5b$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/pages/index.js",
-                        lineNumber: 157,
+                        lineNumber: 154,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/pages/index.js",
-                lineNumber: 91,
+                lineNumber: 88,
                 columnNumber: 7
             }, this)
         ]
