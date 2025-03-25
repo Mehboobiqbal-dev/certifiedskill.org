@@ -28,9 +28,8 @@ const HeaderContent = () => {
   }, [menuOpen]);
 
   return (
-    <header
-    className="bg-white/30 backdrop-blur-md text-black py-4 px-6 sticky top-0 w-full z-50 shadow-lg transition-all duration-300 ease-in-out transform"
-  >
+    <header className="bg-white/30 backdrop-blur-md text-black py-4 px-4 sm:px-6 sticky top-0 w-full z-50 shadow-lg transition-all duration-300 ease-in-out transform">
+
       <div className="max-w-screen-xl mx-auto flex items-center justify-between">
         {/* Logo with Structured Data */}
         <div className="flex-shrink-0" itemScope itemType="http://schema.org/Organization">

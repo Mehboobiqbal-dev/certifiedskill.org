@@ -1,1 +1,6 @@
-"use strict";(()=>{var e={};e.id=220,e.ids=[220],e.modules={8732:e=>{e.exports=require("react/jsx-runtime")},12830:(e,r,t)=>{t.r(r),t.d(r,{default:()=>a});var s=t(8732),i=t(82341);function a(){return(0,s.jsxs)(i.Html,{lang:"en",children:[(0,s.jsxs)(i.Head,{children:[(0,s.jsx)("meta",{charSet:"UTF-8"}),(0,s.jsx)("meta",{name:"description",content:"CertifiedSkill.org - Your Certification Platform"})]}),(0,s.jsxs)("body",{className:"antialiased",children:[(0,s.jsx)(i.Main,{}),(0,s.jsx)(i.NextScript,{})]})]})}},33873:e=>{e.exports=require("path")},40361:e=>{e.exports=require("next/dist/compiled/next-server/pages.runtime.prod.js")},82015:e=>{e.exports=require("react")}};var r=require("../webpack-runtime.js");r.C(e);var t=e=>r(r.s=e),s=r.X(0,[341],()=>t(12830));module.exports=s})();
+const CHUNK_PUBLIC_PATH = "server/pages/_document.js";
+const runtime = require("../chunks/ssr/[turbopack]_runtime.js");
+runtime.loadChunk("server/chunks/ssr/node_modules_bf671b14._.js");
+runtime.loadChunk("server/chunks/ssr/[root of the server]__4aa90384._.js");
+runtime.getOrInstantiateRuntimeModule("[project]/pages/_document.js [ssr] (ecmascript)", CHUNK_PUBLIC_PATH);
+module.exports = runtime.getOrInstantiateRuntimeModule("[project]/pages/_document.js [ssr] (ecmascript)", CHUNK_PUBLIC_PATH).exports;
