@@ -12,4 +12,5 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps } 
         <Analytics />
       </div>
     </SessionProvider>
-  )
+  );
+}

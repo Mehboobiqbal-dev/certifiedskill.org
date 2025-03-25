@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  experimental: {
+    turbo: true, // Enable Turbopack
+    allowedDevOrigins: ['*'], // Allow every origin in development
+  },
   webpack: (config, { isServer }) => {
     if (!isServer) {
       // Provide fallbacks for Node built-ins so these modules are ignored on the client.
