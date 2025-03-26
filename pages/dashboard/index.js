@@ -1,28 +1,25 @@
-import { useSession, signOut } from "next-auth/react";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+// pages/dashboard.js
+import { useSession, signOut, signIn } from "next-auth/react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Header from "../Header";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
-  const router = useRouter();
   const [certificates, setCertificates] = useState([]);
   const [exams, setExams] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingCerts, setLoadingCerts] = useState(true);
+  const [loadingExams, setLoadingExams] = useState(true);
 
-  // Redirect if unauthenticated
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/");
-    }
-  }, [status, router]);
+  // Debug logging for session and status
+  console.log("Session:", session, "Status:", status);
 
-  // Fetch certificates and exams when session loads
+  // Fetch certificates only when the user is authenticated.
   useEffect(() => {
     if (status === "authenticated" && session) {
-      const fetchUrl = session.user.id 
-        ? `/api/certificates?userId=${session.user.id}` 
+      // Use user id if available, otherwise use email.
+      const fetchUrl = session.user.id
+        ? `/api/certificates?userId=${session.user.id}`
         : `/api/certificates?userEmail=${session.user.email}`;
 
       fetch(fetchUrl, { cache: "no-store" })
@@ -30,78 +27,106 @@ export default function Dashboard() {
         .then((data) => {
           console.log("Fetched certificates:", data);
           setCertificates(data);
-          setLoading(false);
+          setLoadingCerts(false);
         })
         .catch((err) => {
           console.error("Error fetching certificates:", err);
-          setLoading(false);
+          setLoadingCerts(false);
         });
-
-      // Fetch exams
-      fetch("/api/exams", { cache: "no-store" })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log("Fetched exams:", data);
-          setExams(data);
-        })
-        .catch((err) => console.error("Error fetching exams:", err));
+    } else {
+      setLoadingCerts(false);
     }
   }, [session, status]);
 
-  if (status === "loading" || loading) return <p>Loading...</p>;
+  // Fetch exams publicly regardless of authentication status.
+  useEffect(() => {
+    fetch("/api/exams", { cache: "no-store" })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Fetched exams:", data);
+        setExams(data);
+        setLoadingExams(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching exams:", err);
+        setLoadingExams(false);
+      });
+  }, []);
+
+  if (loadingExams || loadingCerts) return <p>Loading...</p>;
 
   return (
     <>
       <Header />
       <div className="p-8">
-        <h1 className="text-3xl font-bold">Welcome, {session?.user.name}</h1>
-        <button
-          onClick={() => signOut({ callbackUrl: "/" })}
-          className="mt-4 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
-        >
-          Logout
-        </button>
+        {/* Navigation header: show welcome text and appropriate button */}
+        {status === "authenticated" ? (
+          <>
+            <h1 className="text-3xl font-bold">
+              Welcome, {session.user.name}
+            </h1>
+            <button
+              onClick={() => signOut({ callbackUrl: "/" })}
+              className="mt-4 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <h1 className="text-3xl font-bold">Exam Dashboard</h1>
+            <button
+              onClick={() => signIn()}
+              className="mt-4 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+            >
+              Login
+            </button>
+          </>
+        )}
 
-        {/* Certificates Section */}
-        <section className="mt-8">
-          <h2 className="text-2xl font-semibold">Your Certificates</h2>
-          {certificates.length === 0 ? (
-            <p className="mt-4 text-gray-600">
-              No certificates available at the moment.
-            </p>
-          ) : (
-            <ul className="mt-4 space-y-4">
-              {certificates.map((certificate) => (
-                <li
-                  key={certificate._id}
-                  className="border p-4 rounded shadow hover:bg-gray-50"
-                >
-                  <p className="text-lg font-medium text-indigo-600">
-                    Certificate for: {certificate.examName}
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    Issued on: {new Date(certificate.issuedAt).toLocaleDateString()}
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    Certificate ID: {certificate.certificateId}
-                  </p>
-                  <a
-                    href={`/api/certificates?certificateNumber=${certificate.certificateId}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2 inline-block text-blue-600 hover:underline"
+        {/* Certificates Section: Only display if authenticated */}
+        {status === "authenticated" && (
+          <section className="mt-8">
+            <h2 className="text-2xl font-semibold">Your Certificates</h2>
+            {certificates.length === 0 ? (
+              <p className="mt-4 text-gray-600">
+                No certificates available at the moment.
+              </p>
+            ) : (
+              <ul className="mt-4 space-y-4">
+                {certificates.map((certificate) => (
+                  <li
+                    key={certificate._id}
+                    className="border p-4 rounded shadow hover:bg-gray-50"
                   >
-                    View Certificate PDF
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
+                    <p className="text-lg font-medium text-indigo-600">
+                      Certificate for: {certificate.examName}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      Issued on:{" "}
+                      {new Date(certificate.issuedAt).toLocaleDateString()}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      Certificate ID: {certificate.certificateId}
+                    </p>
+                    <a
+                      href={`/api/certificates?certificateNumber=${certificate.certificateId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-2 inline-block text-blue-600 hover:underline"
+                    >
+                      View Certificate PDF
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        )}
 
-        {/* Exams Section */}
+        {/* Exams Section: Publicly visible */}
         <section className="mt-8">
-          <h2 className="text-2xl font-semibold">Your Exams</h2>
+          <h2 className="text-2xl font-semibold">Available Exams</h2>
           {exams.length === 0 ? (
             <p className="mt-4 text-gray-600">
               No exams available at the moment.
@@ -109,15 +134,22 @@ export default function Dashboard() {
           ) : (
             <ul className="mt-4 space-y-4">
               {exams.map((exam) => (
-                <li key={exam._id} className="border p-4 rounded shadow hover:bg-gray-50">
+                <li
+                  key={exam._id}
+                  className="border p-4 rounded shadow hover:bg-gray-50"
+                >
                   <Link href={`/exam/${exam._id}`} className="block">
                     <div className="flex justify-between items-center">
-                      <p className="text-lg font-medium text-indigo-600">{exam.title}</p>
+                      <p className="text-lg font-medium text-indigo-600">
+                        {exam.title}
+                      </p>
                       <button className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition">
                         Take Exam
                       </button>
                     </div>
-                    <p className="mt-1 text-sm text-gray-500">Available Anytime</p>
+                    <p className="mt-1 text-sm text-gray-500">
+                      Available Anytime
+                    </p>
                   </Link>
                 </li>
               ))}
