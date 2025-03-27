@@ -2,11 +2,5 @@
   "/": "pages/index.js",
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
-  "/_error": "pages/_error.js",
-  "/api/certificates": "pages/api/certificates.js",
-  "/api/exams": "pages/api/exams.js",
-  "/api/exams/result": "pages/api/exams/result.js",
-  "/dashboard": "pages/dashboard.js",
-  "/exam/[id]": "pages/exam/[id].js",
-  "/exam/[id]/start": "pages/exam/[id]/start.js"
+  "/sitemap.xml": "pages/sitemap.xml.js"
 }
