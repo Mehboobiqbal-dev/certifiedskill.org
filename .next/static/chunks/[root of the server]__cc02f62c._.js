@@ -557,7 +557,7 @@ function AntiCheatingMulti({ onCheatingDetected, detectionThreshold = 3000 }) {
     ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["Fragment"], {
         children: cheating && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "fixed top-4 left-4 bg-red-600 text-black px-4 py-2 rounded shadow-md",
+            className: "fixed top-4 left-4 bg-green-600 text-green px-8 py-8 rounded shadow-md",
             children: [
                 "Warning: Cheating Detected! (Count: ",
                 cheatCount,
@@ -609,7 +609,7 @@ function ExamPage({ exam }) {
     _s();
     const { data: session, status } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useSession"])();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$router$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useRouter"])();
-    // Ensure user is signed in. Redirect to /sign-in if not.
+    // Redirect non-signed in users to sign-in
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "ExamPage.useEffect": ()=>{
             if (status !== "loading" && !session) {
@@ -621,9 +621,7 @@ function ExamPage({ exam }) {
         status,
         router
     ]);
-    //---------------------------
     // Exam state & timer logic
-    //---------------------------
     const [userAnswers, setUserAnswers] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])({});
     const [submitted, setSubmitted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [cheatingCount, setCheatingCount] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])(0);
@@ -672,7 +670,6 @@ function ExamPage({ exam }) {
                 ...prev,
                 [currentQuestionIndex]: selectedOption
             }));
-        // Automatically advance for non-final questions.
         if (currentQuestionIndex < exam.questions.length - 1) {
             proceedToNextQuestion();
         }
@@ -708,144 +705,204 @@ function ExamPage({ exam }) {
     };
     if (!exam.questions || exam.questions.length === 0) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+            className: "text-center mt-20 text-gray-600",
             children: "No questions found."
         }, void 0, false, {
             fileName: "[project]/pages/exam/[id]/start.js",
-            lineNumber: 114,
+            lineNumber: 110,
             columnNumber: 12
         }, this);
     }
     const currentQuestion = exam.questions[currentQuestionIndex];
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "relative",
+        className: "min-h-screen bg-gray-50",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$AntiCheating$2e$jsx__$5b$client$5d$__$28$ecmascript$29$__["default"], {
                 onCheatingDetected: handleCheatingDetected
             }, void 0, false, {
                 fileName: "[project]/pages/exam/[id]/start.js",
-                lineNumber: 121,
+                lineNumber: 117,
                 columnNumber: 7
             }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "p-6 max-w-3xl mx-auto",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$head$2e$js__$5b$client$5d$__$28$ecmascript$29$__["default"], {
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("title", {
-                            children: exam.title
-                        }, void 0, false, {
-                            fileName: "[project]/pages/exam/[id]/start.js",
-                            lineNumber: 124,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/pages/exam/[id]/start.js",
-                        lineNumber: 123,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                        className: "text-3xl font-bold mb-6",
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$head$2e$js__$5b$client$5d$__$28$ecmascript$29$__["default"], {
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("title", {
+                    children: [
+                        exam.title,
+                        " | Exam Portal"
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/pages/exam/[id]/start.js",
+                    lineNumber: 119,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/pages/exam/[id]/start.js",
+                lineNumber: 118,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("header", {
+                className: "bg-white shadow py-4",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "container mx-auto px-4",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                        className: "text-2xl font-semibold text-gray-800",
                         children: exam.title
                     }, void 0, false, {
                         fileName: "[project]/pages/exam/[id]/start.js",
-                        lineNumber: 126,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                        className: "text-xl mb-4",
-                        children: [
-                            "Question ",
-                            currentQuestionIndex + 1,
-                            " of ",
-                            exam.questions.length
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/pages/exam/[id]/start.js",
-                        lineNumber: 127,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-white shadow-md rounded-lg p-4 mb-6 border border-gray-200",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-lg font-medium mb-3",
-                                children: currentQuestion.questionText
-                            }, void 0, false, {
-                                fileName: "[project]/pages/exam/[id]/start.js",
-                                lineNumber: 131,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                children: currentQuestion.options.map((option, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                        className: "block p-2 mb-2 border rounded cursor-pointer hover:bg-gray-100",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                type: "radio",
-                                                name: `question-${currentQuestionIndex}`,
-                                                value: option,
-                                                onChange: ()=>handleOptionChange(option),
-                                                checked: userAnswers[currentQuestionIndex] === option,
-                                                className: "mr-2"
+                        lineNumber: 125,
+                        columnNumber: 11
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/pages/exam/[id]/start.js",
+                    lineNumber: 124,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/pages/exam/[id]/start.js",
+                lineNumber: 123,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
+                className: "container mx-auto px-4 py-8",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "mb-6",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                    className: "text-xl font-medium text-gray-700",
+                                    children: [
+                                        "Question ",
+                                        currentQuestionIndex + 1,
+                                        " of ",
+                                        exam.questions.length
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/pages/exam/[id]/start.js",
+                                    lineNumber: 132,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "mt-2",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "w-full bg-gray-200 rounded-full h-2",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "bg-indigo-600 h-2 rounded-full transition-all duration-500",
+                                                style: {
+                                                    width: `${questionTimeLeft / QUESTION_TIME * 100}%`
+                                                }
                                             }, void 0, false, {
                                                 fileName: "[project]/pages/exam/[id]/start.js",
                                                 lineNumber: 138,
                                                 columnNumber: 17
-                                            }, this),
-                                            option
-                                        ]
-                                    }, i, true, {
-                                        fileName: "[project]/pages/exam/[id]/start.js",
-                                        lineNumber: 134,
-                                        columnNumber: 15
-                                    }, this))
-                            }, void 0, false, {
-                                fileName: "[project]/pages/exam/[id]/start.js",
-                                lineNumber: 132,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "mt-3",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "text-sm text-gray-500",
-                                    children: [
-                                        "Time left for this question: ",
-                                        questionTimeLeft,
-                                        " seconds"
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/pages/exam/[id]/start.js",
+                                            lineNumber: 137,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "mt-1 text-sm text-gray-500",
+                                            children: [
+                                                "Time remaining: ",
+                                                questionTimeLeft,
+                                                " seconds"
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/pages/exam/[id]/start.js",
+                                            lineNumber: 143,
+                                            columnNumber: 15
+                                        }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/pages/exam/[id]/start.js",
-                                    lineNumber: 151,
+                                    lineNumber: 135,
                                     columnNumber: 13
                                 }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/pages/exam/[id]/start.js",
+                            lineNumber: 131,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "mb-6",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-lg text-gray-800 font-semibold",
+                                children: currentQuestion.questionText
                             }, void 0, false, {
                                 fileName: "[project]/pages/exam/[id]/start.js",
                                 lineNumber: 150,
-                                columnNumber: 11
-                            }, this),
-                            currentQuestionIndex === exam.questions.length - 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                onClick: handleSubmitClick,
-                                className: "px-6 py-2 mt-4 text-black bg-blue-500 hover:bg-blue-600 rounded shadow",
-                                children: "Submit"
-                            }, void 0, false, {
-                                fileName: "[project]/pages/exam/[id]/start.js",
-                                lineNumber: 156,
                                 columnNumber: 13
                             }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/pages/exam/[id]/start.js",
-                        lineNumber: 130,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
+                        }, void 0, false, {
+                            fileName: "[project]/pages/exam/[id]/start.js",
+                            lineNumber: 149,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "space-y-4",
+                            children: currentQuestion.options.map((option, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                    className: `flex items-center p-4 border rounded-lg cursor-pointer transition-colors 
+                  ${userAnswers[currentQuestionIndex] === option ? "border-indigo-600 bg-indigo-50" : "border-gray-300 bg-white"}`,
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                            type: "radio",
+                                            name: `question-${currentQuestionIndex}`,
+                                            value: option,
+                                            onChange: ()=>handleOptionChange(option),
+                                            checked: userAnswers[currentQuestionIndex] === option,
+                                            className: "form-radio h-5 w-5 text-indigo-600 mr-3"
+                                        }, void 0, false, {
+                                            fileName: "[project]/pages/exam/[id]/start.js",
+                                            lineNumber: 162,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "text-gray-700",
+                                            children: option
+                                        }, void 0, false, {
+                                            fileName: "[project]/pages/exam/[id]/start.js",
+                                            lineNumber: 170,
+                                            columnNumber: 17
+                                        }, this)
+                                    ]
+                                }, i, true, {
+                                    fileName: "[project]/pages/exam/[id]/start.js",
+                                    lineNumber: 157,
+                                    columnNumber: 15
+                                }, this))
+                        }, void 0, false, {
+                            fileName: "[project]/pages/exam/[id]/start.js",
+                            lineNumber: 155,
+                            columnNumber: 11
+                        }, this),
+                        currentQuestionIndex === exam.questions.length - 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            onClick: handleSubmitClick,
+                            className: "mt-8 w-full py-3 text-black bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow transition-colors",
+                            children: "Submit Exam"
+                        }, void 0, false, {
+                            fileName: "[project]/pages/exam/[id]/start.js",
+                            lineNumber: 176,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/pages/exam/[id]/start.js",
+                    lineNumber: 130,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
                 fileName: "[project]/pages/exam/[id]/start.js",
-                lineNumber: 122,
+                lineNumber: 129,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/pages/exam/[id]/start.js",
-        lineNumber: 120,
+        lineNumber: 116,
         columnNumber: 5
     }, this);
 }

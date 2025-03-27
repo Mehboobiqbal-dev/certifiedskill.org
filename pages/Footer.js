@@ -17,7 +17,7 @@ const Footer = () => {
         <p className="text-sm">
           &copy; {new Date().getFullYear()} CertifiedSkill.org. All rights reserved.
         </p>
-
+      <ul>
         <nav>
           <Link href="/careers" className="text-sm font-medium hover:underline">
             Careers
@@ -35,6 +35,7 @@ const Footer = () => {
             FAQ
           </Link>
         </nav>
+        </ul>
       </div>
     </footer>
   );

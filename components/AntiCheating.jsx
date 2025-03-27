@@ -64,7 +64,7 @@ function AntiCheatingMulti({ onCheatingDetected, detectionThreshold = 3000 }) {
   return (
     <>
       {cheating && (
-        <div className="fixed top-4 left-4 bg-red-600 text-black px-4 py-2 rounded shadow-md">
+        <div className="fixed top-4 left-4 bg-green-600 text-green px-8 py-8 rounded shadow-md">
           Warning: Cheating Detected! (Count: {cheatCount})
         </div>
       )}

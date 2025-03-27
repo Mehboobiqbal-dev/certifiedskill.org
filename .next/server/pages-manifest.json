@@ -5,8 +5,8 @@
   "/_error": "pages/_error.js",
   "/api/certificates": "pages/api/certificates.js",
   "/api/exams": "pages/api/exams.js",
+  "/api/exams/result": "pages/api/exams/result.js",
   "/dashboard": "pages/dashboard.js",
   "/exam/[id]": "pages/exam/[id].js",
-  "/exam/[id]/start": "pages/exam/[id]/start.js",
-  "/sign-in": "pages/sign-in.js"
+  "/exam/[id]/start": "pages/exam/[id]/start.js"
 }

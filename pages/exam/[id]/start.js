@@ -14,16 +14,14 @@ export default function ExamPage({ exam }) {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  // Ensure user is signed in. Redirect to /sign-in if not.
+  // Redirect non-signed in users to sign-in
   useEffect(() => {
     if (status !== "loading" && !session) {
       router.push("/sign-in");
     }
   }, [session, status, router]);
 
-  //---------------------------
   // Exam state & timer logic
-  //---------------------------
   const [userAnswers, setUserAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [cheatingCount, setCheatingCount] = useState(0);
@@ -35,7 +33,7 @@ export default function ExamPage({ exam }) {
 
   useEffect(() => {
     if (submitted) return;
-    
+
     const timer = setInterval(() => {
       setQuestionTimeLeft((prevTime) => {
         if (prevTime <= 1) {
@@ -50,13 +48,12 @@ export default function ExamPage({ exam }) {
         return prevTime - 1;
       });
     }, 1000);
-  
+
     return () => clearInterval(timer);
   }, [submitted, currentQuestionIndex]);
 
   const proceedToNextQuestion = () => {
     setTimeTaken((prev) => prev + (QUESTION_TIME - questionTimeLeft));
-
     if (currentQuestionIndex < exam.questions.length - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
       setQuestionTimeLeft(QUESTION_TIME);
@@ -69,7 +66,6 @@ export default function ExamPage({ exam }) {
       [currentQuestionIndex]: selectedOption,
     }));
 
-    // Automatically advance for non-final questions.
     if (currentQuestionIndex < exam.questions.length - 1) {
       proceedToNextQuestion();
     }
@@ -111,29 +107,57 @@ export default function ExamPage({ exam }) {
   };
 
   if (!exam.questions || exam.questions.length === 0) {
-    return <p>No questions found.</p>;
+    return <p className="text-center mt-20 text-gray-600">No questions found.</p>;
   }
 
   const currentQuestion = exam.questions[currentQuestionIndex];
 
   return (
-    <div className="relative">
+    <div className="min-h-screen bg-gray-50">
       <AntiCheating onCheatingDetected={handleCheatingDetected} />
-      <div className="p-6 max-w-3xl mx-auto">
-        <Head>
-          <title>{exam.title}</title>
-        </Head>
-        <h1 className="text-3xl font-bold mb-6">{exam.title}</h1>
-        <h2 className="text-xl mb-4">
-          Question {currentQuestionIndex + 1} of {exam.questions.length}
-        </h2>
-        <div className="bg-white shadow-md rounded-lg p-4 mb-6 border border-gray-200">
-          <p className="text-lg font-medium mb-3">{currentQuestion.questionText}</p>
-          <div>
+      <Head>
+        <title>{exam.title} | Exam Portal</title>
+      </Head>
+
+      {/* Header */}
+      <header className="bg-white shadow py-4">
+        <div className="container mx-auto px-4">
+          <h1 className="text-2xl font-semibold text-gray-800">{exam.title}</h1>
+        </div>
+      </header>
+
+      <main className="container mx-auto px-4 py-8">
+        <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+          <div className="mb-6">
+            <h2 className="text-xl font-medium text-gray-700">
+              Question {currentQuestionIndex + 1} of {exam.questions.length}
+            </h2>
+            <div className="mt-2">
+              {/* Visual timer progress bar */}
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div
+                  className="bg-indigo-600 h-2 rounded-full transition-all duration-500"
+                  style={{ width: `${(questionTimeLeft / QUESTION_TIME) * 100}%` }}
+                ></div>
+              </div>
+              <p className="mt-1 text-sm text-gray-500">
+                Time remaining: {questionTimeLeft} seconds
+              </p>
+            </div>
+          </div>
+
+          <div className="mb-6">
+            <p className="text-lg text-gray-800 font-semibold">
+              {currentQuestion.questionText}
+            </p>
+          </div>
+
+          <div className="space-y-4">
             {currentQuestion.options.map((option, i) => (
               <label
                 key={i}
-                className="block p-2 mb-2 border rounded cursor-pointer hover:bg-gray-100"
+                className={`flex items-center p-4 border rounded-lg cursor-pointer transition-colors 
+                  ${userAnswers[currentQuestionIndex] === option ? "border-indigo-600 bg-indigo-50" : "border-gray-300 bg-white"}`}
               >
                 <input
                   type="radio"
@@ -141,33 +165,29 @@ export default function ExamPage({ exam }) {
                   value={option}
                   onChange={() => handleOptionChange(option)}
                   checked={userAnswers[currentQuestionIndex] === option}
-                  className="mr-2"
+                  className="form-radio h-5 w-5 text-indigo-600 mr-3"
                 />
-                {option}
+                <span className="text-gray-700">{option}</span>
               </label>
             ))}
           </div>
-          <div className="mt-3">
-            <p className="text-sm text-gray-500">
-              Time left for this question: {questionTimeLeft} seconds
-            </p>
-          </div>
+
           {currentQuestionIndex === exam.questions.length - 1 && (
             <button
               onClick={handleSubmitClick}
-              className="px-6 py-2 mt-4 text-black bg-blue-500 hover:bg-blue-600 rounded shadow"
+              className="mt-8 w-full py-3 text-black bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow transition-colors"
             >
-              Submit
+              Submit Exam
             </button>
           )}
         </div>
-      </div>
+      </main>
     </div>
   );
 }
 
 export async function getServerSideProps(context) {
-  // Ensure the user is signed in. If not, redirect them.
+  // Ensure the user is signed in
   const session = await getServerSession(context.req, context.res, authOptions);
   if (!session) {
     return {
@@ -187,10 +207,22 @@ export async function getServerSideProps(context) {
       return { notFound: true };
     }
 
-    // Convert fields to strings if necessary
+    // Convert exam fields to serializable types
     exam._id = exam._id.toString();
     if (exam.createdAt) exam.createdAt = exam.createdAt.toISOString();
     if (exam.updatedAt) exam.updatedAt = exam.updatedAt.toISOString();
+
+    // Remove the date fields that are causing serialization issues:
+    if (exam.startTime) delete exam.startTime;
+    if (exam.endTime) delete exam.endTime;
+
+    // Convert each question's _id and date fields to strings if needed
+    exam.questions = exam.questions.map((question) => ({
+      ...question,
+      _id: question._id.toString(),
+      createdAt: question.createdAt ? new Date(question.createdAt).toISOString() : null,
+      updatedAt: question.updatedAt ? new Date(question.updatedAt).toISOString() : null,
+    }));
 
     return { props: { exam } };
   } catch (error) {
