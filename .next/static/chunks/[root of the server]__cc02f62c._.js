@@ -925,7 +925,8 @@ async function onExamSubmit(resultData) {
         });
         const resultJson = await resultRes.json();
         if (!resultRes.ok) {
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$client$5d$__$28$ecmascript$29$__["toast"].error("Error submitting your exam results. Please try again later.");
+            // Display the error message returned from the API.
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$client$5d$__$28$ecmascript$29$__["toast"].error(resultJson.message || "Error submitting your exam results. Please try again later.");
             console.error(resultJson.message);
             return;
         }

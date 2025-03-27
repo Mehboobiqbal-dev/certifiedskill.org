@@ -55,13 +55,10 @@ const __TURBOPACK__default__export__ = connectToDatabase;
 
 var { g: global, __dirname } = __turbopack_context__;
 {
-// pages/api/exams/result.js
 __turbopack_context__.s({
     "default": (()=>handler)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$js__$5b$api$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/db.js [api] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$externals$5d2f$mongoose__$5b$external$5d$__$28$mongoose$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/mongoose [external] (mongoose, cjs)");
-;
 ;
 async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -84,9 +81,14 @@ async function handler(req, res) {
             userId
         });
         if (existing) {
-            return res.status(400).json({
-                message: 'You have already attempted this exam'
-            });
+            // One week in milliseconds
+            const oneWeek = 7 * 24 * 60 * 60 * 1000;
+            const lastAttemptDate = new Date(existing.createdAt);
+            if (new Date() - lastAttemptDate < oneWeek) {
+                return res.status(400).json({
+                    message: 'You already attempted this exam! Please try again after one week.'
+                });
+            }
         }
         // Create the exam result document.
         const resultData = {
@@ -99,9 +101,6 @@ async function handler(req, res) {
             createdAt: new Date()
         };
         await db.collection('examResults').insertOne(resultData);
-        // If the user passed, optionally trigger certificate generation from here.
-        // One option is to call the internal certificate generation logic.
-        // For simplicity, you can return a flag indicating certificate generation is needed.
         return res.status(200).json({
             message: 'Result saved successfully',
             data: resultData

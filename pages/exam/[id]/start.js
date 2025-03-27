@@ -240,14 +240,21 @@ async function onExamSubmit(resultData) {
       cache: "no-store",
     });
     const resultJson = await resultRes.json();
+
     if (!resultRes.ok) {
-      toast.error("Error submitting your exam results. Please try again later.");
+      // Display the error message returned from the API.
+      toast.error(
+        resultJson.message ||
+          "Error submitting your exam results. Please try again later."
+      );
       console.error(resultJson.message);
       return;
     }
 
     if (resultData.passed) {
-      toast.success("Congratulations! You passed the exam. Your certificate is being generated.");
+      toast.success(
+        "Congratulations! You passed the exam. Your certificate is being generated."
+      );
       const certRes = await fetch("/api/certificate/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -267,14 +274,18 @@ async function onExamSubmit(resultData) {
         window.open(blobUrl, "_blank");
       } else {
         const certJson = await certRes.json();
-        toast.error("There was an error generating your certificate. Please try again later.");
+        toast.error(
+          "There was an error generating your certificate. Please try again later."
+        );
         console.error(certJson.message);
       }
     } else {
       toast.error("Unfortunately, you did not pass the exam. Please try again.");
     }
   } catch (error) {
-    toast.error("An unexpected error occurred during submission. Please contact support.");
+    toast.error(
+      "An unexpected error occurred during submission. Please contact support."
+    );
     console.error("Submission error:", error);
   }
 }

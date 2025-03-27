@@ -1,6 +1,4 @@
-// pages/api/exams/result.js
 import connectToDatabase from '../../../lib/db';
-import mongoose from 'mongoose';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -21,10 +19,16 @@ export default async function handler(req, res) {
     const existing = await db
       .collection('examResults')
       .findOne({ examId, userId });
+      
     if (existing) {
-      return res
-        .status(400)
-        .json({ message: 'You have already attempted this exam' });
+      // One week in milliseconds
+      const oneWeek = 7 * 24 * 60 * 60 * 1000;
+      const lastAttemptDate = new Date(existing.createdAt);
+      if ((new Date() - lastAttemptDate) < oneWeek) {
+        return res.status(400).json({ 
+          message: 'You already attempted this exam! Please try again after one week.' 
+        });
+      }
     }
 
     // Create the exam result document.
@@ -40,13 +44,14 @@ export default async function handler(req, res) {
 
     await db.collection('examResults').insertOne(resultData);
 
-    // If the user passed, optionally trigger certificate generation from here.
-    // One option is to call the internal certificate generation logic.
-    // For simplicity, you can return a flag indicating certificate generation is needed.
-
-    return res.status(200).json({ message: 'Result saved successfully', data: resultData });
+    return res
+      .status(200)
+      .json({ message: 'Result saved successfully', data: resultData });
   } catch (error) {
     console.error('Error saving exam result:', error);
-    return res.status(500).json({ message: 'Internal Server Error', error: error.message });
+    return res.status(500).json({
+      message: 'Internal Server Error',
+      error: error.message,
+    });
   }
 }
