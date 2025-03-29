@@ -504,6 +504,64 @@ function ExamLanding({ exam }) {
             columnNumber: 7
         }, this);
     }
+    // Render a conditional warning message based on exam properties.
+    // For example, if the exam is flagged as challenging, show a red warning.
+    // Otherwise, display a yellow notice reminding users to be prepared.
+    const renderFailureWarning = ()=>{
+        if (exam.isChallenging) {
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "bg-red-100 border border-red-200 rounded p-4 my-6",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                        className: "text-xl font-bold text-red-800 mb-2",
+                        children: "Warning"
+                    }, void 0, false, {
+                        fileName: "[project]/pages/exam/[id].js",
+                        lineNumber: 23,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-red-800",
+                        children: "This exam is known to be highly challenging. Attempting it without thorough preparation may result in failure. Please review all study materials and ensure you understand the content before starting."
+                    }, void 0, false, {
+                        fileName: "[project]/pages/exam/[id].js",
+                        lineNumber: 24,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/pages/exam/[id].js",
+                lineNumber: 22,
+                columnNumber: 9
+            }, this);
+        } else {
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "bg-yellow-100 border border-yellow-200 rounded p-4 my-6",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                        className: "text-xl font-bold text-yellow-800 mb-2",
+                        children: "Important Notice"
+                    }, void 0, false, {
+                        fileName: "[project]/pages/exam/[id].js",
+                        lineNumber: 34,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-yellow-800",
+                        children: "Make sure you are well prepared before starting the exam. Insufficient preparation can lead to failure, so please take the time to study and understand the material."
+                    }, void 0, false, {
+                        fileName: "[project]/pages/exam/[id].js",
+                        lineNumber: 35,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/pages/exam/[id].js",
+                lineNumber: 33,
+                columnNumber: 9
+            }, this);
+        }
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$head$2e$js__$5b$client$5d$__$28$ecmascript$29$__["default"], {
@@ -515,7 +573,7 @@ function ExamLanding({ exam }) {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/pages/exam/[id].js",
-                        lineNumber: 19,
+                        lineNumber: 47,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -523,7 +581,7 @@ function ExamLanding({ exam }) {
                         content: `Join our ${exam.title} exam to challenge your skills and earn a certification at no cost.`
                     }, void 0, false, {
                         fileName: "[project]/pages/exam/[id].js",
-                        lineNumber: 20,
+                        lineNumber: 48,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -531,7 +589,7 @@ function ExamLanding({ exam }) {
                         content: "index,follow"
                     }, void 0, false, {
                         fileName: "[project]/pages/exam/[id].js",
-                        lineNumber: 24,
+                        lineNumber: 52,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("link", {
@@ -539,7 +597,7 @@ function ExamLanding({ exam }) {
                         href: `https://certifiedskill.org/exam/${exam._id}`
                     }, void 0, false, {
                         fileName: "[project]/pages/exam/[id].js",
-                        lineNumber: 25,
+                        lineNumber: 53,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -547,7 +605,7 @@ function ExamLanding({ exam }) {
                         content: `${exam.title} - Free Certification Exam`
                     }, void 0, false, {
                         fileName: "[project]/pages/exam/[id].js",
-                        lineNumber: 28,
+                        lineNumber: 56,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -555,7 +613,7 @@ function ExamLanding({ exam }) {
                         content: `Test your skills with our ${exam.title} exam and get certified. Perfect for professionals looking to validate their expertise.`
                     }, void 0, false, {
                         fileName: "[project]/pages/exam/[id].js",
-                        lineNumber: 29,
+                        lineNumber: 57,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("meta", {
@@ -563,53 +621,61 @@ function ExamLanding({ exam }) {
                         content: `https://certifiedskill.org/exam/${exam._id}`
                     }, void 0, false, {
                         fileName: "[project]/pages/exam/[id].js",
-                        lineNumber: 33,
+                        lineNumber: 61,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 18,
+                lineNumber: 46,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
                 className: "max-w-3xl mx-auto p-6",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                        className: "text-4xl font-bold mb-4",
+                        className: "text-4xl font-bold text-center mb-6",
                         children: exam.title
                     }, void 0, false, {
                         fileName: "[project]/pages/exam/[id].js",
-                        lineNumber: 37,
+                        lineNumber: 65,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "mb-4",
+                        className: "mb-6 text-lg leading-relaxed text-gray-700",
                         children: exam.description || "Take this exam to validate your skills. It is free and offers certification upon passing."
                     }, void 0, false, {
                         fileName: "[project]/pages/exam/[id].js",
-                        lineNumber: 38,
+                        lineNumber: 66,
                         columnNumber: 9
                     }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        className: "bg-blue-500 text-black px-4 py-2 rounded hover:bg-blue-600 transition duration-200",
-                        onClick: ()=>window.location.href = `/exam/${exam._id}/start`,
-                        children: "Start Exam"
+                    renderFailureWarning(),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex justify-center",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            className: "bg-blue-500 hover:bg-blue-600 text-black font-semibold px-6 py-3 rounded-lg transition duration-200 shadow-md",
+                            onClick: ()=>window.location.href = `/exam/${exam._id}/start`,
+                            children: "Start Exam"
+                        }, void 0, false, {
+                            fileName: "[project]/pages/exam/[id].js",
+                            lineNumber: 72,
+                            columnNumber: 11
+                        }, this)
                     }, void 0, false, {
                         fileName: "[project]/pages/exam/[id].js",
-                        lineNumber: 42,
+                        lineNumber: 71,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/pages/exam/[id].js",
-                lineNumber: 36,
+                lineNumber: 64,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/pages/exam/[id].js",
-        lineNumber: 17,
+        lineNumber: 45,
         columnNumber: 5
     }, this);
 }

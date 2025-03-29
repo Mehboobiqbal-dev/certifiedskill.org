@@ -13,6 +13,34 @@ export default function ExamLanding({ exam }) {
     );
   }
 
+  // Render a conditional warning message based on exam properties.
+  // For example, if the exam is flagged as challenging, show a red warning.
+  // Otherwise, display a yellow notice reminding users to be prepared.
+  const renderFailureWarning = () => {
+    if (exam.isChallenging) {
+      return (
+        <div className="bg-red-100 border border-red-200 rounded p-4 my-6">
+          <h2 className="text-xl font-bold text-red-800 mb-2">Warning</h2>
+          <p className="text-red-800">
+            This exam is known to be highly challenging. Attempting it without thorough preparation
+            may result in failure. Please review all study materials and ensure you understand the
+            content before starting.
+          </p>
+        </div>
+      );
+    } else {
+      return (
+        <div className="bg-yellow-100 border border-yellow-200 rounded p-4 my-6">
+          <h2 className="text-xl font-bold text-yellow-800 mb-2">Important Notice</h2>
+          <p className="text-yellow-800">
+            Make sure you are well prepared before starting the exam. Insufficient preparation can
+            lead to failure, so please take the time to study and understand the material.
+          </p>
+        </div>
+      );
+    }
+  };
+
   return (
     <div>
       <Head>
@@ -34,17 +62,20 @@ export default function ExamLanding({ exam }) {
       </Head>
 
       <main className="max-w-3xl mx-auto p-6">
-        <h1 className="text-4xl font-bold mb-4">{exam.title}</h1>
-        <p className="mb-4">
+        <h1 className="text-4xl font-bold text-center mb-6">{exam.title}</h1>
+        <p className="mb-6 text-lg leading-relaxed text-gray-700">
           {exam.description ||
             "Take this exam to validate your skills. It is free and offers certification upon passing."}
         </p>
-        <button
-          className="bg-blue-500 text-black px-4 py-2 rounded hover:bg-blue-600 transition duration-200"
-          onClick={() => (window.location.href = `/exam/${exam._id}/start`)}
-        >
-          Start Exam
-        </button>
+        {renderFailureWarning()}
+        <div className="flex justify-center">
+          <button
+            className="bg-blue-500 hover:bg-blue-600 text-black font-semibold px-6 py-3 rounded-lg transition duration-200 shadow-md"
+            onClick={() => (window.location.href = `/exam/${exam._id}/start`)}
+          >
+            Start Exam
+          </button>
+        </div>
       </main>
     </div>
   );
@@ -54,27 +85,28 @@ export async function getServerSideProps(context) {
   try {
     await connectToDatabase();
     const { id } = context.params;
-    
+
     // Validate that the "id" is a valid 24-character hexadecimal string.
     if (!id || !/^[0-9a-fA-F]{24}$/.test(id)) {
       return { notFound: true };
     }
-    
+
     const exam = await Exam.findById(id).lean();
     if (!exam) {
       return { notFound: true };
     }
-    
-    // Use JSON.stringify with a replacer to omit any functions (or other unserializable values)
-    // and then parse back to a plain object.
-    let serializableExam = JSON.parse(JSON.stringify(exam, (key, value) => {
-      if (typeof value === "function") {
-        return undefined;
-      }
-      return value;
-    }));
-    
-    // Ensure that our main _id and any nested question _id are explicitly converted to strings.
+
+    // Convert any unserializable values and ensure IDs are strings.
+    let serializableExam = JSON.parse(
+      JSON.stringify(exam, (key, value) => {
+        if (typeof value === "function") {
+          return undefined;
+        }
+        return value;
+      })
+    );
+
+    // Convert _id and nested question IDs to strings.
     if (serializableExam._id) {
       serializableExam._id = serializableExam._id.toString();
     }
@@ -86,7 +118,7 @@ export async function getServerSideProps(context) {
         return question;
       });
     }
-    
+
     return { props: { exam: serializableExam } };
   } catch (error) {
     console.error("Error fetching exam:", error);
