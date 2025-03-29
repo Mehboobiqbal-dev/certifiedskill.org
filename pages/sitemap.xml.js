@@ -56,6 +56,12 @@ export const getServerSideProps = async ({ res }) => {
       changefreq: "monthly",
       lastmod: null,
     },
+    {
+      loc: "https://certifiedskill.org/search-exam",
+      priority: "0.5",
+      changefreq: "monthly",
+      lastmod: null,
+    },
   ];
 
   // Start building the XML string.
