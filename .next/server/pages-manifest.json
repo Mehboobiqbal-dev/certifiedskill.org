@@ -2,5 +2,7 @@
   "/": "pages/index.js",
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
-  "/sitemap.xml": "pages/sitemap.xml.js"
+  "/api/exams": "pages/api/exams.js",
+  "/exam/[id]": "pages/exam/[id].js",
+  "/search-exam": "pages/search-exam.js"
 }
