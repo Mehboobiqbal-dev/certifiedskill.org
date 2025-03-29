@@ -21,17 +21,26 @@ const ExamSearch = () => {
       return;
     }
 
+    const queryLower = searchQuery.toLowerCase();
+
     // Fetch suggestions from your API (adjust URL as needed)
     fetch(`/api/exams?query=${encodeURIComponent(searchQuery)}`)
       .then((res) => res.json())
-      .then((data) => setRecommendations(data))
+      .then((data) => {
+        // If your API isn't filtering, apply a filter client-side.
+        const filteredData = data.filter((exam) => {
+          // Check if exam.title matches the query (you can also include exam.category, etc.)
+          return (exam.title || "").toLowerCase().includes(queryLower);
+        });
+        setRecommendations(filteredData);
+      })
       .catch((err) => {
         console.error("Error fetching exam recommendations:", err);
         setRecommendations([]);
       });
   }, [searchQuery]);
 
-  // Optionally, you might want to hide the recommendations when clicking outside the component
+  // Hide recommendations when clicking outside the component
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
@@ -46,6 +55,8 @@ const ExamSearch = () => {
   // Handle the search form submission
   const handleSearchFormSubmit = (e) => {
     e.preventDefault();
+    // Optionally, clear suggestions when submitting
+    setRecommendations([]);
     // Navigate to a search results page with the query parameter (if needed)
     router.push(`/search-exam?query=${encodeURIComponent(searchQuery)}`);
   };

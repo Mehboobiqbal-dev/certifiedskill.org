@@ -978,11 +978,21 @@ const ExamSearch = ()=>{
                 setRecommendations([]);
                 return;
             }
+            const queryLower = searchQuery.toLowerCase();
             // Fetch suggestions from your API (adjust URL as needed)
             fetch(`/api/exams?query=${encodeURIComponent(searchQuery)}`).then({
                 "ExamSearch.useEffect": (res)=>res.json()
             }["ExamSearch.useEffect"]).then({
-                "ExamSearch.useEffect": (data)=>setRecommendations(data)
+                "ExamSearch.useEffect": (data)=>{
+                    // If your API isn't filtering, apply a filter client-side.
+                    const filteredData = data.filter({
+                        "ExamSearch.useEffect.filteredData": (exam)=>{
+                            // Check if exam.title matches the query (you can also include exam.category, etc.)
+                            return (exam.title || "").toLowerCase().includes(queryLower);
+                        }
+                    }["ExamSearch.useEffect.filteredData"]);
+                    setRecommendations(filteredData);
+                }
             }["ExamSearch.useEffect"]).catch({
                 "ExamSearch.useEffect": (err)=>{
                     console.error("Error fetching exam recommendations:", err);
@@ -993,7 +1003,7 @@ const ExamSearch = ()=>{
     }["ExamSearch.useEffect"], [
         searchQuery
     ]);
-    // Optionally, you might want to hide the recommendations when clicking outside the component
+    // Hide recommendations when clicking outside the component
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "ExamSearch.useEffect": ()=>{
             const handleClickOutside = {
@@ -1012,6 +1022,8 @@ const ExamSearch = ()=>{
     // Handle the search form submission
     const handleSearchFormSubmit = (e)=>{
         e.preventDefault();
+        // Optionally, clear suggestions when submitting
+        setRecommendations([]);
         // Navigate to a search results page with the query parameter (if needed)
         router.push(`/search-exam?query=${encodeURIComponent(searchQuery)}`);
     };
@@ -1031,7 +1043,7 @@ const ExamSearch = ()=>{
                         className: "w-full border border-gray-300 p-2 rounded-l-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     }, void 0, false, {
                         fileName: "[project]/pages/Header.jsx",
-                        lineNumber: 56,
+                        lineNumber: 67,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1040,13 +1052,13 @@ const ExamSearch = ()=>{
                         children: "Search"
                     }, void 0, false, {
                         fileName: "[project]/pages/Header.jsx",
-                        lineNumber: 63,
+                        lineNumber: 74,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/pages/Header.jsx",
-                lineNumber: 55,
+                lineNumber: 66,
                 columnNumber: 7
             }, this),
             recommendations.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -1060,28 +1072,28 @@ const ExamSearch = ()=>{
                                 children: exam.title
                             }, void 0, false, {
                                 fileName: "[project]/pages/Header.jsx",
-                                lineNumber: 73,
+                                lineNumber: 84,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/pages/Header.jsx",
-                            lineNumber: 72,
+                            lineNumber: 83,
                             columnNumber: 15
                         }, this)
                     }, exam._id, false, {
                         fileName: "[project]/pages/Header.jsx",
-                        lineNumber: 71,
+                        lineNumber: 82,
                         columnNumber: 13
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/pages/Header.jsx",
-                lineNumber: 69,
+                lineNumber: 80,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/pages/Header.jsx",
-        lineNumber: 54,
+        lineNumber: 65,
         columnNumber: 5
     }, this);
 };
@@ -1139,29 +1151,29 @@ const HeaderContent = ()=>{
                                 children: "CertifiedSkill.org"
                             }, void 0, false, {
                                 fileName: "[project]/pages/Header.jsx",
-                                lineNumber: 115,
+                                lineNumber: 126,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/pages/Header.jsx",
-                            lineNumber: 109,
+                            lineNumber: 120,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/pages/Header.jsx",
-                        lineNumber: 108,
+                        lineNumber: 119,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex-grow mx-4 hidden sm:block",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ExamSearch, {}, void 0, false, {
                             fileName: "[project]/pages/Header.jsx",
-                            lineNumber: 126,
+                            lineNumber: 137,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/pages/Header.jsx",
-                        lineNumber: 125,
+                        lineNumber: 136,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
@@ -1176,42 +1188,42 @@ const HeaderContent = ()=>{
                                 children: "Dashboard"
                             }, void 0, false, {
                                 fileName: "[project]/pages/Header.jsx",
-                                lineNumber: 132,
+                                lineNumber: 143,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$user$2d$button$2e$tsx__$5b$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                 fileName: "[project]/pages/Header.jsx",
-                                lineNumber: 140,
+                                lineNumber: 151,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/pages/Header.jsx",
-                        lineNumber: 130,
+                        lineNumber: 141,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/pages/Header.jsx",
-                lineNumber: 106,
+                lineNumber: 117,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "mt-4 sm:hidden",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ExamSearch, {}, void 0, false, {
                     fileName: "[project]/pages/Header.jsx",
-                    lineNumber: 146,
+                    lineNumber: 157,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/pages/Header.jsx",
-                lineNumber: 145,
+                lineNumber: 156,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/pages/Header.jsx",
-        lineNumber: 105,
+        lineNumber: 116,
         columnNumber: 5
     }, this);
 };
@@ -1224,12 +1236,12 @@ _c1 = HeaderContent;
 const Header = ()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["SessionProvider"], {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(HeaderContent, {}, void 0, false, {
             fileName: "[project]/pages/Header.jsx",
-            lineNumber: 154,
+            lineNumber: 165,
             columnNumber: 5
         }, this)
     }, void 0, false, {
         fileName: "[project]/pages/Header.jsx",
-        lineNumber: 153,
+        lineNumber: 164,
         columnNumber: 3
     }, this);
 _c2 = Header;
