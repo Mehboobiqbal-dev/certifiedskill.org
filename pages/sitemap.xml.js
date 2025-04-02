@@ -57,6 +57,12 @@ export const getServerSideProps = async ({ res }) => {
       lastmod: null,
     },
     {
+      loc: "https://certifiedskill.org/exam",
+      priority: "0.5",
+      changefreq: "monthly",
+      lastmod: null,
+    },
+    {
       loc: "https://certifiedskill.org/search-exam",
       priority: "0.5",
       changefreq: "monthly",
