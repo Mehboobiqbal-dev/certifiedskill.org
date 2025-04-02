@@ -126,7 +126,7 @@ const HeaderContent = () => {
             itemProp="url"
           >
             <h1
-              className="text-lg md:text-xl font-bold transform hover:scale-105 transition duration-300"
+              className="text-sm md:text-xl font-bold transform hover:scale-105 transition duration-300"
               itemProp="name"
             >
               CertifiedSkill.org
@@ -134,8 +134,8 @@ const HeaderContent = () => {
           </Link>
         </div>
 
-        {/* Exam Search */}
-        <div className="flex-grow mx-4">
+        {/* Exam Search - limit width on mobile */}
+        <div className="flex-grow mx-4 max-w-xs md:max-w-full">
           <ExamSearch />
         </div>
 
@@ -201,7 +201,10 @@ const HeaderContent = () => {
 
       {/* Mobile Navigation Dropdown */}
       {menuOpen && (
-        <div ref={menuRef} className="md:hidden bg-white border-t border-gray-200 shadow-md">
+        <div
+          ref={menuRef}
+          className="md:hidden bg-white border-t border-gray-200 shadow-md"
+        >
           <nav
             className="flex flex-col p-4 space-y-2"
             itemScope
