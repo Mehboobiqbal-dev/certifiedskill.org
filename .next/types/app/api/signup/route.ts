@@ -1,4 +1,4 @@
-// File: /home/user/get-certified/app/api/signup/route.ts
+// File: /workspaces/get-certified/app/api/signup/route.ts
 import * as entry from '../../../../../app/api/signup/route.js'
 import type { NextRequest } from 'next/server.js'
 

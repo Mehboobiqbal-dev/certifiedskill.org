@@ -970,7 +970,6 @@ const ExamSearch = ()=>{
     const [searchQuery, setSearchQuery] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [recommendations, setRecommendations] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const searchContainerRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useRef"])(null);
-    // Fetch recommended exams whenever the search query changes
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "ExamSearch.useEffect": ()=>{
             // Only fetch if query has at least 2 characters to avoid too many requests
@@ -979,17 +978,13 @@ const ExamSearch = ()=>{
                 return;
             }
             const queryLower = searchQuery.toLowerCase();
-            // Fetch suggestions from your API (adjust URL as needed)
             fetch(`/api/exams?query=${encodeURIComponent(searchQuery)}`).then({
                 "ExamSearch.useEffect": (res)=>res.json()
             }["ExamSearch.useEffect"]).then({
                 "ExamSearch.useEffect": (data)=>{
-                    // If your API isn't filtering, apply a filter client-side.
+                    // Filter client-side if necessary
                     const filteredData = data.filter({
-                        "ExamSearch.useEffect.filteredData": (exam)=>{
-                            // Check if exam.title matches the query (you can also include exam.category, etc.)
-                            return (exam.title || "").toLowerCase().includes(queryLower);
-                        }
+                        "ExamSearch.useEffect.filteredData": (exam)=>(exam.title || "").toLowerCase().includes(queryLower)
                     }["ExamSearch.useEffect.filteredData"]);
                     setRecommendations(filteredData);
                 }
@@ -1003,7 +998,6 @@ const ExamSearch = ()=>{
     }["ExamSearch.useEffect"], [
         searchQuery
     ]);
-    // Hide recommendations when clicking outside the component
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "ExamSearch.useEffect": ()=>{
             const handleClickOutside = {
@@ -1019,12 +1013,9 @@ const ExamSearch = ()=>{
             })["ExamSearch.useEffect"];
         }
     }["ExamSearch.useEffect"], []);
-    // Handle the search form submission
     const handleSearchFormSubmit = (e)=>{
         e.preventDefault();
-        // Optionally, clear suggestions when submitting
         setRecommendations([]);
-        // Navigate to a search results page with the query parameter (if needed)
         router.push(`/search-exam?query=${encodeURIComponent(searchQuery)}`);
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1043,7 +1034,7 @@ const ExamSearch = ()=>{
                         className: "w-full border border-gray-300 p-2 rounded-l-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     }, void 0, false, {
                         fileName: "[project]/pages/Header.jsx",
-                        lineNumber: 67,
+                        lineNumber: 60,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1052,13 +1043,13 @@ const ExamSearch = ()=>{
                         children: "Search"
                     }, void 0, false, {
                         fileName: "[project]/pages/Header.jsx",
-                        lineNumber: 74,
+                        lineNumber: 67,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/pages/Header.jsx",
-                lineNumber: 66,
+                lineNumber: 59,
                 columnNumber: 7
             }, this),
             recommendations.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -1072,28 +1063,28 @@ const ExamSearch = ()=>{
                                 children: exam.title
                             }, void 0, false, {
                                 fileName: "[project]/pages/Header.jsx",
-                                lineNumber: 84,
+                                lineNumber: 76,
                                 columnNumber: 17
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/pages/Header.jsx",
-                            lineNumber: 83,
+                            lineNumber: 75,
                             columnNumber: 15
                         }, this)
                     }, exam._id, false, {
                         fileName: "[project]/pages/Header.jsx",
-                        lineNumber: 82,
+                        lineNumber: 74,
                         columnNumber: 13
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/pages/Header.jsx",
-                lineNumber: 80,
+                lineNumber: 72,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/pages/Header.jsx",
-        lineNumber: 65,
+        lineNumber: 58,
         columnNumber: 5
     }, this);
 };
@@ -1106,9 +1097,8 @@ _c = ExamSearch;
 const HeaderContent = ()=>{
     _s1();
     const [menuOpen, setMenuOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    const menuRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const { data: session, status } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useSession"])();
-    // Close menu when clicking outside the menu area
+    const menuRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "HeaderContent.useEffect": ()=>{
             const handleClickOutside = {
@@ -1122,9 +1112,7 @@ const HeaderContent = ()=>{
                 document.addEventListener("click", handleClickOutside);
             }
             return ({
-                "HeaderContent.useEffect": ()=>{
-                    document.removeEventListener("click", handleClickOutside);
-                }
+                "HeaderContent.useEffect": ()=>document.removeEventListener("click", handleClickOutside)
             })["HeaderContent.useEffect"];
         }
     }["HeaderContent.useEffect"], [
@@ -1132,102 +1120,88 @@ const HeaderContent = ()=>{
     ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("header", {
         className: "bg-white/30 backdrop-blur-md text-black py-4 px-4 sm:px-5 sticky top-0 w-full z-50 shadow-lg transition-all duration-300 ease-in-out",
-        children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "max-w-screen-xl mx-auto flex flex-col sm:flex-row items-center justify-between",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex-shrink-0",
-                        itemScope: true,
-                        itemType: "http://schema.org/Organization",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$client$5d$__$28$ecmascript$29$__["default"], {
-                            href: "/",
-                            onClick: ()=>setMenuOpen(false),
-                            "aria-label": "CertifiedSkill.org Homepage",
-                            itemProp: "url",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                className: "text-2xl font-extrabold tracking-wide transform hover:scale-105 transition duration-300",
-                                itemProp: "name",
-                                children: "CertifiedSkill.org"
-                            }, void 0, false, {
-                                fileName: "[project]/pages/Header.jsx",
-                                lineNumber: 126,
-                                columnNumber: 13
-                            }, this)
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "max-w-screen-xl mx-auto flex items-center justify-between flex-nowrap",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex-shrink-0",
+                    itemScope: true,
+                    itemType: "http://schema.org/Organization",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$client$5d$__$28$ecmascript$29$__["default"], {
+                        href: "/",
+                        onClick: ()=>setMenuOpen(false),
+                        "aria-label": "CertifiedSkill.org Homepage",
+                        itemProp: "url",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                            className: "text-lg sm:text-xl md:text-2xl font-bold transform hover:scale-105 transition duration-300",
+                            itemProp: "name",
+                            children: "CertifiedSkill.org"
                         }, void 0, false, {
                             fileName: "[project]/pages/Header.jsx",
-                            lineNumber: 120,
-                            columnNumber: 11
+                            lineNumber: 115,
+                            columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/pages/Header.jsx",
-                        lineNumber: 119,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex-grow mx-4 hidden sm:block",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ExamSearch, {}, void 0, false, {
-                            fileName: "[project]/pages/Header.jsx",
-                            lineNumber: 137,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/pages/Header.jsx",
-                        lineNumber: 136,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
-                        className: "flex items-center space-x-4",
-                        itemScope: true,
-                        itemType: "http://schema.org/SiteNavigationElement",
-                        children: [
-                            status === "authenticated" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$client$5d$__$28$ecmascript$29$__["default"], {
-                                href: "/dashboard",
-                                className: "text-lg font-medium hover:underline",
-                                itemProp: "url",
-                                children: "Dashboard"
-                            }, void 0, false, {
-                                fileName: "[project]/pages/Header.jsx",
-                                lineNumber: 143,
-                                columnNumber: 13
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$user$2d$button$2e$tsx__$5b$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
-                                fileName: "[project]/pages/Header.jsx",
-                                lineNumber: 151,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/pages/Header.jsx",
-                        lineNumber: 141,
-                        columnNumber: 9
+                        lineNumber: 109,
+                        columnNumber: 11
                     }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/pages/Header.jsx",
-                lineNumber: 117,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "mt-4 sm:hidden",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ExamSearch, {}, void 0, false, {
+                }, void 0, false, {
                     fileName: "[project]/pages/Header.jsx",
-                    lineNumber: 157,
+                    lineNumber: 108,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex-1 mx-4 min-w-0",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ExamSearch, {}, void 0, false, {
+                        fileName: "[project]/pages/Header.jsx",
+                        lineNumber: 126,
+                        columnNumber: 11
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/pages/Header.jsx",
+                    lineNumber: 125,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
+                    className: "flex items-center space-x-2 sm:space-x-4",
+                    itemScope: true,
+                    itemType: "http://schema.org/SiteNavigationElement",
+                    children: [
+                        status === "authenticated" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$link$2e$js__$5b$client$5d$__$28$ecmascript$29$__["default"], {
+                            href: "/dashboard",
+                            className: "hidden sm:block text-lg font-medium hover:underline",
+                            itemProp: "url",
+                            children: "Dashboard"
+                        }, void 0, false, {
+                            fileName: "[project]/pages/Header.jsx",
+                            lineNumber: 135,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$user$2d$button$2e$tsx__$5b$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
+                            fileName: "[project]/pages/Header.jsx",
+                            lineNumber: 143,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/pages/Header.jsx",
+                    lineNumber: 130,
                     columnNumber: 9
                 }, this)
-            }, void 0, false, {
-                fileName: "[project]/pages/Header.jsx",
-                lineNumber: 156,
-                columnNumber: 7
-            }, this)
-        ]
-    }, void 0, true, {
+            ]
+        }, void 0, true, {
+            fileName: "[project]/pages/Header.jsx",
+            lineNumber: 106,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
         fileName: "[project]/pages/Header.jsx",
-        lineNumber: 116,
+        lineNumber: 105,
         columnNumber: 5
     }, this);
 };
-_s1(HeaderContent, "pcVtgEBKFx08z3yKPCePaCC7M5s=", false, function() {
+_s1(HeaderContent, "kOW4k+lGVEQCtZKt9OZWx/ro0To=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["useSession"]
     ];
@@ -1236,12 +1210,12 @@ _c1 = HeaderContent;
 const Header = ()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$react$2f$index$2e$js__$5b$client$5d$__$28$ecmascript$29$__["SessionProvider"], {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$client$5d$__$28$ecmascript$29$__["jsxDEV"])(HeaderContent, {}, void 0, false, {
             fileName: "[project]/pages/Header.jsx",
-            lineNumber: 165,
+            lineNumber: 152,
             columnNumber: 5
         }, this)
     }, void 0, false, {
         fileName: "[project]/pages/Header.jsx",
-        lineNumber: 164,
+        lineNumber: 151,
         columnNumber: 3
     }, this);
 _c2 = Header;
