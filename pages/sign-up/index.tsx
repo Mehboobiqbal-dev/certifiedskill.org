@@ -19,6 +19,8 @@ import { TriangleAlert } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import Header from "../Header";
+import Footer from "../Footer"; // Corrected import
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -57,7 +59,9 @@ const SignUp = () => {
         router.push("/sign-in");
       } else {
         console.error("Error response from API:", { status: res.status, data });
-        const errorMsg = `Error ${res.status}: ${data.message || "An error occurred during sign up."}`;
+        const errorMsg = `Error ${res.status}: ${
+          data.message || "An error occurred during sign up."
+        }`;
         setError(errorMsg);
         toast.error(errorMsg);
       }
@@ -81,6 +85,7 @@ const SignUp = () => {
 
   return (
     <>
+      <Header />
       <Head>
         <title>Sign Up | CertifiedSkill.org</title>
         <meta
@@ -225,6 +230,7 @@ const SignUp = () => {
           </CardContent>
         </Card>
       </div>
+      <Footer />
     </>
   );
 };
