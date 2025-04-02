@@ -15,19 +15,14 @@ const ExamSearch = () => {
 
   // Fetch recommended exams whenever the search query changes
   useEffect(() => {
-    // Only fetch if query has at least 2 characters to avoid too many requests
     if (searchQuery.trim().length < 2) {
       setRecommendations([]);
       return;
     }
-
     const queryLower = searchQuery.toLowerCase();
-
-    // Fetch suggestions from your API (adjust URL as needed)
     fetch(`/api/exams?query=${encodeURIComponent(searchQuery)}`)
       .then((res) => res.json())
       .then((data) => {
-        // If your API isn't filtering, apply a filter client-side.
         const filteredData = data.filter((exam) =>
           (exam.title || "").toLowerCase().includes(queryLower)
         );
@@ -58,9 +53,7 @@ const ExamSearch = () => {
   // Handle the search form submission
   const handleSearchFormSubmit = (e) => {
     e.preventDefault();
-    // Optionally, clear suggestions when submitting
     setRecommendations([]);
-    // Navigate to a search results page with the query parameter (if needed)
     router.push(`/search-exam?query=${encodeURIComponent(searchQuery)}`);
   };
 
@@ -81,14 +74,10 @@ const ExamSearch = () => {
           Search
         </button>
       </form>
-      {/* Recommendation dropdown */}
       {recommendations.length > 0 && (
         <ul className="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-b-md shadow-md mt-1 z-50">
           {recommendations.map((exam) => (
-            <li
-              key={exam._id}
-              className="px-4 py-2 hover:bg-gray-100"
-            >
+            <li key={exam._id} className="px-4 py-2 hover:bg-gray-100">
               <Link href={`/exam/${exam._id}`}>
                 <span className="cursor-pointer">{exam.title}</span>
               </Link>
@@ -105,7 +94,7 @@ const HeaderContent = () => {
   const { data: session, status } = useSession();
   const menuRef = useRef(null);
 
-  // Close menu when clicking outside the menu area
+  // Close mobile menu when clicking outside its area
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -125,7 +114,11 @@ const HeaderContent = () => {
     <header className="bg-white/30 backdrop-blur-md text-black py-4 px-4 sm:px-5 sticky top-0 w-full z-50 shadow-lg transition-all duration-300 ease-in-out">
       <div className="max-w-screen-xl mx-auto flex items-center justify-between">
         {/* Logo */}
-        <div className="flex-shrink-0" itemScope itemType="http://schema.org/Organization">
+        <div
+          className="flex-shrink-0"
+          itemScope
+          itemType="http://schema.org/Organization"
+        >
           <Link
             href="/"
             onClick={() => setMenuOpen(false)}
@@ -133,7 +126,7 @@ const HeaderContent = () => {
             itemProp="url"
           >
             <h1
-              className="text-xl md:text-2xl font-bold transform hover:scale-105 transition duration-300"
+              className="text-lg md:text-xl font-bold transform hover:scale-105 transition duration-300"
               itemProp="name"
             >
               CertifiedSkill.org
@@ -146,24 +139,90 @@ const HeaderContent = () => {
           <ExamSearch />
         </div>
 
-        {/* Navigation Links */}
-        <nav
-          className="flex items-center space-x-4"
-          itemScope
-          itemType="http://schema.org/SiteNavigationElement"
-        >
-          {status === "authenticated" && (
-            <Link
-              href="/dashboard"
-              className="text-lg font-medium hover:underline"
-              itemProp="url"
-            >
-              Dashboard
-            </Link>
-          )}
-          <UserButton />
-        </nav>
+        <div className="flex items-center">
+          {/* Mobile Hamburger Menu Toggle */}
+          <button
+            className="md:hidden p-2 focus:outline-none"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            )}
+          </button>
+
+          {/* Desktop Navigation Links */}
+          <nav
+            className="hidden md:flex items-center space-x-4"
+            itemScope
+            itemType="http://schema.org/SiteNavigationElement"
+          >
+            {status === "authenticated" && (
+              <Link
+                href="/dashboard"
+                className="text-lg font-medium hover:underline"
+                itemProp="url"
+              >
+                Dashboard
+              </Link>
+            )}
+            <UserButton />
+          </nav>
+        </div>
       </div>
+
+      {/* Mobile Navigation Dropdown */}
+      {menuOpen && (
+        <div ref={menuRef} className="md:hidden bg-white border-t border-gray-200 shadow-md">
+          <nav
+            className="flex flex-col p-4 space-y-2"
+            itemScope
+            itemType="http://schema.org/SiteNavigationElement"
+          >
+            {status === "authenticated" && (
+              <Link
+                href="/dashboard"
+                className="text-lg font-medium hover:underline"
+                itemProp="url"
+                onClick={() => setMenuOpen(false)}
+              >
+                Dashboard
+              </Link>
+            )}
+            <div onClick={() => setMenuOpen(false)}>
+              <UserButton />
+            </div>
+          </nav>
+        </div>
+      )}
     </header>
   );
 };
