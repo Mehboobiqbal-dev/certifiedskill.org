@@ -65,7 +65,7 @@ const ExamSearch = () => {
           placeholder="Search exams..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full border border-gray-300 p-2 rounded-l-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="w-full max-w-xs border border-gray-300 px-2 py-1 rounded-l-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
         <button
           type="submit"
@@ -142,7 +142,7 @@ const HeaderContent = () => {
         <div className="flex items-center">
           {/* Mobile Hamburger Menu Toggle */}
           <button
-            className="md:hidden p-2 focus:outline-none"
+            className="md:hidden p-2 focus:outline-none cursor-pointer relative z-50"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >

@@ -828,7 +828,7 @@ const ExamSearch = ()=>{
                         placeholder: "Search exams...",
                         value: searchQuery,
                         onChange: (e)=>setSearchQuery(e.target.value),
-                        className: "w-full border border-gray-300 p-2 rounded-l-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        className: "w-full max-w-xs border border-gray-300 px-2 py-1 rounded-l-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     }, void 0, false, {
                         fileName: "[project]/pages/Header.jsx",
                         lineNumber: 63,
@@ -921,7 +921,7 @@ const HeaderContent = ()=>{
                             "aria-label": "CertifiedSkill.org Homepage",
                             itemProp: "url",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("h1", {
-                                className: "text-lg md:text-xl font-bold transform hover:scale-105 transition duration-300",
+                                className: "text-sm md:text-xl font-bold transform hover:scale-105 transition duration-300",
                                 itemProp: "name",
                                 children: "CertifiedSkill.org"
                             }, void 0, false, {
@@ -940,7 +940,7 @@ const HeaderContent = ()=>{
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
-                        className: "flex-grow mx-4",
+                        className: "flex-grow mx-4 max-w-xs md:max-w-full",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(ExamSearch, {}, void 0, false, {
                             fileName: "[project]/pages/Header.jsx",
                             lineNumber: 139,
@@ -955,7 +955,7 @@ const HeaderContent = ()=>{
                         className: "flex items-center",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("button", {
-                                className: "md:hidden p-2 focus:outline-none",
+                                className: "md:hidden p-2 focus:outline-none cursor-pointer relative z-50",
                                 onClick: ()=>setMenuOpen(!menuOpen),
                                 "aria-label": "Toggle menu",
                                 children: menuOpen ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("svg", {
@@ -1058,25 +1058,25 @@ const HeaderContent = ()=>{
                             children: "Dashboard"
                         }, void 0, false, {
                             fileName: "[project]/pages/Header.jsx",
-                            lineNumber: 211,
+                            lineNumber: 214,
                             columnNumber: 15
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])("div", {
                             onClick: ()=>setMenuOpen(false),
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$user$2d$button$2e$tsx__$5b$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                 fileName: "[project]/pages/Header.jsx",
-                                lineNumber: 221,
+                                lineNumber: 224,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/pages/Header.jsx",
-                            lineNumber: 220,
+                            lineNumber: 223,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/pages/Header.jsx",
-                    lineNumber: 205,
+                    lineNumber: 208,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
@@ -1094,12 +1094,12 @@ const HeaderContent = ()=>{
 const Header = ()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$externals$5d2f$next$2d$auth$2f$react__$5b$external$5d$__$28$next$2d$auth$2f$react$2c$__cjs$29$__["SessionProvider"], {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$externals$5d2f$react$2f$jsx$2d$dev$2d$runtime__$5b$external$5d$__$28$react$2f$jsx$2d$dev$2d$runtime$2c$__cjs$29$__["jsxDEV"])(HeaderContent, {}, void 0, false, {
             fileName: "[project]/pages/Header.jsx",
-            lineNumber: 232,
+            lineNumber: 235,
             columnNumber: 5
         }, this)
     }, void 0, false, {
         fileName: "[project]/pages/Header.jsx",
-        lineNumber: 231,
+        lineNumber: 234,
         columnNumber: 3
     }, this);
 const __TURBOPACK__default__export__ = Header;
