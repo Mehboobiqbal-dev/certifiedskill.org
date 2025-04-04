@@ -94,14 +94,12 @@ const HeaderContent = () => {
   const { data: session, status } = useSession();
   const menuRef = useRef(null);
 
-  // Close mobile menu when clicking outside its area
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setMenuOpen(false);
       }
     };
-
     if (menuOpen) {
       document.addEventListener("click", handleClickOutside);
     }
@@ -112,13 +110,9 @@ const HeaderContent = () => {
 
   return (
     <header className="bg-white/30 backdrop-blur-md text-black py-4 px-4 sm:px-5 sticky top-0 w-full z-50 shadow-lg transition-all duration-300 ease-in-out">
-      <div className="max-w-screen-xl mx-auto flex items-center justify-between">
+      <div className="max-w-screen-xl mx-auto flex flex-wrap items-center justify-between">
         {/* Logo */}
-        <div
-          className="flex-shrink-0"
-          itemScope
-          itemType="http://schema.org/Organization"
-        >
+        <div className="flex-shrink-0" itemScope itemType="http://schema.org/Organization">
           <Link
             href="/"
             onClick={() => setMenuOpen(false)}
@@ -126,106 +120,35 @@ const HeaderContent = () => {
             itemProp="url"
           >
             <h1
-              className="text-sm md:text-xl font-bold transform hover:scale-105 transition duration-300"
+              className="text-xl md:text-2xl font-bold transform hover:scale-105 transition duration-300"
               itemProp="name"
             >
               CertifiedSkill.org
             </h1>
           </Link>
         </div>
-
-        {/* Exam Search - limit width on mobile */}
-        <div className="flex-grow mx-4 max-w-xs md:max-w-full">
+        {/* Exam Search */}
+        <div className="flex-grow mx-4">
           <ExamSearch />
         </div>
-
-        <div className="flex items-center">
-          {/* Mobile Hamburger Menu Toggle */}
-          <button
-            className="md:hidden p-2 focus:outline-none cursor-pointer relative z-50"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
-          >
-            {menuOpen ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            )}
-          </button>
-
-          {/* Desktop Navigation Links */}
-          <nav
-            className="hidden md:flex items-center space-x-4"
-            itemScope
-            itemType="http://schema.org/SiteNavigationElement"
-          >
-            {status === "authenticated" && (
-              <Link
-                href="/dashboard"
-                className="text-lg font-medium hover:underline"
-                itemProp="url"
-              >
-                Dashboard
-              </Link>
-            )}
-            <UserButton />
-          </nav>
-        </div>
-      </div>
-
-      {/* Mobile Navigation Dropdown */}
-      {menuOpen && (
-        <div
-          ref={menuRef}
-          className="md:hidden bg-white border-t border-gray-200 shadow-md"
+        {/* Navigation Links */}
+        <nav
+          className="flex items-center justify-center sm:justify-end space-x-4"
+          itemScope
+          itemType="http://schema.org/SiteNavigationElement"
         >
-          <nav
-            className="flex flex-col p-4 space-y-2"
-            itemScope
-            itemType="http://schema.org/SiteNavigationElement"
-          >
-            {status === "authenticated" && (
-              <Link
-                href="/dashboard"
-                className="text-lg font-medium hover:underline"
-                itemProp="url"
-                onClick={() => setMenuOpen(false)}
-              >
-                Dashboard
-              </Link>
-            )}
-            <div onClick={() => setMenuOpen(false)}>
-              <UserButton />
-            </div>
-          </nav>
-        </div>
-      )}
+          {status === "authenticated" && (
+            <Link
+              href="/dashboard"
+              className="text-lg font-medium hover:underline"
+              itemProp="url"
+            >
+              Dashboard
+            </Link>
+          )}
+          <UserButton />
+        </nav>
+      </div>
     </header>
   );
 };

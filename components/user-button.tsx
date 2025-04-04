@@ -19,7 +19,6 @@ const UserButton = () => {
     return <Loader className="w-6 h-6 mr-4 mt-4 animate-spin" />;
   }
 
-  // Show initials if the user's name is provided
   const avatarFallback = session?.user?.name?.charAt(0).toUpperCase();
 
   const handleSignOut = async () => {
@@ -33,7 +32,6 @@ const UserButton = () => {
         <DropdownMenu>
           <DropdownMenuTrigger className="outline-none p-2 md:p-4">
             <div className="flex items-center gap-2 md:gap-4">
-              {/* Show name on sm and up */}
               <span className="hidden sm:inline-block text-black font-semibold">
                 {session.user?.name}
               </span>
@@ -79,6 +77,6 @@ const UserButton = () => {
       )}
     </nav>
   );
-};
+}
 
 export default UserButton;
