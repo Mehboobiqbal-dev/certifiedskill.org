@@ -118,14 +118,14 @@ export default function Dashboard() {
           Manage your certifications, track your progress, and take new exams to boost your skills.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          {status === "authenticated" ? (
+        {status === "authenticated" ? (
             <button
               onClick={() => signOut({ callbackUrl: "/" })}
               className="bg-gradient-to-r from-red-500 to-red-700 hover:from-red-700 hover:to-red-500 text-white font-bold py-2 px-8 rounded-lg shadow transition text-lg"
             >
               Logout
             </button>
-          ) : (
+        ) : (
             <button
               onClick={() => signIn()}
               className="bg-gradient-to-r from-indigo-600 to-blue-400 hover:from-blue-400 hover:to-indigo-600 text-white font-bold py-2 px-8 rounded-lg shadow transition text-lg"
@@ -165,11 +165,11 @@ export default function Dashboard() {
           {/* Exams Section */}
           <section>
             <h2 className="text-2xl font-bold text-indigo-700 mb-8 flex items-center gap-2"><FaBookOpen className="text-blue-500" /> Available Exams</h2>
-            {exams.length === 0 ? (
+          {exams.length === 0 ? (
               <div className="bg-indigo-50 rounded-lg p-6 text-center text-gray-500">No exams available at the moment.</div>
-            ) : (
+          ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {exams.map((exam) => (
+              {exams.map((exam) => (
                   <div key={exam._id} className="bg-white rounded-2xl shadow-xl border border-indigo-100 p-6 flex flex-col gap-3 hover:shadow-2xl transition group">
                     <div className="flex items-center gap-3 mb-2">
                       <FaBookOpen className="w-7 h-7 text-blue-500 group-hover:scale-110 transition-transform" />
@@ -182,13 +182,13 @@ export default function Dashboard() {
                     </div>
                     <Link href={`/exam/${exam._id}`} className="mt-4 inline-block">
                       <span className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-500 text-white font-bold py-2 px-6 rounded-lg shadow transition cursor-pointer flex items-center gap-2"><FaArrowRight /> Take Exam</span>
-                    </Link>
+                  </Link>
                   </div>
-                ))}
+              ))}
               </div>
-            )}
-          </section>
-        </div>
+          )}
+        </section>
+      </div>
       </main>
       <Footer />
     </>

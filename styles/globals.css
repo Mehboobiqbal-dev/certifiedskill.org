@@ -24,3 +24,20 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.skip-to-content {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 1000;
+  transform: translateY(-120%);
+  transition: transform 0.3s;
+}
+.skip-to-content:focus {
+  transform: translateY(0);
+}
+
+body.user-is-tabbing :focus {
+  outline: 2px solid #facc15 !important; /* yellow-400 */
+  outline-offset: 2px;
+}

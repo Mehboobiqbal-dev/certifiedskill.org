@@ -15,7 +15,7 @@ export default function HomePage() {
         canonical="https://certifiedskill.org/"
         image="https://certifiedskill.org/og-image-faq.jpg"
       />
-      <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+      <div id="main-content" className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 via-white to-indigo-50">
         <Header />
         <main className="flex-1 w-full">
         {/* Hero Section */}
