@@ -6,6 +6,7 @@ import Header from "../Header";
 import Footer from "../Footer";
 import { FaCertificate, FaCheckCircle, FaBookOpen, FaArrowRight, FaDownload } from "react-icons/fa";
 import Skeleton from 'react-loading-skeleton';
+import SeoHead from "../../components/SeoHead";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
@@ -82,6 +83,11 @@ export default function Dashboard() {
 
   return (
     <>
+      <SeoHead
+        title="Dashboard | CertifiedSkill.org"
+        description="Access your certificates, exams, and account on your CertifiedSkill.org dashboard."
+        canonical="https://certifiedskill.org/dashboard"
+      />
       <Header />
       {/* User Profile Card */}
       <div className="flex items-center gap-4 bg-white rounded-xl shadow p-6 mb-8 max-w-md mx-auto mt-8">

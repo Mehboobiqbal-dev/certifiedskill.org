@@ -1,19 +1,20 @@
 // pages/index.js
 
-import Head from "next/head";
+import SeoHead from "../components/SeoHead";
 import Link from "next/link";
 import Header from "./Header";
 import Footer from "./Footer";
 import Skeleton from 'react-loading-skeleton';
 
-export default function Home() {
+export default function HomePage() {
   return (
     <>
-      <Head>
-        <title>Get Certified Free | CertifiedSkill.org</title>
-        <meta name="description" content="Get industry-recognized certifications, digital badges, and verifiable credentials for free. Join thousands of professionals on CertifiedSkill.org." />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head>
+      <SeoHead
+        title="CertifiedSkill.org | Free Online Certification Exams & Digital Credentials"
+        description="Take free, industry-recognized certification exams online. Earn digital certificates to boost your career. 100% free, trusted by professionals."
+        canonical="https://certifiedskill.org/"
+        image="https://certifiedskill.org/og-image-faq.jpg"
+      />
       <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 via-white to-indigo-50">
         <Header />
         <main className="flex-1 w-full">

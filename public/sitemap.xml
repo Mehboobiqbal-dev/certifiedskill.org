@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://certifiedskill.org/</loc></url>
+  <url><loc>https://certifiedskill.org/dashboard</loc></url>
+  <url><loc>https://certifiedskill.org/faq-tc</loc></url>
+  <url><loc>https://certifiedskill.org/careers</loc></url>
+  <url><loc>https://certifiedskill.org/contact</loc></url>
+  <url><loc>https://certifiedskill.org/about</loc></url>
+  <url><loc>https://certifiedskill.org/team</loc></url>
+  <url><loc>https://certifiedskill.org/blog</loc></url>
+  <!-- TODO: Dynamically generate for all exams, certificates, blog posts, etc. -->
+</urlset> 

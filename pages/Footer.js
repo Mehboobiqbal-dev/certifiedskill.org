@@ -19,29 +19,67 @@ const SOCIALS = [
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t border-indigo-100 shadow-inner mt-12">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 px-6 py-6">
-        <div className="flex items-center gap-2">
-          <img src="/ChatGPT Image Jul 19, 2025, 01_06_54 PM.png" alt="Logo" className="h-7 w-7 rounded" />
-          <span className="text-lg font-bold text-indigo-700">CertifiedSkill.org</span>
+    <footer className="bg-gradient-to-br from-indigo-700 via-blue-900 to-indigo-900 text-white pt-12 pb-4 mt-12 border-t-0 shadow-inner">
+      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row gap-12 md:gap-8 justify-between">
+        {/* About */}
+        <div className="flex-1 min-w-[220px]">
+          <div className="flex items-center gap-2 mb-3">
+            <img src="/ChatGPT Image Jul 19, 2025, 01_06_54 PM.png" alt="Logo" className="h-8 w-8 rounded shadow" />
+            <span className="text-xl font-extrabold tracking-tight">CertifiedSkill.org</span>
+          </div>
+          <p className="text-sm text-indigo-100 mb-4">
+            Free, industry-recognized certification exams to help you showcase your skills and advance your career. 100% online, accessible, and trusted by professionals worldwide.
+          </p>
+          <div className="flex gap-3 mt-2">
+            {SOCIALS.map((social) => (
+              <a key={social.href} href={social.href} target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-white/10 hover:bg-indigo-600 transition" aria-label="Social link">
+                {social.icon}
+              </a>
+            ))}
+          </div>
         </div>
-        <nav className="flex gap-6 items-center mt-2 md:mt-0">
-          {FOOTER_LINKS.map((link) => (
-            <Link key={link.href} href={link.href} className="text-sm font-medium text-gray-600 hover:text-indigo-600 transition">
-              {link.label}
-          </Link>
-          ))}
-        </nav>
-        <div className="flex gap-4 items-center mt-2 md:mt-0">
-          {SOCIALS.map((social) => (
-            <a key={social.href} href={social.href} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-indigo-600 transition" aria-label="Social link">
-              {social.icon}
-            </a>
-          ))}
+        {/* Quick Links */}
+        <div className="flex-1 min-w-[180px]">
+          <h3 className="text-lg font-semibold mb-3 text-white">Quick Links</h3>
+          <nav className="flex flex-col gap-2">
+            {FOOTER_LINKS.map((link) => (
+              <Link key={link.href} href={link.href} className="text-sm text-indigo-100 hover:text-white transition">
+                {link.label}
+              </Link>
+            ))}
+            <Link href="/contact" className="text-sm text-indigo-100 hover:text-white transition">Contact Us</Link>
+          </nav>
+        </div>
+        {/* Newsletter Signup */}
+        <div className="flex-1 min-w-[220px]">
+          <h3 className="text-lg font-semibold mb-3 text-white">Stay Updated</h3>
+          <form className="flex flex-col gap-2">
+            <input
+              type="email"
+              placeholder="Your email address"
+              className="px-4 py-2 rounded bg-white/90 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              aria-label="Email address"
+            />
+            <button
+              type="submit"
+              className="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded px-4 py-2 transition"
+              disabled
+              title="Coming soon!"
+            >
+              Subscribe
+            </button>
+          </form>
+          <p className="text-xs text-indigo-200 mt-2">Get the latest updates and new certifications. No spam.</p>
         </div>
       </div>
-      <div className="text-center text-xs text-gray-400 py-2 border-t border-indigo-50">
-        &copy; {new Date().getFullYear()} CertifiedSkill.org. All rights reserved.
+      <div className="mt-10 border-t border-indigo-800 pt-4 text-center text-xs text-indigo-200 flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto px-6 gap-2">
+        <div>
+          &copy; {new Date().getFullYear()} CertifiedSkill.org. All rights reserved.
+        </div>
+        <div className="flex gap-4">
+          <Link href="/privacy" className="hover:underline">Privacy Policy</Link>
+          <Link href="/faq-tc" className="hover:underline">Terms & FAQ</Link>
+        </div>
       </div>
     </footer>
   );
