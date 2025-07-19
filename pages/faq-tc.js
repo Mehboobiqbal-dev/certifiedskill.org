@@ -192,7 +192,7 @@ export default function FAQTermsPage() {
             <p className="text-lg md:text-xl text-indigo-100 max-w-2xl mx-auto mb-6">
               Find answers to common questions about our free certification platform, exams, and policies.
             </p>
-            <img src="/faq-illustration.svg" alt="FAQ Illustration" className="w-40 h-40 mx-auto mb-2" />
+
           </div>
         </section>
         <main className="max-w-4xl mx-auto p-6">

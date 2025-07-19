@@ -8,6 +8,7 @@ import { FaCertificate, FaCheckCircle, FaBookOpen, FaArrowRight, FaDownload } fr
 import Skeleton from 'react-loading-skeleton';
 import SeoHead from "../../components/SeoHead";
 import WelcomeTour from "../../components/WelcomeTour";
+import ProfileProgressBar from "../../components/ProfileProgressBar";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
@@ -90,6 +91,7 @@ export default function Dashboard() {
         canonical="https://certifiedskill.org/dashboard"
       />
       <WelcomeTour />
+      <ProfileProgressBar />
       <Header />
       {/* User Profile Card */}
       <div className="flex items-center gap-4 bg-white rounded-xl shadow p-6 mb-8 max-w-md mx-auto mt-8">
