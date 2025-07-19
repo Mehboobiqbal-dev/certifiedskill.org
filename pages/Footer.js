@@ -21,8 +21,8 @@ const SOCIALS = [
 ];
 
 const PARTNERS = [
-  { src: "/press-logo1.png", alt: "Partner 1" },
-  { src: "/press-logo2.png", alt: "Partner 2" },
+  { src: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/google.svg", alt: "TechNova (logo: Google)" },
+  { src: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/microsoft.svg", alt: "Cloudify (logo: Microsoft)" },
   // Add more partner logos as needed
 ];
 
