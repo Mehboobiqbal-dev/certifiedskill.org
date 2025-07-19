@@ -1,7 +1,18 @@
 {
+  "/": "pages/index.js",
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
+  "/api/certificate/generate": "pages/api/certificate/generate.js",
+  "/api/certificate/verify": "pages/api/certificate/verify.js",
+  "/api/certificates": "pages/api/certificates.js",
   "/api/exams": "pages/api/exams.js",
-  "/dashboard": "pages/dashboard.js"
+  "/api/exams/result": "pages/api/exams/result.js",
+  "/careers": "pages/careers.js",
+  "/certificate/[id]": "pages/certificate/[id].js",
+  "/dashboard": "pages/dashboard.js",
+  "/exam/[id]": "pages/exam/[id].js",
+  "/exam/[id]/start": "pages/exam/[id]/start.js",
+  "/sign-in": "pages/sign-in.js",
+  "/verify-certificate": "pages/verify-certificate.js"
 }

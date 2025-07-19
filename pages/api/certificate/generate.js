@@ -1,6 +1,8 @@
 import PDFDocument from 'pdfkit';
 import { v4 as uuidv4 } from 'uuid';
 import connectToDatabase from '../../../lib/db';
+import path from 'path';
+import fs from 'fs';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -52,11 +54,21 @@ export default async function handler(req, res) {
       layout: 'landscape',
       margins: { top: 50, bottom: 50, left: 50, right: 50 }
     });
-    
+
+    // --- Save PDF to public/certificate/ as well as stream to response ---
+    const certDir = path.join(process.cwd(), 'public', 'certificate');
+    if (!fs.existsSync(certDir)) {
+      fs.mkdirSync(certDir, { recursive: true });
+    }
+    const certFileName = `${certificate.certificateId}.pdf`;
+    const certFilePath = path.join(certDir, certFileName);
+    const writeStream = fs.createWriteStream(certFilePath);
+    doc.pipe(writeStream);
     doc.pipe(res);
-    
+    // ---------------------------------------------------------------
+
     const { width, height } = doc.page;
-    
+
     doc.rect(0, 0, width, height).fill('#ffffff');
     doc.rect(40, 40, width - 80, height - 80).lineWidth(2).stroke('#333333');
 
@@ -121,6 +133,6 @@ export default async function handler(req, res) {
     doc.end();
   } catch (error) {
     console.error('Error verifying certificate:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    res.status(500).json({ message: 'Error generating certificate', error: error.message });
   }
 }

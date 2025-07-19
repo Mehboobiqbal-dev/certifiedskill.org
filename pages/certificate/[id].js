@@ -14,23 +14,13 @@ export default function CertificateDetail() {
     if (!id) return;
     setLoading(true);
     fetch(`/api/certificates?certificateNumber=${id}`)
-      .then((res) => res.json())
+      .then((res) => res.ok ? res.json() : null)
       .then((data) => {
-        setCertificate(data && data.length ? data[0] : null);
+        setCertificate(data);
         setLoading(false);
       })
       .catch(() => setLoading(false));
   }, [id]);
-
-  const handleShareLinkedIn = () => {
-    // TODO: Implement LinkedIn share logic (e.g., open LinkedIn share dialog with certificate link)
-    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=https://certifiedskill.org/certificate/${id}`, '_blank');
-  };
-
-  const handleDownloadPDF = () => {
-    // TODO: Implement PDF download logic (could be a direct link to a PDF endpoint)
-    window.open(`/api/certificates/pdf?certificateNumber=${id}`, '_blank');
-  };
 
   return (
     <>
@@ -45,18 +35,17 @@ export default function CertificateDetail() {
               <Skeleton height={200} className="mb-6" />
               <Skeleton height={44} width={160} className="mb-4 mx-auto" />
             </>
-          ) : certificate ? (
+          ) : certificate && certificate.certificateId ? (
             <>
               <div className="mb-6 text-center text-gray-500">Certificate ID: {certificate.certificateId}</div>
-              <div className="flex flex-col md:flex-row gap-4 justify-center mb-8">
-                <button onClick={handleShareLinkedIn} className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow transition">Share on LinkedIn</button>
-                <button onClick={handleDownloadPDF} className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-lg shadow transition">Download PDF</button>
-              </div>
               <div className="bg-indigo-50 rounded-lg p-8 text-center text-gray-900 mb-6">
                 <div className="text-xl font-bold mb-2">{certificate.examName}</div>
                 <div className="mb-2">Awarded to <span className="font-semibold">{certificate.userName || certificate.userEmail}</span></div>
                 <div className="mb-2">Issued: {new Date(certificate.issuedAt).toLocaleDateString()}</div>
                 <div className="text-sm text-gray-500">This certificate is verifiable at the link below.</div>
+              </div>
+              <div className="flex flex-col md:flex-row gap-4 justify-center mb-8">
+                <a href={`/certificate/${certificate.certificateId}.pdf`} target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-400 text-white font-bold py-2 px-6 rounded-lg shadow transition flex items-center gap-2">Download PDF</a>
               </div>
               <div className="mt-6 text-center">
                 <span className="text-gray-600">Shareable Link:</span>

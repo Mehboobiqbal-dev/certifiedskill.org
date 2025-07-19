@@ -3,6 +3,8 @@ import { useSession, signOut, signIn } from "next-auth/react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Header from "../Header";
+import Footer from "../Footer";
+import { FaCertificate, FaCheckCircle, FaBookOpen, FaArrowRight, FaDownload } from "react-icons/fa";
 import Skeleton from 'react-loading-skeleton';
 
 export default function Dashboard() {
@@ -81,90 +83,89 @@ export default function Dashboard() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12 px-4 sm:px-8">
-        <div className="max-w-5xl mx-auto">
-          {/* Welcome Area */}
-          <div className="mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-              <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">
-                {status === "authenticated" ? `Welcome, ${session.user.name}` : "Exam Dashboard"}
-              </h1>
-              <p className="text-gray-600 text-lg">Manage your certifications and explore available exams.</p>
-            </div>
-            <div>
-        {status === "authenticated" ? (
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-indigo-600 via-blue-400 to-indigo-200 py-16 px-4 flex flex-col items-center justify-center text-center overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/dashboard-bg.jpg')] bg-cover bg-center opacity-10 pointer-events-none" />
+        <h1 className="text-4xl md:text-5xl font-extrabold text-white drop-shadow mb-4">
+          {status === "authenticated" ? `Welcome, ${session.user.name}` : "Exam Dashboard"}
+        </h1>
+        <p className="text-lg md:text-xl text-indigo-100 max-w-2xl mx-auto mb-6">
+          Manage your certifications, track your progress, and take new exams to boost your skills.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          {status === "authenticated" ? (
             <button
               onClick={() => signOut({ callbackUrl: "/" })}
-                  className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-lg shadow transition"
+              className="bg-gradient-to-r from-red-500 to-red-700 hover:from-red-700 hover:to-red-500 text-white font-bold py-2 px-8 rounded-lg shadow transition text-lg"
             >
               Logout
             </button>
-        ) : (
+          ) : (
             <button
               onClick={() => signIn()}
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-lg shadow transition"
+              className="bg-gradient-to-r from-indigo-600 to-blue-400 hover:from-blue-400 hover:to-indigo-600 text-white font-bold py-2 px-8 rounded-lg shadow transition text-lg"
             >
               Login
             </button>
-        )}
-            </div>
-          </div>
-
+          )}
+        </div>
+      </section>
+      <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12 px-4 sm:px-8">
+        <div className="max-w-5xl mx-auto">
           {/* Certificates Section */}
-        {status === "authenticated" && (
-            <section className="mb-16">
-              <h2 className="text-2xl font-bold text-indigo-700 mb-6">Your Certificates</h2>
+          <section className="mb-16">
+            <h2 className="text-2xl font-bold text-indigo-700 mb-8 flex items-center gap-2"><FaCertificate className="text-yellow-500" /> My Certificates</h2>
             {certificates.length === 0 ? (
-                <div className="text-gray-500">No certificates available at the moment.</div>
+              <div className="bg-indigo-50 rounded-lg p-6 text-center text-gray-500">No certificates yet. Take an exam to earn your first certificate!</div>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {certificates.map((certificate) => (
-                    <div key={certificate._id} className="bg-white rounded-2xl shadow-lg border border-indigo-100 p-6 flex flex-col gap-2 hover:shadow-2xl transition">
-                      <div className="flex items-center gap-3 mb-2">
-                        <svg className="w-7 h-7 text-indigo-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" /></svg>
-                        <span className="text-lg font-semibold text-indigo-700">{certificate.examName}</span>
-                      </div>
-                      <div className="text-sm text-gray-500">Issued: {new Date(certificate.issuedAt).toLocaleDateString()}</div>
-                      <div className="text-sm text-gray-500">Certificate ID: {certificate.certificateId}</div>
-                    <a
-                      href={`/api/certificates?certificateNumber=${certificate.certificateId}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                        className="mt-2 inline-block text-indigo-600 hover:underline font-medium"
-                    >
-                      View Certificate PDF
-                    </a>
+                  <div key={certificate._id} className="bg-white rounded-2xl shadow-xl border border-indigo-100 p-6 flex flex-col gap-3 hover:shadow-2xl transition group">
+                    <div className="flex items-center gap-3 mb-2">
+                      <FaCertificate className="w-7 h-7 text-yellow-500 group-hover:scale-110 transition-transform" />
+                      <span className="text-lg font-semibold text-indigo-700">{certificate.examName}</span>
+                      <span className="ml-auto inline-flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full"><FaCheckCircle className="w-4 h-4" /> Passed</span>
                     </div>
+                    <div className="text-sm text-gray-500">Issued: {new Date(certificate.issuedAt).toLocaleDateString()}</div>
+                    <div className="text-sm text-gray-500">Certificate ID: {certificate.certificateId}</div>
+                    <div className="flex gap-2 mt-2">
+                      <a href={`/certificate/${certificate.certificateId}`} className="bg-gradient-to-r from-indigo-600 to-blue-400 hover:from-blue-400 hover:to-indigo-600 text-white font-bold py-2 px-4 rounded-lg shadow transition text-sm flex items-center gap-2"><FaArrowRight /> View Certificate</a>
+                      <a href={`/certificate/${certificate.certificateId}.pdf`} target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-400 text-white font-bold py-2 px-4 rounded-lg shadow transition text-sm flex items-center gap-2"><FaDownload /> Download PDF</a>
+                    </div>
+                  </div>
                 ))}
-                </div>
+              </div>
             )}
           </section>
-        )}
-
           {/* Exams Section */}
           <section>
-            <h2 className="text-2xl font-bold text-indigo-700 mb-6">Available Exams</h2>
-          {exams.length === 0 ? (
-              <div className="text-gray-500">No exams available at the moment.</div>
-          ) : (
+            <h2 className="text-2xl font-bold text-indigo-700 mb-8 flex items-center gap-2"><FaBookOpen className="text-blue-500" /> Available Exams</h2>
+            {exams.length === 0 ? (
+              <div className="bg-indigo-50 rounded-lg p-6 text-center text-gray-500">No exams available at the moment.</div>
+            ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {exams.map((exam) => (
-                  <div key={exam._id} className="bg-white rounded-2xl shadow-lg border border-indigo-100 p-6 flex flex-col gap-2 hover:shadow-2xl transition">
+                {exams.map((exam) => (
+                  <div key={exam._id} className="bg-white rounded-2xl shadow-xl border border-indigo-100 p-6 flex flex-col gap-3 hover:shadow-2xl transition group">
                     <div className="flex items-center gap-3 mb-2">
-                      <svg className="w-7 h-7 text-green-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 01-8 0" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 3v4m0 0a4 4 0 01-4 4H8a4 4 0 01-4-4V7a4 4 0 014-4h0a4 4 0 014 4z" /></svg>
-                      <span className="text-lg font-semibold text-green-700">{exam.title}</span>
+                      <FaBookOpen className="w-7 h-7 text-blue-500 group-hover:scale-110 transition-transform" />
+                      <span className="text-lg font-semibold text-blue-700">{exam.title}</span>
                     </div>
                     <div className="text-sm text-gray-500">Available Anytime</div>
-                    <Link href={`/exam/${exam._id}`} className="mt-2 inline-block">
-                      <span className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg shadow transition cursor-pointer">Take Exam</span>
-                  </Link>
+                    {/* Example progress bar for demo purposes */}
+                    <div className="w-full bg-indigo-100 rounded-full h-2 mt-2">
+                      <div className="bg-gradient-to-r from-indigo-600 to-blue-400 h-2 rounded-full transition-all" style={{ width: "0%" }} />
+                    </div>
+                    <Link href={`/exam/${exam._id}`} className="mt-4 inline-block">
+                      <span className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-500 text-white font-bold py-2 px-6 rounded-lg shadow transition cursor-pointer flex items-center gap-2"><FaArrowRight /> Take Exam</span>
+                    </Link>
                   </div>
-              ))}
+                ))}
               </div>
-          )}
-        </section>
-      </div>
+            )}
+          </section>
+        </div>
       </main>
+      <Footer />
     </>
   );
 }

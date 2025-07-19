@@ -2,6 +2,7 @@
 import Head from "next/head";
 import connectToDatabase from "../../lib/db";
 import Exam from "../../models/exam";
+import { FaBookOpen, FaExclamationTriangle } from "react-icons/fa";
 
 export default function ExamLanding({ exam }) {
   if (!exam) {
@@ -14,35 +15,36 @@ export default function ExamLanding({ exam }) {
   }
 
   // Render a conditional warning message based on exam properties.
-  // For example, if the exam is flagged as challenging, show a red warning.
-  // Otherwise, display a yellow notice reminding users to be prepared.
   const renderFailureWarning = () => {
     if (exam.isChallenging) {
       return (
-        <div className="bg-red-100 border border-red-200 rounded p-4 my-6">
-          <h2 className="text-xl font-bold text-red-800 mb-2">Warning</h2>
-          <p className="text-red-800">
-            This exam is known to be highly challenging. Attempting it without thorough preparation
-            may result in failure. Please review all study materials and ensure you understand the
-            content before starting.
-          </p>
+        <div className="bg-red-50 border border-red-200 rounded-xl p-6 my-8 flex items-center gap-4">
+          <FaExclamationTriangle className="w-8 h-8 text-red-500" />
+          <div>
+            <h2 className="text-xl font-bold text-red-700 mb-1">Warning</h2>
+            <p className="text-red-700">
+              This exam is known to be highly challenging. Attempting it without thorough preparation may result in failure. Please review all study materials and ensure you understand the content before starting.
+            </p>
+          </div>
         </div>
       );
     } else {
       return (
-        <div className="bg-yellow-100 border border-yellow-200 rounded p-4 my-6">
-          <h2 className="text-xl font-bold text-yellow-800 mb-2">Important Notice</h2>
-          <p className="text-yellow-800">
-            Make sure you are well prepared before starting the exam. Insufficient preparation can
-            lead to failure, so please take the time to study and understand the material.
-          </p>
+        <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 my-8 flex items-center gap-4">
+          <FaExclamationTriangle className="w-8 h-8 text-yellow-500" />
+          <div>
+            <h2 className="text-xl font-bold text-yellow-700 mb-1">Important Notice</h2>
+            <p className="text-yellow-700">
+              Make sure you are well prepared before starting the exam. Insufficient preparation can lead to failure, so please take the time to study and understand the material.
+            </p>
+          </div>
         </div>
       );
     }
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex flex-col items-center">
       <Head>
         <title>{exam.title} - Free Certification Exam</title>
         <meta
@@ -51,8 +53,6 @@ export default function ExamLanding({ exam }) {
         />
         <meta name="robots" content="index,follow" />
         <link rel="canonical" href={`https://certifiedskill.org/exam/${exam._id}`} />
-
-        {/* Open Graph tags */}
         <meta property="og:title" content={`${exam.title} - Free Certification Exam`} />
         <meta
           property="og:description"
@@ -60,17 +60,22 @@ export default function ExamLanding({ exam }) {
         />
         <meta property="og:url" content={`https://certifiedskill.org/exam/${exam._id}`} />
       </Head>
-
-      <main className="max-w-3xl mx-auto p-6">
-        <h1 className="text-4xl font-bold text-center mb-6">{exam.title}</h1>
-        <p className="mb-6 text-lg leading-relaxed text-gray-700">
-          {exam.description ||
-            "Take this exam to validate your skills. It is free and offers certification upon passing."}
-        </p>
+      {/* Hero Section */}
+      <section className="w-full bg-gradient-to-br from-indigo-600 via-blue-400 to-indigo-200 py-16 px-4 text-center relative flex flex-col items-center justify-center">
+        <div className="absolute inset-0 bg-[url('/exam-bg.jpg')] bg-cover bg-center opacity-10 pointer-events-none" />
+        <div className="relative z-10 flex flex-col items-center">
+          <FaBookOpen className="w-16 h-16 text-white drop-shadow mb-4" />
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white drop-shadow mb-4">{exam.title}</h1>
+          <p className="text-lg md:text-xl text-indigo-100 max-w-2xl mx-auto mb-6">
+            {exam.description || "Take this exam to validate your skills. It is free and offers certification upon passing."}
+          </p>
+        </div>
+      </section>
+      <main className="w-full max-w-2xl mx-auto p-6 -mt-12 z-10">
         {renderFailureWarning()}
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-8">
           <button
-            className="bg-blue-500 hover:bg-blue-600 text-black font-semibold px-6 py-3 rounded-lg transition duration-200 shadow-md"
+            className="bg-gradient-to-r from-indigo-600 to-blue-400 hover:from-blue-400 hover:to-indigo-600 text-white font-bold px-10 py-4 rounded-xl shadow-lg text-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2"
             onClick={() => (window.location.href = `/exam/${exam._id}/start`)}
           >
             Start Exam
