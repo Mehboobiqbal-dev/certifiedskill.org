@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession, SessionProvider } from "next-auth/react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import UserButton from "../components/user-button";
 import { FaBell, FaMoon, FaSun } from "react-icons/fa";
@@ -19,12 +19,30 @@ const HeaderContent = () => {
   const [darkMode, setDarkMode] = useState(false);
   const menuRef = useRef(null);
 
-  // Toggle dark mode (for demo, real app should persist this)
-  const handleDarkMode = () => {
-    setDarkMode((d) => !d);
+  // Sync dark mode with html class and persist for session
+  useEffect(() => {
     if (typeof window !== "undefined") {
-      document.documentElement.classList.toggle("dark", !darkMode);
+      const saved = localStorage.getItem("darkMode");
+      if (saved === "true") {
+        setDarkMode(true);
+        document.documentElement.classList.add("dark");
+      }
     }
+  }, []);
+
+  const handleDarkMode = () => {
+    setDarkMode((d) => {
+      const next = !d;
+      if (typeof window !== "undefined") {
+        if (next) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+        localStorage.setItem("darkMode", next ? "true" : "false");
+      }
+      return next;
+    });
   };
 
   return (
