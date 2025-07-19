@@ -5,6 +5,7 @@ import Link from "next/link";
 import Header from "./Header";
 import Footer from "./Footer";
 import Skeleton from 'react-loading-skeleton';
+import WelcomeTour from "../components/WelcomeTour";
 
 export default function HomePage() {
   return (
@@ -15,6 +16,7 @@ export default function HomePage() {
         canonical="https://certifiedskill.org/"
         image="https://certifiedskill.org/og-image-faq.jpg"
       />
+      <WelcomeTour />
       <div id="main-content" className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 via-white to-indigo-50">
         <Header />
         <main className="flex-1 w-full">
