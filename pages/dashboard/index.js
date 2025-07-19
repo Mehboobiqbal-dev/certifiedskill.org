@@ -4,11 +4,49 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Header from "../Header";
 import Footer from "../Footer";
-import { FaCertificate, FaCheckCircle, FaBookOpen, FaArrowRight, FaDownload } from "react-icons/fa";
+import { FaCertificate, FaCheckCircle, FaBookOpen, FaArrowRight, FaDownload, FaLaptopCode, FaUserTie, FaChartBar, FaBullhorn } from "react-icons/fa";
 import Skeleton from 'react-loading-skeleton';
 import SeoHead from "../../components/SeoHead";
 import WelcomeTour from "../../components/WelcomeTour";
 import ProfileProgressBar from "../../components/ProfileProgressBar";
+
+function ProfessionAvatar({ name, role }) {
+  if (role === 'Software Engineer') {
+    return (
+      <div className="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center border-2 border-green-400 shadow">
+        <FaLaptopCode className="text-indigo-600 w-8 h-8" aria-label="Software Engineer" />
+      </div>
+    );
+  }
+  if (role === 'Founder') {
+    return (
+      <div className="w-16 h-16 rounded-full bg-yellow-100 flex items-center justify-center border-2 border-yellow-300 shadow">
+        <FaUserTie className="text-yellow-600 w-8 h-8" aria-label="Founder" />
+      </div>
+    );
+  }
+  if (role === 'Data Analyst') {
+    return (
+      <div className="w-16 h-16 rounded-full bg-yellow-100 flex items-center justify-center border-2 border-yellow-300 shadow">
+        <FaChartBar className="text-yellow-600 w-8 h-8" aria-label="Data Analyst" />
+      </div>
+    );
+  }
+  if (role === 'Marketing Specialist') {
+    return (
+      <div className="w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center border-2 border-pink-200 shadow">
+        <FaBullhorn className="text-pink-600 w-8 h-8" aria-label="Marketing Specialist" />
+      </div>
+    );
+  }
+  // Fallback: initials
+  const initials = name.split(' ').map(n => n[0]).join('');
+  return (
+    <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center border-2 border-gray-300 shadow">
+      <span className="text-gray-700 font-bold text-xl">{initials}</span>
+    </div>
+  );
+}
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
@@ -96,11 +134,7 @@ export default function Dashboard() {
       {/* User Profile Card */}
       <div className="flex items-center gap-4 bg-white rounded-xl shadow p-6 mb-8 max-w-md mx-auto mt-8">
         <div className="relative">
-          <img
-            src="https://randomuser.me/api/portraits/men/32.jpg"
-            alt="Amit S."
-            className="w-16 h-16 rounded-full border-2 border-green-400 shadow"
-          />
+          <ProfessionAvatar name="Amit S." role="Software Engineer" />
           <span className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></span>
         </div>
         <div>
