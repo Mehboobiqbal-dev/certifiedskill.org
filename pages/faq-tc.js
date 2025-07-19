@@ -202,41 +202,28 @@ export default function FAQTermsPage() {
           </section>
           {/* Terms and Conditions Section */}
           <section className="my-12">
-            <h2 className="text-3xl font-extrabold text-indigo-700 mb-6">Terms and Conditions</h2>
+            <h2 className="text-3xl font-extrabold text-indigo-700 mb-6">Terms of Service</h2>
             <div className="space-y-4 bg-white rounded-xl shadow-lg p-8 text-gray-700 text-base leading-relaxed border border-indigo-100">
-              <p>
-                <strong>Acceptance of Terms:</strong> By accessing and using the
-                CertifiedSkill.org website, you agree to be bound by these Terms
-                and Conditions.
-              </p>
-              <p>
-                <strong>Modifications:</strong> We reserve the right to update or
-                modify these terms at any time without prior notice. Your continued use
-                of the site constitutes acceptance of any revised terms.
-              </p>
-              <p>
-                <strong>User Responsibilities:</strong> Users are required to provide
-                accurate information when signing up. Any misuse of our services may result
-                in termination of your account.
-              </p>
-              <p>
-                <strong>Privacy:</strong> Your privacy is important to us. Please review
-                our <a href="/privacy" className="text-blue-600 underline">Privacy Policy</a> to understand how your data is collected and used.
-              </p>
-              <p>
-                <strong>Intellectual Property:</strong> All content on this website is
-                the intellectual property of CertifiedSkill.org unless otherwise stated.
-                Unauthorized use is prohibited.
-              </p>
-              <p>
-                <strong>Limitation of Liability:</strong> CertifiedSkill.org is not liable
-                for any direct or indirect damages arising from the use or inability to use
-                our website.
-              </p>
-              <p>
-                <strong>Governing Law:</strong> These Terms and Conditions are governed by
-                and construed in accordance with the laws of your jurisdiction.
-              </p>
+              <h3 className="text-xl font-bold text-indigo-600 mb-2">Acceptance of Terms</h3>
+              <p>By accessing and using CertifiedSkill.org, you agree to be bound by these Terms of Service and all applicable laws and regulations.</p>
+              <h3 className="text-xl font-bold text-indigo-600 mb-2">User Obligations</h3>
+              <ul className="list-disc ml-6">
+                <li>Provide accurate and complete information when registering.</li>
+                <li>Maintain the confidentiality of your account credentials.</li>
+                <li>Comply with all applicable laws and regulations.</li>
+              </ul>
+              <h3 className="text-xl font-bold text-indigo-600 mb-2">Prohibited Uses</h3>
+              <ul className="list-disc ml-6">
+                <li>Misuse of the platform or attempt to gain unauthorized access.</li>
+                <li>Use of the site for any unlawful or fraudulent purpose.</li>
+                <li>Impersonation of any person or entity.</li>
+              </ul>
+              <h3 className="text-xl font-bold text-indigo-600 mb-2">Limitation of Liability</h3>
+              <p>CertifiedSkill.org is not liable for any direct, indirect, incidental, or consequential damages arising from your use of the site.</p>
+              <h3 className="text-xl font-bold text-indigo-600 mb-2">Governing Law</h3>
+              <p>These Terms are governed by the laws of your jurisdiction. Any disputes will be resolved in accordance with these laws.</p>
+              <h3 className="text-xl font-bold text-indigo-600 mb-2">Contact</h3>
+              <p>For questions about these Terms, email <a href="mailto:support@certifiedskill.org" className="text-indigo-600 underline">support@certifiedskill.org</a>.</p>
             </div>
           </section>
         </main>

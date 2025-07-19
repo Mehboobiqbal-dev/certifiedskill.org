@@ -6,6 +6,9 @@ const FOOTER_LINKS = [
   { href: "/careers", label: "Careers" },
   { href: "/privacy", label: "Privacy Policy" },
   { href: "/faq-tc", label: "FAQ" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contact", label: "Contact" },
+  { href: "/team", label: "Team" }, // Added Team link
 ];
 
 const SOCIALS = [
@@ -17,10 +20,32 @@ const SOCIALS = [
   ) },
 ];
 
+const PARTNERS = [
+  { src: "/press-logo1.png", alt: "Partner 1" },
+  { src: "/press-logo2.png", alt: "Partner 2" },
+  // Add more partner logos as needed
+];
+
+const POLICY_LINKS = [
+  { href: "/privacy", label: "Privacy Policy" },
+  { href: "/faq-tc", label: "Terms of Service" },
+  { href: "/cookie-policy", label: "Cookie Policy" },
+  { href: "/accessibility", label: "Accessibility" },
+  { href: "/team", label: "Team" },
+];
+
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-br from-indigo-700 via-blue-900 to-indigo-900 text-white pt-12 pb-4 mt-12 border-t-0 shadow-inner">
-      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row gap-12 md:gap-8 justify-between">
+    <footer className="relative bg-gradient-to-br from-indigo-800 via-blue-900 to-indigo-900 text-white pt-0 pb-4 mt-12 border-t-0 shadow-inner overflow-hidden">
+      {/* Animated SVG Wave Divider */}
+      <div className="absolute top-0 left-0 w-full overflow-hidden leading-none z-10">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-12">
+          <path d="M0,0V46.29c47.29,22.09,104.09,29,158,17.39C288,44,385,4,480,0c86.13-3.67,172.26,14.33,258.39,21.53C814.52,28.73,900.65,25.06,986.78,16.44c70.13-6.91,140.26-17.31,210.39-14.32V0Z" opacity=".25" className="fill-white"></path>
+          <path d="M0,0V15.81C47.29,37.9,104.09,44.81,158,33.2C288,20,385-20,480-24c86.13-3.67,172.26,14.33,258.39,21.53C814.52,4.73,900.65,1.06,986.78-7.56c70.13-6.91,140.26-17.31,210.39-14.32V0Z" opacity=".5" className="fill-white"></path>
+          <path d="M0,0V5.81C47.29,27.9,104.09,34.81,158,23.2C288,10,385-30,480-34c86.13-3.67,172.26,14.33,258.39,21.53C814.52-15.27,900.65-18.94,986.78-27.56c70.13-6.91,140.26-17.31,210.39-14.32V0Z" className="fill-white"></path>
+        </svg>
+      </div>
+      <div className="relative z-20 max-w-7xl mx-auto px-6 flex flex-col md:flex-row gap-12 md:gap-8 justify-between pt-16">
         {/* About */}
         <div className="flex-1 min-w-[220px]">
           <div className="flex items-center gap-2 mb-3">
@@ -47,7 +72,6 @@ const Footer = () => {
                 {link.label}
               </Link>
             ))}
-            <Link href="/contact" className="text-sm text-indigo-100 hover:text-white transition">Contact Us</Link>
           </nav>
         </div>
         {/* Newsletter Signup */}
@@ -71,15 +95,27 @@ const Footer = () => {
           </form>
           <p className="text-xs text-indigo-200 mt-2">Get the latest updates and new certifications. No spam.</p>
         </div>
+        {/* Animated Trust Badges/Partners */}
+        <div className="flex-1 min-w-[180px] flex flex-col items-center justify-center">
+          <h3 className="text-lg font-semibold mb-3 text-white">Trusted By</h3>
+          <div className="flex gap-4 items-center animate-pulse">
+            {PARTNERS.map((p) => (
+              <img key={p.src} src={p.src} alt={p.alt} className="h-8 w-auto grayscale hover:grayscale-0 transition duration-300" />
+            ))}
+          </div>
+        </div>
       </div>
-      <div className="mt-10 border-t border-indigo-800 pt-4 text-center text-xs text-indigo-200 flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto px-6 gap-2">
+      <div className="mt-10 border-t border-indigo-800 pt-4 text-center text-xs text-indigo-200 flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto px-6 gap-2 relative z-20">
         <div>
           &copy; {new Date().getFullYear()} CertifiedSkill.org. All rights reserved.
         </div>
-        <div className="flex gap-4">
-          <Link href="/privacy" className="hover:underline">Privacy Policy</Link>
-          <Link href="/faq-tc" className="hover:underline">Terms & FAQ</Link>
-        </div>
+        <nav className="flex flex-wrap gap-4 items-center justify-center">
+          {POLICY_LINKS.map((link) => (
+            <Link key={link.href} href={link.href} className="hover:underline text-indigo-100 hover:text-white transition">
+              {link.label}
+            </Link>
+          ))}
+        </nav>
       </div>
     </footer>
   );

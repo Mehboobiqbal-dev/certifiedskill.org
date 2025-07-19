@@ -149,7 +149,7 @@ export default function HomePage() {
                 <div className="bg-white rounded-2xl shadow-lg p-8 border border-indigo-100">
                   <p className="text-gray-700 mb-4">“CertifiedSkill.org helped me land my dream job. The certificate was instantly recognized by my employer!”</p>
                   <div className="flex items-center gap-3 justify-center">
-                    <img src="/user1.jpg" alt="User 1" className="w-10 h-10 rounded-full border-2 border-indigo-200" />
+                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Amit S. - Software Engineer" className="w-10 h-10 rounded-full border-2 border-indigo-200" />
                     <div className="text-left">
                       <div className="font-semibold text-gray-900">Amit S.</div>
                       <div className="text-xs text-gray-500">Software Engineer</div>
@@ -159,7 +159,7 @@ export default function HomePage() {
                 <div className="bg-white rounded-2xl shadow-lg p-8 border border-indigo-100">
                   <p className="text-gray-700 mb-4">“The process was simple and the digital badge looks great on my LinkedIn profile. Highly recommend!”</p>
                   <div className="flex items-center gap-3 justify-center">
-                    <img src="/user2.jpg" alt="User 2" className="w-10 h-10 rounded-full border-2 border-indigo-200" />
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Priya K. - Marketing Specialist" className="w-10 h-10 rounded-full border-2 border-indigo-200" />
                     <div className="text-left">
                       <div className="font-semibold text-gray-900">Priya K.</div>
                       <div className="text-xs text-gray-500">Marketing Specialist</div>
@@ -169,7 +169,7 @@ export default function HomePage() {
                 <div className="bg-white rounded-2xl shadow-lg p-8 border border-indigo-100">
                   <p className="text-gray-700 mb-4">“I love how easy it is to verify and share my certificate. The platform is top-notch!”</p>
                   <div className="flex items-center gap-3 justify-center">
-                    <img src="/user3.jpg" alt="User 3" className="w-10 h-10 rounded-full border-2 border-indigo-200" />
+                    <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="Rahul D. - Data Analyst" className="w-10 h-10 rounded-full border-2 border-indigo-200" />
                     <div className="text-left">
                       <div className="font-semibold text-gray-900">Rahul D.</div>
                       <div className="text-xs text-gray-500">Data Analyst</div>
