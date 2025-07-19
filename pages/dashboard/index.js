@@ -3,6 +3,7 @@ import { useSession, signOut, signIn } from "next-auth/react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Header from "../Header";
+import Skeleton from 'react-loading-skeleton';
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
@@ -11,152 +12,159 @@ export default function Dashboard() {
   const [loadingCerts, setLoadingCerts] = useState(true);
   const [loadingExams, setLoadingExams] = useState(true);
 
-  // Debug logging for session and status
-  console.log("Session:", session, "Status:", status);
-
-  // Fetch certificates only when the user is authenticated.
   useEffect(() => {
     if (status === "authenticated" && session) {
-      // Use user id if available, otherwise use email.
       const fetchUrl = session.user.id
         ? `/api/certificates?userId=${session.user.id}`
         : `/api/certificates?userEmail=${session.user.email}`;
-
       fetch(fetchUrl, { cache: "no-store" })
         .then((res) => res.json())
         .then((data) => {
-          console.log("Fetched certificates:", data);
           setCertificates(data);
           setLoadingCerts(false);
         })
-        .catch((err) => {
-          console.error("Error fetching certificates:", err);
-          setLoadingCerts(false);
-        });
+        .catch(() => setLoadingCerts(false));
     } else {
       setLoadingCerts(false);
     }
   }, [session, status]);
 
-  // Fetch exams publicly regardless of authentication status.
   useEffect(() => {
     fetch("/api/exams", { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
-        console.log("Fetched exams:", data);
         setExams(data);
         setLoadingExams(false);
       })
-      .catch((err) => {
-        console.error("Error fetching exams:", err);
-        setLoadingExams(false);
-      });
+      .catch(() => setLoadingExams(false));
   }, []);
 
-  if (loadingExams || loadingCerts) return <p>Loading...</p>;
+  if (loadingExams || loadingCerts) return (
+    <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12 px-4 sm:px-8 flex items-center justify-center">
+      <div className="w-full max-w-5xl">
+        <div className="mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <Skeleton height={36} width={260} style={{ marginBottom: 8 }} />
+            <Skeleton height={24} width={320} />
+          </div>
+          <Skeleton height={44} width={120} />
+        </div>
+        <section className="mb-16">
+          <h2 className="text-2xl font-bold text-indigo-700 mb-6"><Skeleton width={180} /></h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[...Array(2)].map((_, i) => (
+              <div key={i} className="bg-white rounded-2xl shadow-lg border border-indigo-100 p-6 flex flex-col gap-2">
+                <Skeleton height={28} width={180} />
+                <Skeleton height={18} width={120} />
+                <Skeleton height={18} width={200} />
+                <Skeleton height={24} width={140} />
+              </div>
+            ))}
+          </div>
+        </section>
+        <section>
+          <h2 className="text-2xl font-bold text-indigo-700 mb-6"><Skeleton width={180} /></h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[...Array(2)].map((_, i) => (
+              <div key={i} className="bg-white rounded-2xl shadow-lg border border-indigo-100 p-6 flex flex-col gap-2">
+                <Skeleton height={28} width={180} />
+                <Skeleton height={18} width={120} />
+                <Skeleton height={24} width={140} />
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+    </main>
+  );
 
   return (
     <>
       <Header />
-      <div className="p-8">
-        {/* Navigation header: show welcome text and appropriate button */}
+      <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12 px-4 sm:px-8">
+        <div className="max-w-5xl mx-auto">
+          {/* Welcome Area */}
+          <div className="mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2">
+                {status === "authenticated" ? `Welcome, ${session.user.name}` : "Exam Dashboard"}
+              </h1>
+              <p className="text-gray-600 text-lg">Manage your certifications and explore available exams.</p>
+            </div>
+            <div>
         {status === "authenticated" ? (
-          <>
-            <h1 className="text-3xl font-bold">
-              Welcome, {session.user.name}
-            </h1>
             <button
               onClick={() => signOut({ callbackUrl: "/" })}
-              className="mt-4 bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
+                  className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-lg shadow transition"
             >
               Logout
             </button>
-          </>
         ) : (
-          <>
-            <h1 className="text-3xl font-bold">Exam Dashboard</h1>
             <button
               onClick={() => signIn()}
-              className="mt-4 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+                  className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-lg shadow transition"
             >
               Login
             </button>
-          </>
         )}
+            </div>
+          </div>
 
-        {/* Certificates Section: Only display if authenticated */}
+          {/* Certificates Section */}
         {status === "authenticated" && (
-          <section className="mt-8">
-            <h2 className="text-2xl font-semibold">Your Certificates</h2>
+            <section className="mb-16">
+              <h2 className="text-2xl font-bold text-indigo-700 mb-6">Your Certificates</h2>
             {certificates.length === 0 ? (
-              <p className="mt-4 text-gray-600">
-                No certificates available at the moment.
-              </p>
+                <div className="text-gray-500">No certificates available at the moment.</div>
             ) : (
-              <ul className="mt-4 space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {certificates.map((certificate) => (
-                  <li
-                    key={certificate._id}
-                    className="border p-4 rounded shadow hover:bg-gray-50"
-                  >
-                    <p className="text-lg font-medium text-indigo-600">
-                      Certificate for: {certificate.examName}
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      Issued on:{" "}
-                      {new Date(certificate.issuedAt).toLocaleDateString()}
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      Certificate ID: {certificate.certificateId}
-                    </p>
+                    <div key={certificate._id} className="bg-white rounded-2xl shadow-lg border border-indigo-100 p-6 flex flex-col gap-2 hover:shadow-2xl transition">
+                      <div className="flex items-center gap-3 mb-2">
+                        <svg className="w-7 h-7 text-indigo-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2" /></svg>
+                        <span className="text-lg font-semibold text-indigo-700">{certificate.examName}</span>
+                      </div>
+                      <div className="text-sm text-gray-500">Issued: {new Date(certificate.issuedAt).toLocaleDateString()}</div>
+                      <div className="text-sm text-gray-500">Certificate ID: {certificate.certificateId}</div>
                     <a
                       href={`/api/certificates?certificateNumber=${certificate.certificateId}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-2 inline-block text-blue-600 hover:underline"
+                        className="mt-2 inline-block text-indigo-600 hover:underline font-medium"
                     >
                       View Certificate PDF
                     </a>
-                  </li>
+                    </div>
                 ))}
-              </ul>
+                </div>
             )}
           </section>
         )}
 
-        {/* Exams Section: Publicly visible */}
-        <section className="mt-8">
-          <h2 className="text-2xl font-semibold">Available Exams</h2>
+          {/* Exams Section */}
+          <section>
+            <h2 className="text-2xl font-bold text-indigo-700 mb-6">Available Exams</h2>
           {exams.length === 0 ? (
-            <p className="mt-4 text-gray-600">
-              No exams available at the moment.
-            </p>
+              <div className="text-gray-500">No exams available at the moment.</div>
           ) : (
-            <ul className="mt-4 space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {exams.map((exam) => (
-                <li
-                  key={exam._id}
-                  className="border p-4 rounded shadow hover:bg-gray-50"
-                >
-                  <Link href={`/exam/${exam._id}`} className="block">
-                    <div className="flex justify-between items-center">
-                      <p className="text-lg font-medium text-indigo-600">
-                        {exam.title}
-                      </p>
-                      <button className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition">
-                        Take Exam
-                      </button>
+                  <div key={exam._id} className="bg-white rounded-2xl shadow-lg border border-indigo-100 p-6 flex flex-col gap-2 hover:shadow-2xl transition">
+                    <div className="flex items-center gap-3 mb-2">
+                      <svg className="w-7 h-7 text-green-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 01-8 0" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 3v4m0 0a4 4 0 01-4 4H8a4 4 0 01-4-4V7a4 4 0 014-4h0a4 4 0 014 4z" /></svg>
+                      <span className="text-lg font-semibold text-green-700">{exam.title}</span>
                     </div>
-                    <p className="mt-1 text-sm text-gray-500">
-                      Available Anytime
-                    </p>
+                    <div className="text-sm text-gray-500">Available Anytime</div>
+                    <Link href={`/exam/${exam._id}`} className="mt-2 inline-block">
+                      <span className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg shadow transition cursor-pointer">Take Exam</span>
                   </Link>
-                </li>
+                  </div>
               ))}
-            </ul>
+              </div>
           )}
         </section>
       </div>
+      </main>
     </>
   );
 }

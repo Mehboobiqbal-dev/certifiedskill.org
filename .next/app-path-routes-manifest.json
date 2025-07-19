@@ -1,4 +1,5 @@
 {
   "/api/signup/route": "/api/signup",
-  "/api/auth/[...nextauth]/route": "/api/auth/[...nextauth]"
+  "/api/auth/[...nextauth]/route": "/api/auth/[...nextauth]",
+  "/_not-found/page": "/_not-found"
 }

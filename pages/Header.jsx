@@ -1,154 +1,65 @@
 "use client";
 
 import { useSession, SessionProvider } from "next-auth/react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import UserButton from "../components/user-button";
 
-// A reusable exam search component with auto-suggestions
-const ExamSearch = () => {
-  const router = useRouter();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [recommendations, setRecommendations] = useState([]);
-  const searchContainerRef = useRef(null);
-
-  // Fetch recommended exams whenever the search query changes
-  useEffect(() => {
-    if (searchQuery.trim().length < 2) {
-      setRecommendations([]);
-      return;
-    }
-    const queryLower = searchQuery.toLowerCase();
-    fetch(`/api/exams?query=${encodeURIComponent(searchQuery)}`)
-      .then((res) => res.json())
-      .then((data) => {
-        const filteredData = data.filter((exam) =>
-          (exam.title || "").toLowerCase().includes(queryLower)
-        );
-        setRecommendations(filteredData);
-      })
-      .catch((err) => {
-        console.error("Error fetching exam recommendations:", err);
-        setRecommendations([]);
-      });
-  }, [searchQuery]);
-
-  // Hide recommendations when clicking outside the component
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        searchContainerRef.current &&
-        !searchContainerRef.current.contains(event.target)
-      ) {
-        setRecommendations([]);
-      }
-    };
-
-    document.addEventListener("click", handleClickOutside);
-    return () =>
-      document.removeEventListener("click", handleClickOutside);
-  }, []);
-
-  // Handle the search form submission
-  const handleSearchFormSubmit = (e) => {
-    e.preventDefault();
-    setRecommendations([]);
-    router.push(`/search-exam?query=${encodeURIComponent(searchQuery)}`);
-  };
-
-  return (
-    <div className="relative" ref={searchContainerRef}>
-      <form onSubmit={handleSearchFormSubmit} className="flex">
-        <input
-          type="text"
-          placeholder="Search exams..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full max-w-xs border border-gray-300 px-2 py-1 rounded-l-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-        <button
-          type="submit"
-          className="bg-indigo-600 text-white px-4 py-2 rounded-r-md"
-        >
-          Search
-        </button>
-      </form>
-      {recommendations.length > 0 && (
-        <ul className="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-b-md shadow-md mt-1 z-50">
-          {recommendations.map((exam) => (
-            <li key={exam._id} className="px-4 py-2 hover:bg-gray-100">
-              <Link href={`/exam/${exam._id}`}>
-                <span className="cursor-pointer">{exam.title}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-};
+const NAV_LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/dashboard", label: "Dashboard" },
+  { href: "/careers", label: "Careers" },
+  { href: "/faq-tc", label: "FAQ" },
+];
 
 const HeaderContent = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
   const { data: session, status } = useSession();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setMenuOpen(false);
-      }
-    };
-    if (menuOpen) {
-      document.addEventListener("click", handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, [menuOpen]);
-
   return (
-    <header className="bg-white/30 backdrop-blur-md text-black py-4 px-4 sm:px-5 sticky top-0 w-full z-50 shadow-lg transition-all duration-300 ease-in-out">
-      <div className="max-w-screen-xl mx-auto flex flex-wrap items-center justify-between">
+    <header className="bg-white/80 backdrop-blur-md sticky top-0 w-full z-50 shadow-md border-b border-indigo-100">
+      <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 md:py-4">
         {/* Logo */}
-        <div className="flex-shrink-0" itemScope itemType="http://schema.org/Organization">
-          <Link
-            href="/"
-            onClick={() => setMenuOpen(false)}
-            aria-label="CertifiedSkill.org Homepage"
-            itemProp="url"
-          >
-            <h1
-              className="text-xl md:text-2xl font-bold transform hover:scale-105 transition duration-300"
-              itemProp="name"
-            >
-              CertifiedSkill.org
-            </h1>
+        <div className="flex items-center gap-2">
+          <Link href="/" aria-label="CertifiedSkill.org Homepage" className="flex items-center gap-2">
+            <img src="/ChatGPT Image Jul 19, 2025, 01_06_54 PM.png" alt="Logo" className="h-8 w-8 rounded" />
+            <span className="text-xl md:text-2xl font-bold text-indigo-700 tracking-tight">CertifiedSkill.org</span>
           </Link>
         </div>
-        {/* Exam Search */}
-        <div className="flex-grow mx-4">
-          <ExamSearch />
-        </div>
-        {/* Navigation Links */}
-        <nav
-          className="flex items-center justify-center sm:justify-end space-x-4"
-          itemScope
-          itemType="http://schema.org/SiteNavigationElement"
-        >
-          {status === "authenticated" && (
-            <Link
-              href="/dashboard"
-              className="text-lg font-medium hover:underline"
-              itemProp="url"
-            >
-              Dashboard
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center gap-6">
+          {NAV_LINKS.map((link) => (
+            <Link key={link.href} href={link.href} className="text-base font-medium text-gray-700 hover:text-indigo-600 transition">
+              {link.label}
             </Link>
-          )}
+          ))}
           <UserButton />
+        </div>
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden flex items-center justify-center p-2 rounded hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          onClick={() => setMobileMenuOpen((open) => !open)}
+          aria-label="Toggle navigation menu"
+        >
+          <svg className="w-7 h-7 text-indigo-700" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
         </nav>
+      {/* Mobile Nav */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-white border-t border-indigo-100 shadow-lg animate-fade-in-down" ref={menuRef}>
+          <div className="flex flex-col gap-2 px-4 py-4">
+            {NAV_LINKS.map((link) => (
+              <Link key={link.href} href={link.href} className="text-base font-medium text-gray-700 hover:text-indigo-600 transition py-2">
+                {link.label}
+              </Link>
+            ))}
+            <UserButton />
+          </div>
       </div>
+      )}
     </header>
   );
 };

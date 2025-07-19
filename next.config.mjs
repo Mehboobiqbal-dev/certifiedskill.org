@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
-    turbo: true, // Enable Turbopack
+    turbo: { enabled: true },
     allowedDevOrigins: ['*'], // Allow every origin in development
   },
   webpack: (config, { isServer }) => {
