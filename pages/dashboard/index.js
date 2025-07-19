@@ -129,7 +129,7 @@ export default function Dashboard() {
                     <div className="text-sm text-gray-500">Issued: {new Date(certificate.issuedAt).toLocaleDateString()}</div>
                     <div className="text-sm text-gray-500">Certificate ID: {certificate.certificateId}</div>
                     <div className="flex gap-2 mt-2">
-                      <a href={`/certificate/${certificate.certificateId}`} className="bg-gradient-to-r from-indigo-600 to-blue-400 hover:from-blue-400 hover:to-indigo-600 text-white font-bold py-2 px-4 rounded-lg shadow transition text-sm flex items-center gap-2"><FaArrowRight /> View Certificate</a>
+       
                       <a href={`/certificate/${certificate.certificateId}.pdf`} target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-400 text-white font-bold py-2 px-4 rounded-lg shadow transition text-sm flex items-center gap-2"><FaDownload /> Download PDF</a>
                     </div>
                   </div>

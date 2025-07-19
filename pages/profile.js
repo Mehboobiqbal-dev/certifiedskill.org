@@ -87,7 +87,7 @@ export default function Profile() {
                     <div className="font-semibold text-indigo-700">{certificate.examName}</div>
                     <div className="text-sm text-gray-500">Issued: {new Date(certificate.issuedAt).toLocaleDateString()}</div>
                     <div className="text-sm text-gray-500">Certificate ID: {certificate.certificateId}</div>
-                    <a href={`/certificate/${certificate.certificateId}`} className="text-indigo-600 hover:underline text-sm mt-1">View Certificate</a>
+      
                   </div>
                 ))}
               </div>

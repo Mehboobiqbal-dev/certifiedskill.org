@@ -145,7 +145,7 @@ export default function CareersPage() {
           }}
         />
       </Head>
-      <Header />
+        <Header />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-indigo-600 via-blue-400 to-indigo-200 py-20 px-4 flex flex-col items-center justify-center text-center overflow-hidden">
         <div className="absolute inset-0 bg-[url('/careers-bg.jpg')] bg-cover bg-center opacity-10 pointer-events-none" />
@@ -172,7 +172,7 @@ export default function CareersPage() {
                 >
                   Apply Now
                 </button>
-              </div>
+            </div>
             ))}
           </div>
         </div>
@@ -193,41 +193,41 @@ export default function CareersPage() {
               ) : (
                 <form className="space-y-6" onSubmit={handleSubmit}>
                   <div className="relative">
-                    <input
-                      type="text"
-                      name="name"
+              <input
+                type="text"
+                name="name"
                       value={form.name}
                       onChange={handleChange}
                       className="peer w-full border-b-2 border-indigo-200 focus:border-indigo-600 bg-transparent px-0 py-2 text-lg focus:outline-none"
-                      required
+                required
                       placeholder=" "
-                    />
+              />
                     <label className="absolute left-0 top-2 text-gray-500 text-base transition-all peer-focus:-top-5 peer-focus:text-xs peer-focus:text-indigo-600 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 -top-5 text-xs text-indigo-600">
                       Name
                     </label>
-                  </div>
+            </div>
                   <div className="relative">
-                    <input
-                      type="email"
-                      name="email"
+              <input
+                type="email"
+                name="email"
                       value={form.email}
                       onChange={handleChange}
                       className="peer w-full border-b-2 border-indigo-200 focus:border-indigo-600 bg-transparent px-0 py-2 text-lg focus:outline-none"
-                      required
+                required
                       placeholder=" "
                     />
                     <label className="absolute left-0 top-2 text-gray-500 text-base transition-all peer-focus:-top-5 peer-focus:text-xs peer-focus:text-indigo-600 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 -top-5 text-xs text-indigo-600">
                       Email
-                    </label>
-                  </div>
+              </label>
+            </div>
                   <div className="relative">
-                    <textarea
+              <textarea
                       name="cover"
                       value={form.cover}
                       onChange={handleChange}
                       className="peer w-full border-b-2 border-indigo-200 focus:border-indigo-600 bg-transparent px-0 py-2 text-lg focus:outline-none resize-none"
                       rows={4}
-                      required
+                required
                       placeholder=" "
                     />
                     <label className="absolute left-0 top-2 text-gray-500 text-base transition-all peer-focus:-top-5 peer-focus:text-xs peer-focus:text-indigo-600 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 -top-5 text-xs text-indigo-600">
@@ -244,27 +244,27 @@ export default function CareersPage() {
                       type="file"
                       name="resume"
                       accept="application/pdf"
-                      onChange={handleChange}
+                onChange={handleChange}
                       className="hidden"
                       ref={fileInputRef}
                     />
                     <span className="block text-gray-500 mb-2">Drag & drop your resume here, or <span className="text-indigo-600 underline">browse</span></span>
                     <span className="block text-sm text-gray-700 font-medium">{resumeName || "No file selected"}</span>
-                  </div>
+            </div>
                   {error && <div className="text-red-500 text-sm text-center">{error}</div>}
-                  <button
-                    type="submit"
+            <button
+              type="submit"
                     className="w-full bg-gradient-to-r from-indigo-600 to-blue-400 hover:from-blue-400 hover:to-indigo-600 text-white font-bold py-2 px-6 rounded-lg shadow transition-all duration-200 mt-2"
-                  >
-                    Submit Application
-                  </button>
+            >
+              Submit Application
+            </button>
                 </form>
               )}
             </div>
           </div>
         )}
-      </main>
-      <Footer />
+        </main>
+        <Footer />
     </>
   );
 }

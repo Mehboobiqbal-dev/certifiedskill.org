@@ -106,6 +106,11 @@ export default function ExamPage({ exam }) {
     setCheatingCount((prev) => prev + 1);
   };
 
+  // Add handler for exam cancellation
+  const handleExamCancelled = () => {
+    router.push("/dashboard");
+  };
+
   if (!exam.questions || exam.questions.length === 0) {
     return <p className="text-center mt-20 text-gray-600">No questions found.</p>;
   }
@@ -114,7 +119,7 @@ export default function ExamPage({ exam }) {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <AntiCheating onCheatingDetected={handleCheatingDetected} />
+      <AntiCheating onCheatingDetected={handleCheatingDetected} onExamCancelled={handleExamCancelled} />
       <Head>
         <title>{exam.title} | Exam Portal</title>
       </Head>

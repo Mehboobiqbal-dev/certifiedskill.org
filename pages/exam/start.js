@@ -8,6 +8,18 @@ import Skeleton from 'react-loading-skeleton';
 // (Assume face-api.js is installed and available)
 import * as faceapi from 'face-api.js';
 
+// --- Industry-level Cheating Event Logger ---
+function logCheatingEvent({ reason, count, userId, eventType = "client", extra = {} }) {
+  const timestamp = new Date().toISOString();
+  // Log to browser console (can be extended to send to backend)
+  console.debug(
+    `[Cheating Event]`,
+    { reason, count, userId, eventType, timestamp, ...extra }
+  );
+  // TODO: Integrate with backend audit log endpoint for persistent storage
+  // fetch('/api/audit/cheating', { method: 'POST', body: JSON.stringify({ reason, count, userId, eventType, timestamp, ...extra }) })
+}
+
 export default function ExamStart() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -27,10 +39,14 @@ export default function ExamStart() {
   const [examCancelled, setExamCancelled] = useState(false);
   const [cameraError, setCameraError] = useState("");
   const [cameraReady, setCameraReady] = useState(false);
+  const [showWebcam, setShowWebcam] = useState(false);
+  const [warningQueue, setWarningQueue] = useState([]);
+  const [activeWarning, setActiveWarning] = useState("");
   const videoRef = useRef(null);
   const [faceLoaded, setFaceLoaded] = useState(false);
   const CHEAT_THRESHOLD = 3;
   const detectionInterval = useRef(null);
+  const warningTimeout = useRef(null);
 
   // Load questions
   useEffect(() => {
@@ -44,6 +60,34 @@ export default function ExamStart() {
       .catch(() => setLoading(false));
   }, [examId]);
 
+  // Show warnings from the queue and always update cheatReason
+  useEffect(() => {
+    if (warningQueue.length > 0) {
+      setActiveWarning(warningQueue[0]);
+      setCheatReason(warningQueue[0]); // Always update the reason to the latest warning
+      warningTimeout.current = setTimeout(() => {
+        setWarningQueue((q) => q.slice(1));
+      }, 4000);
+    } else {
+      setActiveWarning("");
+    }
+    return () => clearTimeout(warningTimeout.current);
+  }, [warningQueue]);
+
+  // Helper to push a warning and log debug info
+  const pushWarning = (msg) => {
+    if (examCancelled) return;
+    setWarningQueue((q) => [...q, msg]);
+    // Industry-level debug log for every cheating event
+    logCheatingEvent({
+      reason: msg,
+      count: cheatCount + 1,
+      // TODO: Add userId from session if available
+      eventType: "client",
+      // Add more context if needed
+    });
+  };
+
   // Tab/window focus detection
   useEffect(() => {
     if (examCancelled) return;
@@ -51,7 +95,7 @@ export default function ExamStart() {
       if (examCancelled) return;
       setCheatCount((c) => c + 1);
       setCheatReason("Tab/window switch detected");
-      setCheatWarning("Switching tabs or windows is not allowed during the exam.");
+      pushWarning("Cheating Detected: Tab/window switch detected");
     };
     window.addEventListener('blur', handleBlur);
     return () => window.removeEventListener('blur', handleBlur);
@@ -60,7 +104,10 @@ export default function ExamStart() {
   // Copy/paste/right-click prevention
   useEffect(() => {
     if (examCancelled) return;
-    const prevent = (e) => e.preventDefault();
+    const prevent = (e) => {
+      pushWarning("Cheating Detected: Copy, paste, or right-click is not allowed");
+      e.preventDefault();
+    };
     document.addEventListener('copy', prevent);
     document.addEventListener('paste', prevent);
     document.addEventListener('contextmenu', prevent);
@@ -86,7 +133,7 @@ export default function ExamStart() {
       if (examCancelled) return;
       setCheatCount((c) => c + 1);
       setCheatReason("Exited full-screen mode");
-      setCheatWarning("Exiting full-screen is not allowed during the exam.");
+      pushWarning("Cheating Detected: Exited full-screen mode");
     };
     const fsHandler = () => {
       if (!document.fullscreenElement) handleExit();
@@ -107,6 +154,7 @@ export default function ExamStart() {
       try {
         await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
         setFaceLoaded(true);
+        setShowWebcam(true);
         if (videoRef.current) {
           try {
             stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -116,10 +164,12 @@ export default function ExamStart() {
           } catch (err) {
             setCameraError("Camera access is required for proctoring. Please allow camera access and reload the page.");
             setCameraReady(false);
+            setShowWebcam(false);
           }
         }
       } catch (err) {
         setCameraError("Failed to load face detection model.");
+        setShowWebcam(false);
       }
     }
     setupFaceApi();
@@ -130,11 +180,11 @@ export default function ExamStart() {
         if (!detections.length) {
           setCheatCount((c) => c + 1);
           setCheatReason("No face detected");
-          setCheatWarning("Your face must be visible at all times during the exam.");
+          pushWarning("Cheating Detected: No face detected in camera");
         } else if (detections.length > 1) {
           setCheatCount((c) => c + 1);
           setCheatReason("Multiple faces detected");
-          setCheatWarning("Only one person is allowed in front of the camera during the exam.");
+          pushWarning("Cheating Detected: Multiple faces detected in camera");
         }
       } catch (err) {
         // Ignore detection errors
@@ -154,8 +204,8 @@ export default function ExamStart() {
   useEffect(() => {
     if (cheatCount >= CHEAT_THRESHOLD && !examCancelled) {
       setExamCancelled(true);
-      setCheatWarning("");
-      // Clean up intervals and event listeners
+      setWarningQueue([]);
+      setActiveWarning("");
       if (detectionInterval.current) clearInterval(detectionInterval.current);
       if (videoRef.current && videoRef.current.srcObject) {
         videoRef.current.srcObject.getTracks().forEach(track => track.stop());
@@ -181,6 +231,7 @@ export default function ExamStart() {
   // Progress percentage
   const progress = questions.length ? ((current + 1) / questions.length) * 100 : 0;
 
+  // Place examCancelled check at the very top of the render function
   if (examCancelled) {
     return (
       <main className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-red-100 via-white to-red-50 px-4">
@@ -206,7 +257,11 @@ export default function ExamStart() {
           {/* Webcam preview for proctoring */}
           <div className="flex items-center gap-2 ml-4">
             <FaVideo className="text-indigo-400" />
-            <video ref={videoRef} autoPlay muted width={40} height={30} className="rounded border border-indigo-200" style={{ objectFit: 'cover' }} />
+            {showWebcam ? (
+              <video ref={videoRef} autoPlay muted width={40} height={30} className="rounded border border-indigo-200" style={{ objectFit: 'cover' }} />
+            ) : (
+              <div className="w-10 h-8 flex items-center justify-center bg-gray-100 border border-indigo-200 rounded"><FaCamera className="text-gray-400" /></div>
+            )}
           </div>
         </div>
       </div>
@@ -220,11 +275,11 @@ export default function ExamStart() {
         </div>
       )}
       {/* Cheating warning */}
-      {cheatWarning && !examCancelled && (
+      {activeWarning && !examCancelled && (
         <div className="w-full max-w-2xl mx-auto mt-4 mb-2 animate-fade-in">
           <div className="bg-yellow-100 border border-yellow-300 text-yellow-800 rounded-lg px-4 py-3 flex items-center gap-2">
             <FaExclamationTriangle className="w-5 h-5" />
-            <span>{cheatWarning}</span>
+            <span>{activeWarning}</span>
           </div>
         </div>
       )}
@@ -349,11 +404,11 @@ export default function ExamStart() {
             >
               Go to Dashboard
             </button>
-          </div>
-        ) : (
+        </div>
+      ) : (
           <div className="text-red-500 text-center">No questions found for this exam.</div>
-        )}
-      </div>
+      )}
+    </div>
     </main>
   );
 }
