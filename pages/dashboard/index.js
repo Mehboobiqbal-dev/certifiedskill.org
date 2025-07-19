@@ -83,6 +83,25 @@ export default function Dashboard() {
   return (
     <>
       <Header />
+      {/* User Profile Card */}
+      <div className="flex items-center gap-4 bg-white rounded-xl shadow p-6 mb-8 max-w-md mx-auto mt-8">
+        <div className="relative">
+          <img
+            src="https://randomuser.me/api/portraits/men/32.jpg"
+            alt="Amit S."
+            className="w-16 h-16 rounded-full border-2 border-green-400 shadow"
+          />
+          <span className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></span>
+        </div>
+        <div>
+          <div className="text-lg font-semibold text-gray-800">Amit S.</div>
+          <div className="text-sm text-gray-500">Software Engineer</div>
+          <div className="flex items-center gap-2 mt-1">
+            <span className="inline-block w-2 h-2 bg-green-500 rounded-full"></span>
+            <span className="text-xs text-green-600">Online</span>
+          </div>
+        </div>
+      </div>
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-indigo-600 via-blue-400 to-indigo-200 py-16 px-4 flex flex-col items-center justify-center text-center overflow-hidden">
         <div className="absolute inset-0 bg-[url('/dashboard-bg.jpg')] bg-cover bg-center opacity-10 pointer-events-none" />
