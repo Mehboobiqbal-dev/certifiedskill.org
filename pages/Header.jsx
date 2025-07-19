@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/careers", label: "Careers" },
   { href: "/faq-tc", label: "FAQ" },
+  { href: "/blog", label: "Blog" }, // Added Blog link
 ];
 
 const HeaderContent = () => {
