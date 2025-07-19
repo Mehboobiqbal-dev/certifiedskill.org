@@ -1,18 +1,39 @@
 {
   "pages": {
+    "/api/signup/route": [
+      "static/chunks/webpack-586a292101797612.js",
+      "static/chunks/4bd1b696-ebe98040392b1525.js",
+      "static/chunks/1684-cafa3868e4393cd3.js",
+      "static/chunks/main-app-4b4b007520522d5c.js",
+      "static/chunks/app/api/signup/route-1ccdfa59eabd7c68.js"
+    ],
+    "/api/auth/[...nextauth]/route": [
+      "static/chunks/webpack-586a292101797612.js",
+      "static/chunks/4bd1b696-ebe98040392b1525.js",
+      "static/chunks/1684-cafa3868e4393cd3.js",
+      "static/chunks/main-app-4b4b007520522d5c.js",
+      "static/chunks/app/api/auth/[...nextauth]/route-2721c4e2c01fa2e4.js"
+    ],
+    "/not-found": [
+      "static/chunks/webpack-586a292101797612.js",
+      "static/chunks/4bd1b696-ebe98040392b1525.js",
+      "static/chunks/1684-cafa3868e4393cd3.js",
+      "static/chunks/main-app-4b4b007520522d5c.js",
+      "static/chunks/app/not-found-bff4e29023b308c5.js"
+    ],
     "/_not-found/page": [
-      "static/chunks/node_modules_next_dist_1a6ee436._.js",
-      "static/chunks/app_layout_jsx_f0e4c1a2._.js",
-      "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_f0619f27._.js",
-      "static/chunks/node_modules_next_dist_9a2d5fdb._.js",
-      "static/chunks/app_not-found_jsx_ca5e1cad._.js",
-      "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_49a6ea35._.js",
-      "static/chunks/node_modules_next_dist_compiled_2ce9398a._.js",
-      "static/chunks/node_modules_next_dist_client_43e3ffb8._.js",
-      "static/chunks/node_modules_next_dist_3bfaed20._.js",
-      "static/chunks/node_modules_@swc_helpers_cjs_00636ac3._.js",
-      "static/chunks/_e69f0d32._.js",
-      "static/chunks/_be317ff2._.js"
+      "static/chunks/webpack-586a292101797612.js",
+      "static/chunks/4bd1b696-ebe98040392b1525.js",
+      "static/chunks/1684-cafa3868e4393cd3.js",
+      "static/chunks/main-app-4b4b007520522d5c.js",
+      "static/chunks/app/_not-found/page-2f43f12cbcffe90c.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack-586a292101797612.js",
+      "static/chunks/4bd1b696-ebe98040392b1525.js",
+      "static/chunks/1684-cafa3868e4393cd3.js",
+      "static/chunks/main-app-4b4b007520522d5c.js",
+      "static/chunks/app/layout-027b537792002540.js"
     ]
   }
 }
