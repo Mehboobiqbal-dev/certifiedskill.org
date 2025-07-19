@@ -6,6 +6,45 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Skeleton from 'react-loading-skeleton';
 import WelcomeTour from "../components/WelcomeTour";
+import { FaLaptopCode, FaUserTie, FaChartBar, FaBullhorn } from "react-icons/fa";
+
+function ProfessionAvatar({ name, role }) {
+  if (role === 'Software Engineer') {
+    return (
+      <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center border-2 border-indigo-200">
+        <FaLaptopCode className="text-indigo-600 w-6 h-6" aria-label="Software Engineer" />
+      </div>
+    );
+  }
+  if (role === 'Founder') {
+    return (
+      <div className="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center border-2 border-yellow-300">
+        <FaUserTie className="text-yellow-600 w-6 h-6" aria-label="Founder" />
+      </div>
+    );
+  }
+  if (role === 'Data Analyst') {
+    return (
+      <div className="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center border-2 border-yellow-300">
+        <FaChartBar className="text-yellow-600 w-6 h-6" aria-label="Data Analyst" />
+      </div>
+    );
+  }
+  if (role === 'Marketing Specialist') {
+    return (
+      <div className="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center border-2 border-pink-200">
+        <FaBullhorn className="text-pink-600 w-6 h-6" aria-label="Marketing Specialist" />
+      </div>
+    );
+  }
+  // Fallback: initials
+  const initials = name.split(' ').map(n => n[0]).join('');
+  return (
+    <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center border-2 border-gray-300">
+      <span className="text-gray-700 font-bold text-lg">{initials}</span>
+    </div>
+  );
+}
 
 export default function HomePage() {
   return (
@@ -149,7 +188,7 @@ export default function HomePage() {
                 <div className="bg-white rounded-2xl shadow-lg p-8 border border-indigo-100">
                   <p className="text-gray-700 mb-4">“CertifiedSkill.org helped me land my dream job. The certificate was instantly recognized by my employer!”</p>
                   <div className="flex items-center gap-3 justify-center">
-                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Amit S. - Software Engineer" className="w-10 h-10 rounded-full border-2 border-indigo-200" />
+                    <ProfessionAvatar name="Amit S." role="Software Engineer" />
                     <div className="text-left">
                       <div className="font-semibold text-gray-900">Amit S.</div>
                       <div className="text-xs text-gray-500">Software Engineer</div>
@@ -159,7 +198,7 @@ export default function HomePage() {
                 <div className="bg-white rounded-2xl shadow-lg p-8 border border-indigo-100">
                   <p className="text-gray-700 mb-4">“The process was simple and the digital badge looks great on my LinkedIn profile. Highly recommend!”</p>
                   <div className="flex items-center gap-3 justify-center">
-                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Priya K. - Marketing Specialist" className="w-10 h-10 rounded-full border-2 border-indigo-200" />
+                    <ProfessionAvatar name="Priya K." role="Marketing Specialist" />
                     <div className="text-left">
                       <div className="font-semibold text-gray-900">Priya K.</div>
                       <div className="text-xs text-gray-500">Marketing Specialist</div>
@@ -169,7 +208,7 @@ export default function HomePage() {
                 <div className="bg-white rounded-2xl shadow-lg p-8 border border-indigo-100">
                   <p className="text-gray-700 mb-4">“I love how easy it is to verify and share my certificate. The platform is top-notch!”</p>
                   <div className="flex items-center gap-3 justify-center">
-                    <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="Rahul D. - Data Analyst" className="w-10 h-10 rounded-full border-2 border-indigo-200" />
+                    <ProfessionAvatar name="Rahul D." role="Data Analyst" />
                     <div className="text-left">
                       <div className="font-semibold text-gray-900">Rahul D.</div>
                       <div className="text-xs text-gray-500">Data Analyst</div>

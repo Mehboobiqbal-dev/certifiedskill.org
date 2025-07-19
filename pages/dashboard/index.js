@@ -91,8 +91,8 @@ export default function Dashboard() {
         canonical="https://certifiedskill.org/dashboard"
       />
       <WelcomeTour />
-      <ProfileProgressBar />
       <Header />
+      <ProfileProgressBar />
       {/* User Profile Card */}
       <div className="flex items-center gap-4 bg-white rounded-xl shadow p-6 mb-8 max-w-md mx-auto mt-8">
         <div className="relative">

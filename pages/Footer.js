@@ -113,7 +113,7 @@ const Footer = () => {
           {POLICY_LINKS.map((link) => (
             <Link key={link.href} href={link.href} className="hover:underline text-indigo-100 hover:text-white transition">
               {link.label}
-            </Link>
+          </Link>
           ))}
         </nav>
       </div>
