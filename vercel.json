@@ -1,0 +1,42 @@
+{
+  "functions": {
+    "pages/api/**/*.js": {
+      "memory": 1024,
+      "maxDuration": 10
+    },
+    "pages/api/scrape.js": {
+      "memory": 1024,
+      "maxDuration": 60,
+      "excludeFiles": "{.next,*.cache,node_modules/@mediapipe/**,node_modules/puppeteer-extra/**,node_modules/puppeteer-extra-plugin-stealth/**,node_modules/face-api.js/**,node_modules/pdfkit/**,node_modules/canvas/build/**,node_modules/**/*.md,node_modules/**/*.test.js,node_modules/**/*.spec.js,node_modules/**/*.d.ts,node_modules/**/*.map}"
+    },
+    "pages/api/puppeteer-scrape.js": {
+      "memory": 1024,
+      "maxDuration": 60
+    },
+    "pages/api/face-detection.js": {
+      "memory": 1024,
+      "maxDuration": 30
+    },
+    "pages/api/generate-pdf.js": {
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1",
+      "headers": {
+        "Cache-Control": "s-maxage=0"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  "images": {
+    "sizes": [256, 512, 1024, 2048],
+    "domains": ["certifiedskill.org"]
+  }
+}

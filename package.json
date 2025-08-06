@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "npm run prune-deps && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prune-deps": "node scripts/prune-dependencies.js"
   },
   "dependencies": {
     "@mediapipe/camera_utils": "^0.3.1675466862",
