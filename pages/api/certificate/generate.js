@@ -1,8 +1,5 @@
-import PDFDocument from 'pdfkit';
-import { v4 as uuidv4 } from 'uuid';
 import connectToDatabase from '../../../lib/db';
-import path from 'path';
-import fs from 'fs';
+// Use dynamic imports for PDF generation
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -34,6 +31,7 @@ export default async function handler(req, res) {
       }
     } else {
       // Create a new certificate entry.
+      const { v4: uuidv4 } = await import('uuid');
       certificate = {
         userId,
         userName,
@@ -48,6 +46,11 @@ export default async function handler(req, res) {
     // Set headers to render the PDF inline.
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', 'inline; filename="certificate.pdf"');
+
+    // Dynamically import required modules
+    const PDFDocument = (await import('pdfkit')).default;
+    const fs = await import('fs');
+    const path = await import('path');
 
     const doc = new PDFDocument({
       size: 'A4',

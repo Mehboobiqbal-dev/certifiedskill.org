@@ -24,6 +24,14 @@
     "pages/api/certificates/index.js": {
       "memory": 1024,
       "maxDuration": 30
+    },
+    "pages/api/certificate/generate.js": {
+      "memory": 1024,
+      "maxDuration": 30
+    },
+    "pages/api/certificate/verify.js": {
+      "memory": 1024,
+      "maxDuration": 30
     }
   },
   "routes": [

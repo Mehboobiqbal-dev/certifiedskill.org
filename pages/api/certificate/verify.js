@@ -1,7 +1,5 @@
-import PDFDocument from 'pdfkit';
-import fs from 'fs';
-import path from 'path';
 import connectToDatabase from '../../../lib/db';
+// Use dynamic imports for PDF generation
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
@@ -26,6 +24,11 @@ export default async function handler(req, res) {
     
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', 'inline; filename="certificate.pdf"');
+    
+    // Dynamically import required modules
+    const PDFDocument = (await import('pdfkit')).default;
+    const fs = await import('fs');
+    const path = await import('path');
     
     const doc = new PDFDocument({
       size: 'A4',
