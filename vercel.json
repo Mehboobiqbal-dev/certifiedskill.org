@@ -7,7 +7,7 @@
     "pages/api/scrape.js": {
       "memory": 1024,
       "maxDuration": 60,
-      "excludeFiles": "{.next,*.cache,node_modules/@mediapipe/**,node_modules/puppeteer-extra/**,node_modules/puppeteer-extra-plugin-stealth/**,node_modules/face-api.js/**,node_modules/pdfkit/**,node_modules/canvas/build/**,node_modules/**/*.md,node_modules/**/*.test.js,node_modules/**/*.spec.js,node_modules/**/*.d.ts,node_modules/**/*.map}"
+      "excludeFiles": "{.next,*.cache,node_modules/{@mediapipe,puppeteer-*,face-api.js,pdfkit,canvas/build}/**,node_modules/**/*.{md,test.js,spec.js,d.ts,map}}"
     },
     "pages/api/puppeteer-scrape.js": {
       "memory": 1024,
