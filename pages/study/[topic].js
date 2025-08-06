@@ -1,24 +1,21 @@
 import { useRouter } from 'next/router';
 import fs from 'fs';
 import path from 'path';
-import marked from 'marked';
-import { topicsToScrape } from '../../config/config.js';
+import { marked } from 'marked';
+import topics from '../../config/config.js';
 
-export default function StudyTopic() {
+export default function StudyTopic({ topicData, contents }) {
   const router = useRouter();
-  const { topic } = router.query;
-
-  const topicData = topicsToScrape.find(t => t.name.toLowerCase() === topic?.toLowerCase());
-  if (!topicData) return <p>Topic not found</p>;
-
-  const folderPath = path.join(process.cwd(), topicData.folder);
-  const files = fs.existsSync(folderPath) ? fs.readdirSync(folderPath).filter(f => f.endsWith('.md')) : [];
-
-  const contents = files.map(file => {
-    const filePath = path.join(folderPath, file);
-    const content = fs.readFileSync(filePath, 'utf-8');
-    return { file, html: marked(content) };
-  });
+  
+  // Show loading state during fallback
+  if (router.isFallback) {
+    return <p>Loading...</p>;
+  }
+  
+  // Handle case when topic is not found
+  if (!topicData) {
+    return <p>Topic not found</p>;
+  }
 
   return (
     <div className="p-8">
