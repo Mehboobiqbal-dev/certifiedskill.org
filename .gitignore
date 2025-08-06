@@ -2,7 +2,10 @@
 
 # dependencies
 /node_modules
-
+.next/cache/webpack                                         
+.git/objects/pack                                            
+node_modules/next/dist                                        
+node_modules/react-dom/cjs                      
 .next/
 
 # misc
