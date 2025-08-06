@@ -52,8 +52,10 @@ export default function Dashboard() {
   const { data: session, status } = useSession();
   const [certificates, setCertificates] = useState([]);
   const [exams, setExams] = useState([]);
+  const [materials, setMaterials] = useState([]);
   const [loadingCerts, setLoadingCerts] = useState(true);
   const [loadingExams, setLoadingExams] = useState(true);
+  const [loadingMaterials, setLoadingMaterials] = useState(true);
 
   useEffect(() => {
     if (status === "authenticated" && session) {
@@ -80,9 +82,17 @@ export default function Dashboard() {
         setLoadingExams(false);
       })
       .catch(() => setLoadingExams(false));
+
+    fetch("/api/study-materials", { cache: "no-store" })
+      .then((res) => res.json())
+      .then((data) => {
+        setMaterials(data);
+        setLoadingMaterials(false);
+      })
+      .catch(() => setLoadingMaterials(false));
   }, []);
 
-  if (loadingExams || loadingCerts) return (
+  if (loadingExams || loadingCerts || loadingMaterials) return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12 px-4 sm:px-8 flex items-center justify-center">
       <div className="w-full max-w-5xl">
         <div className="mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -224,6 +234,34 @@ export default function Dashboard() {
                   </div>
               ))}
               </div>
+          )}
+        </section>
+        {/* Study Materials Section */}
+        <section className="mt-16">
+          <h2 className="text-2xl font-bold text-indigo-700 mb-8 flex items-center gap-2"><FaBookOpen className="text-green-500" /> Study Materials</h2>
+          {materials.length === 0 ? (
+            <div className="bg-indigo-50 rounded-lg p-6 text-center text-gray-500">No study materials available yet.</div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {materials.map((material) => (
+                <div key={material.name} className="bg-white rounded-2xl shadow-xl border border-indigo-100 p-6 flex flex-col gap-3 hover:shadow-2xl transition group">
+                  <div className="flex items-center gap-3 mb-2">
+                    <FaBookOpen className="w-7 h-7 text-green-500 group-hover:scale-110 transition-transform" />
+                    <span className="text-lg font-semibold text-green-700">{material.name}</span>
+                  </div>
+                  <div className="text-sm text-gray-500">Files: {material.files.length}</div>
+                  <ul className="list-disc pl-5 text-sm text-gray-600">
+                    {material.files.slice(0, 5).map((file) => (
+                      <li key={file}>{file}</li>
+                    ))}
+                    {material.files.length > 5 && <li>...and more</li>}
+                  </ul>
+                  <Link href={`/study/${material.name.toLowerCase()}`} className="mt-4 inline-block">
+                    <span className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-500 text-white font-bold py-2 px-6 rounded-lg shadow transition cursor-pointer flex items-center gap-2"><FaArrowRight /> View Materials</span>
+                  </Link>
+                </div>
+              ))}
+            </div>
           )}
         </section>
       </div>
