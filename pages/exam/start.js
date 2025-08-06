@@ -4,8 +4,9 @@ import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FaCheckCircle, FaArrowRight, FaArrowLeft, FaListAlt, FaExclamationTriangle, FaVideo, FaCamera } from "react-icons/fa";
 import Skeleton from 'react-loading-skeleton';
-// We'll use the face-detection API endpoint instead of direct import
-// This helps reduce client-side bundle size
+// Import face-api.js for webcam proctoring
+// (Assume face-api.js is installed and available)
+import * as faceapi from 'face-api.js';
 
 // --- Industry-level Cheating Event Logger ---
 function logCheatingEvent({ reason, count, userId, eventType = "client", extra = {} }) {
@@ -143,14 +144,15 @@ export default function ExamStart() {
     };
   }, [examCancelled]);
 
-  // Webcam proctoring (face detection) using API endpoint
+  // Webcam proctoring (face detection)
   useEffect(() => {
     if (examCancelled) return;
     let stream;
     let interval;
     let stopped = false;
-    async function setupCamera() {
+    async function setupFaceApi() {
       try {
+        await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
         setFaceLoaded(true);
         setShowWebcam(true);
         if (videoRef.current) {
@@ -166,38 +168,26 @@ export default function ExamStart() {
           }
         }
       } catch (err) {
-        setCameraError("Failed to setup camera.");
+        setCameraError("Failed to load face detection model.");
         setShowWebcam(false);
       }
     }
-    setupCamera();
+    setupFaceApi();
     interval = setInterval(async () => {
-      if (stopped || !videoRef.current || !cameraReady || examCancelled) return;
+      if (stopped || !videoRef.current || !faceLoaded || !cameraReady || examCancelled) return;
       try {
-        // Capture image from video
-        const canvas = document.createElement('canvas');
-        canvas.width = videoRef.current.videoWidth;
-        canvas.height = videoRef.current.videoHeight;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-        const imageData = canvas.toDataURL('image/jpeg');
-        
-        // Send to face-detection API endpoint
-        const response = await axios.post('/api/face-detection', { imageData });
-        const { faceCount } = response.data;
-        
-        if (faceCount === 0) {
+        const detections = await faceapi.detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions());
+        if (!detections.length) {
           setCheatCount((c) => c + 1);
           setCheatReason("No face detected");
           pushWarning("Cheating Detected: No face detected in camera");
-        } else if (faceCount > 1) {
+        } else if (detections.length > 1) {
           setCheatCount((c) => c + 1);
           setCheatReason("Multiple faces detected");
           pushWarning("Cheating Detected: Multiple faces detected in camera");
         }
       } catch (err) {
         // Ignore detection errors
-        console.log("Face detection error:", err);
       }
     }, 4000);
     detectionInterval.current = interval;
@@ -208,7 +198,7 @@ export default function ExamStart() {
         stream.getTracks().forEach(track => track.stop());
       }
     };
-  }, [cameraReady, examCancelled]);
+  }, [faceLoaded, cameraReady, examCancelled]);
 
   // Cancel exam if cheating threshold exceeded
   useEffect(() => {
