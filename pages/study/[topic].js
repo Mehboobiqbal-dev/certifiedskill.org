@@ -30,7 +30,18 @@ export default function StudyTopic({ topicData, contents }) {
   );
 }
 
-export async function getServerSideProps({ params }) {
+// This function gets called at build time
+export async function getStaticPaths() {
+  // Get the list of all topic paths
+  const paths = topics.map((topic) => ({
+    params: { topic: topic.name.toLowerCase() },
+  }));
+
+  return { paths, fallback: true };
+}
+
+// This function gets called at build time on server-side.
+export async function getStaticProps({ params }) {
   try {
     const { topic } = params;
     
@@ -50,32 +61,44 @@ export async function getServerSideProps({ params }) {
         props: {
           topicData: null,
           contents: []
-        }
+        },
+        notFound: true
       };
     }
     
-    const folderPath = path.join(process.cwd(), topicData.folder);
-    const files = fs.existsSync(folderPath) ? fs.readdirSync(folderPath).filter(f => f.endsWith('.md')) : [];
+    // Convert topicData to a serializable object
+    const serializedTopicData = JSON.parse(JSON.stringify(topicData));
     
-    const contents = files.map(file => {
-      const filePath = path.join(folderPath, file);
-      const content = fs.readFileSync(filePath, 'utf-8');
-      return { file, html: marked(content) };
-    });
+    const folderPath = path.join(process.cwd(), topicData.folder);
+    let files = [];
+    let contents = [];
+    
+    if (fs.existsSync(folderPath)) {
+      files = fs.readdirSync(folderPath).filter(f => f.endsWith('.md'));
+      
+      contents = files.map(file => {
+        const filePath = path.join(folderPath, file);
+        const content = fs.readFileSync(filePath, 'utf-8');
+        return { file, html: marked(content) };
+      });
+    }
     
     return {
       props: {
-        topicData,
+        topicData: serializedTopicData,
         contents
-      }
+      },
+      // Re-generate at most once per day
+      revalidate: 86400
     };
   } catch (error) {
-    console.error('Error in getServerSideProps:', error);
+    console.error('Error in getStaticProps:', error);
     return {
       props: {
         topicData: null,
         contents: []
-      }
+      },
+      revalidate: 60 // Try again after 1 minute on error
     };
   }
 }
