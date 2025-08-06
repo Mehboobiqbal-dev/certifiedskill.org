@@ -29,3 +29,53 @@ export default function StudyTopic({ topicData, contents }) {
     </div>
   );
 }
+
+export async function getServerSideProps({ params }) {
+  try {
+    const { topic } = params;
+    
+    if (!topic) {
+      return {
+        props: {
+          topicData: null,
+          contents: []
+        }
+      };
+    }
+    
+    const topicData = topics.find(t => t.name.toLowerCase() === topic.toLowerCase());
+    
+    if (!topicData) {
+      return {
+        props: {
+          topicData: null,
+          contents: []
+        }
+      };
+    }
+    
+    const folderPath = path.join(process.cwd(), topicData.folder);
+    const files = fs.existsSync(folderPath) ? fs.readdirSync(folderPath).filter(f => f.endsWith('.md')) : [];
+    
+    const contents = files.map(file => {
+      const filePath = path.join(folderPath, file);
+      const content = fs.readFileSync(filePath, 'utf-8');
+      return { file, html: marked(content) };
+    });
+    
+    return {
+      props: {
+        topicData,
+        contents
+      }
+    };
+  } catch (error) {
+    console.error('Error in getServerSideProps:', error);
+    return {
+      props: {
+        topicData: null,
+        contents: []
+      }
+    };
+  }
+}
