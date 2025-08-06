@@ -37,6 +37,7 @@ const nextConfig = {
         fs: false,
         path: false,
         zlib: false,
+        canvas: false,
       };
     }
     return config;

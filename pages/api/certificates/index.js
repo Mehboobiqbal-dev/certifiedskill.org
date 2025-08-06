@@ -1,8 +1,5 @@
-import PDFDocument from 'pdfkit';
-import fs from 'fs';
-import path from 'path';
-import { v4 as uuidv4 } from 'uuid';
 import connectToDatabase from '../../../lib/db';
+// Use dynamic imports for PDF generation
 
 export default async function handler(req, res) {
   // Connect to the database.
@@ -33,6 +30,11 @@ export default async function handler(req, res) {
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'inline; filename="certificate.pdf"');
   
+        // Dynamically import required modules
+        const PDFDocument = (await import('pdfkit')).default;
+        const fs = await import('fs');
+        const path = await import('path');
+        
         // Create a new PDF document using your desired style.
         const doc = new PDFDocument({
           size: 'A4',
@@ -152,6 +154,9 @@ export default async function handler(req, res) {
     try {
       let certificate = await db.collection('certificates').findOne({ userId, examId });
   
+      // Dynamically import uuid
+      const { v4: uuidv4 } = await import('uuid');
+      
       if (certificate) {
         console.log('Existing certificate found:', certificate);
         if (!certificate.certificateId) {

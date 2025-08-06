@@ -20,6 +20,10 @@
     "pages/api/generate-pdf.js": {
       "memory": 1024,
       "maxDuration": 30
+    },
+    "pages/api/certificates/index.js": {
+      "memory": 1024,
+      "maxDuration": 30
     }
   },
   "routes": [

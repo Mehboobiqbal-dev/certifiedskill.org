@@ -28,10 +28,16 @@ export default async function handler(req, res) {
       const img = new NodeImage();
       img.src = imageData;
       
+      // Detect faces
       const detections = await faceapi.detectAllFaces(img, new faceapi.TinyFaceDetectorOptions())
         .withFaceLandmarks();
       
-      return res.status(200).json({ detections });
+      // Return the face count and detections
+      return res.status(200).json({
+        faceCount: detections.length,
+        detections,
+        success: true
+      });
     } catch (error) {
       console.error('Face detection failed:', error);
       return res.status(500).json({ error: error.message });
