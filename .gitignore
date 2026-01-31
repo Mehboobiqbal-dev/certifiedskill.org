@@ -2,12 +2,18 @@
 
 # dependencies
 /node_modules
-.next/cache/webpack                                         
-.git/objects/pack                                            
-node_modules/next/dist                                        
-node_modules/react-dom/cjs                      
-.next/
-                              
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
 
 # misc
 .DS_Store
@@ -19,8 +25,15 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# local env files
+.env*.local
 
-.env.local
+# vercel
 .vercel
+
+
+
+# Large Cache/Git Objects (if mistakenly tracked)
+.git/
+.next/cache/
+
