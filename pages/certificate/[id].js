@@ -45,7 +45,7 @@ export default function CertificateDetail() {
                 <div className="text-sm text-gray-500">This certificate is verifiable at the link below.</div>
               </div>
               <div className="flex flex-col md:flex-row gap-4 justify-center mb-8">
-                <a href={`/certificate/${certificate.certificateId}.pdf`} target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-400 text-white font-bold py-2 px-6 rounded-lg shadow transition flex items-center gap-2">Download PDF</a>
+                <a href={`/api/certificates?certificateNumber=${certificate.certificateId}`} target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-400 text-white font-bold py-2 px-6 rounded-lg shadow transition flex items-center gap-2">Download PDF</a>
               </div>
               <div className="mt-6 text-center">
                 <span className="text-gray-600">Shareable Link:</span>

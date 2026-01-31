@@ -17,11 +17,26 @@ export default async function handler(req, res) {
 
     // 1. Try to find in Database first
     try {
-        const connection = await connectToDatabase();
-        const db = connection.db || connection.useDb('myDatabase');
-        certificate = await db
-            .collection('certificates')
-            .findOne({ certificateId: certificateNumber });
+        await connectToDatabase();
+        // Mongoose model approach is cleaner if available, but let's stick to consistent access pattern
+        // Note: connectToDatabase() from lib/db.js usually handles the connection reuse internally
+        // but it doesn't always return the connection object the same way in all projects.
+        // Let's use the mongoose.connection directly if possible.
+        
+        const mongoose = require('mongoose');
+        if (mongoose.connection.readyState === 1) {
+             const db = mongoose.connection.db;
+             certificate = await db.collection('certificates').findOne({ certificateId: certificateNumber });
+             console.log(`[Verify] DB Lookup for ${certificateNumber}:`, certificate ? "FOUND" : "NOT FOUND");
+        } else {
+             // Re-connect if needed
+             const conn = await connectToDatabase();
+             // Some implementations return { db } or just the mongoose connection
+             const db = conn.db || (conn.connection && conn.connection.db) || mongoose.connection.db;
+             if (db) {
+                certificate = await db.collection('certificates').findOne({ certificateId: certificateNumber });
+             }
+        }
     } catch (e) {
         console.error("Database lookup failed:", e);
     }

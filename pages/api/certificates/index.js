@@ -23,10 +23,28 @@ export default async function handler(req, res) {
     
     if (certificateNumber) {
       try {
-        // Find the certificate by its certificateId
-        const certificate = await db.collection('certificates').findOne({ certificateId: certificateNumber });
+        // Find the certificate by its certificateId - using simple query first
+        // IMPORTANT: Mongoose might default to lowercased collection names (e.g. 'certificates') 
+        // but if the model was saved differently or directly via mongo driver, it might be case sensitive.
+        let certificate = await db.collection('certificates').findOne({ certificateId: certificateNumber });
+        
+        // Debug check: try to find any certificate to see structure
         if (!certificate) {
-          return res.status(404).json({ message: 'Certificate not found' });
+             console.log(`Debug: searching for ${certificateNumber} in 'certificates' collection failed.`);
+             
+             // Double check if the collection name is different in your specific DB instance?
+             // Sometimes Mongoose models save to pluralized lowercase. 
+             // Let's try to query via the Mongoose model approach if available, but here we use raw db connection.
+             
+             // Let's try to strip potential whitespace?
+             const trimmedId = certificateNumber.trim();
+             if (trimmedId !== certificateNumber) {
+                 certificate = await db.collection('certificates').findOne({ certificateId: trimmedId });
+             }
+        }
+        
+        if (!certificate) {
+             return res.status(404).json({ message: 'Certificate not found', debugId: certificateNumber });
         }
         
         // Set PDF headers so the file is rendered inline.
