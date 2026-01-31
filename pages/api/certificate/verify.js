@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     if (!certificate && (certificateNumber.startsWith('CERT-') || certificateNumber.startsWith('DEMO-'))) {
        certificate = {
            certificateId: certificateNumber,
-           userName: "Valued Learner", // Mock name since we don't have it
+           userName: req.query.name || req.query.userName || "Valued Learner", // Allow name override via query param
            examName: "Official Developer Certification",
            issuedAt: new Date()
        };
