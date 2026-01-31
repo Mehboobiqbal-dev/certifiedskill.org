@@ -33,7 +33,7 @@ export default function VerifyCertificate() {
             placeholder="Enter Certificate Number"
             value={certificateNumber}
             onChange={(e) => setCertificateNumber(e.target.value)}
-                className="w-full"
+                className="w-full bg-white"
           />
             )}
           </div>
