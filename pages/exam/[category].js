@@ -206,12 +206,18 @@ export default function ExamPage({ exam, category }) {
 
 export async function getServerSideProps({ params }) {
     const { category } = params;
-    const exam = await getExamForCategory(category);
-    
-    return {
-        props: {
-            exam,
-            category
-        }
-    };
+    try {
+        const exam = await getExamForCategory(category);
+        return {
+            props: {
+                exam,
+                category
+            }
+        };
+    } catch (error) {
+        // If exam not found, redirect to exam search or 404
+        return {
+            notFound: true
+        };
+    }
 }
