@@ -14,22 +14,26 @@ export default async function handler(req, res) {
     }
     
     let certificate;
+
+    // 1. Try to find in Database first
+    try {
+        const connection = await connectToDatabase();
+        const db = connection.db || connection.useDb('myDatabase');
+        certificate = await db
+            .collection('certificates')
+            .findOne({ certificateId: certificateNumber });
+    } catch (e) {
+        console.error("Database lookup failed:", e);
+    }
     
-    // Mock Certificate Logic for Demo/File-mode
-    if (certificateNumber.startsWith('CERT-') || certificateNumber.startsWith('DEMO-')) {
+    // 2. Fallback to Mock Logic if not found AND looks like a demo ID
+    if (!certificate && (certificateNumber.startsWith('CERT-') || certificateNumber.startsWith('DEMO-'))) {
        certificate = {
            certificateId: certificateNumber,
-           userName: "Valued Learner", // In a real app we'd get this from session or encoded in ID
+           userName: "Valued Learner", // Mock name since we don't have it
            examName: "Official Developer Certification",
            issuedAt: new Date()
        };
-    } else {
-        const connection = await connectToDatabase();
-        const db = connection.db || connection.useDb('myDatabase');
-        
-        certificate = await db
-        .collection('certificates')
-        .findOne({ certificateId: certificateNumber });
     }
     
     if (!certificate) {
