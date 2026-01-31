@@ -7,6 +7,7 @@ import { getExamForCategory } from '../../lib/examService';
 import { Clock, CheckCircle, AlertCircle, Award } from 'lucide-react';
 import Confetti from 'react-confetti'; // We might need to install this or remove if not available
 import Link from 'next/link';
+import AntiCheatingMulti from '../../components/AntiCheating';
 
 export default function ExamPage({ exam, category }) {
   const router = useRouter();
@@ -15,10 +16,18 @@ export default function ExamPage({ exam, category }) {
   const [timeLeft, setTimeLeft] = useState(exam.duration * 60);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState(null);
+  const [examCancelled, setExamCancelled] = useState(false);
+
+  // Handle Cheating
+  const handleExamCancelled = () => {
+    setExamCancelled(true);
+    // Optionally auto-submit with fail or just block
+    setIsSubmitting(false);
+  };
 
   // Timer
   useEffect(() => {
-    if (result) return;
+    if (result || examCancelled) return;
     const timer = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) {
@@ -57,6 +66,27 @@ export default function ExamPage({ exam, category }) {
     }
     setIsSubmitting(false);
   };
+
+  if (examCancelled) {
+      return (
+        <div className="min-h-screen bg-red-50 flex flex-col items-center justify-center p-4 font-sans">
+            <div className="bg-white p-8 rounded-3xl shadow-xl max-w-lg w-full text-center border border-red-200">
+                <div className="mb-6 flex justify-center">
+                    <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center">
+                        <AlertCircle size={48} className="text-red-600" />
+                    </div>
+                </div>
+                <h2 className="text-3xl font-bold mb-2 text-red-700">Exam Cancelled</h2>
+                <p className="text-slate-600 mb-6">
+                    Your exam has been cancelled due to repeated cheating violations detected by our proctoring system.
+                </p>
+                <Link href="/dashboard" className="block w-full py-4 bg-slate-800 text-white rounded-xl font-bold hover:bg-slate-900 transition">
+                    Return to Dashboard
+                </Link>
+            </div>
+        </div>
+      );
+  }
 
   if (result) {
       return (
@@ -119,6 +149,11 @@ export default function ExamPage({ exam, category }) {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
       <Header />
+      <AntiCheatingMulti 
+        onCheatingDetected={(reason) => console.log("Cheating detected:", reason)}
+        onExamCancelled={handleExamCancelled}
+        enableCamera={true}
+      />
       
       <main className="flex-1 w-full max-w-4xl mx-auto px-4 py-8">
          {/* Top Bar */}

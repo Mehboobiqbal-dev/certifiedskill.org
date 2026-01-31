@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 // Use MediaPipe for AI camera proctoring
-import FaceDetection from "@mediapipe/face_detection";
-import Camera from "@mediapipe/camera_utils/camera_utils.js";
+import "@mediapipe/face_detection/face_detection"; // Import for side effects to load window.FaceDetection
+import "@mediapipe/camera_utils/camera_utils"; // Import for side effects to load window.Camera
 
 
 /**
@@ -59,7 +59,41 @@ function AntiCheatingMulti({ onCheatingDetected, detectionThreshold = 3000, enab
     async function startMediaPipeCamera() {
       if (!videoRef.current) return;
       try {
-        const faceDetection = new FaceDetection({
+        // Wait for FaceDetection to be available on window
+        if (!window.FaceDetection) {
+           // Fallback: manually inject script if import doesn't work (common with Next.js/Webpack side-effect issues)
+           await new Promise((resolve, reject) => {
+               const script = document.createElement('script');
+               script.src = "https://cdn.jsdelivr.net/npm/@mediapipe/face_detection/face_detection.js";
+               script.async = true;
+               script.onload = () => resolve();
+               script.onerror = () => reject(new Error("Failed to load FaceDetection script"));
+               document.body.appendChild(script);
+           });
+           
+           // Also ensure camera utils are loaded
+           if (!window.Camera) {
+               await new Promise((resolve, reject) => {
+                   const script = document.createElement('script');
+                   script.src = "https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js";
+                   script.async = true;
+                   script.onload = () => resolve();
+                   script.onerror = () => reject(new Error("Failed to load CameraUtils script"));
+                   document.body.appendChild(script);
+               });
+           }
+        }
+        
+        // Wait a bit for global registration
+        if (!window.FaceDetection) {
+            await new Promise(r => setTimeout(r, 500));
+        }
+
+        if (!window.FaceDetection) {
+             throw new Error("FaceDetection library failed to load");
+        }
+
+        const faceDetection = new window.FaceDetection({
           locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_detection/${file}`,
         });
         faceDetection.setOptions({
@@ -74,7 +108,7 @@ function AntiCheatingMulti({ onCheatingDetected, detectionThreshold = 3000, enab
             setWarning("");
           }
         });
-        cameraInstance = new Camera(videoRef.current, {
+        cameraInstance = new window.Camera(videoRef.current, {
           onFrame: async () => {
             await faceDetection.send({ image: videoRef.current });
           },
@@ -84,9 +118,16 @@ function AntiCheatingMulti({ onCheatingDetected, detectionThreshold = 3000, enab
         await cameraInstance.start();
         setCameraActive(true);
       } catch (err) {
+        console.error("Camera/MediaPipe Error:", err);
         setCameraError("Camera access denied or unavailable.");
         setCameraActive(false);
-        handleCheating("Camera access denied");
+        // Only trigger cheating if it's explicitly a permission denied error, otherwise it might be an initialization race condition
+        if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+             handleCheating("Camera access denied by user");
+        } else {
+             // For other errors (like MediaPipe loading), just log warning but don't penalize user yet
+             setWarning("Camera system initializing or error: " + err.message);
+        }
       }
     }
     startMediaPipeCamera();
