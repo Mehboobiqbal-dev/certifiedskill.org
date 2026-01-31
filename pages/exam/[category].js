@@ -121,7 +121,7 @@ export default function ExamPage({ exam, category }) {
 
                     {result.passed && (
                         <div className="space-y-3">
-                            <Link href={`/verify-certificate?id=${result.certificateId}`} className="block w-full py-4 bg-indigo-600 text-white rounded-xl font-bold shadow-lg hover:bg-indigo-700 transition">
+                            <Link href={`/certificate/${result.certificateId}`} className="block w-full py-4 bg-indigo-600 text-white rounded-xl font-bold shadow-lg hover:bg-indigo-700 transition">
                                 View Certificate
                             </Link>
                             <p className="text-xs text-slate-400">Certificate ID: {result.certificateId}</p>

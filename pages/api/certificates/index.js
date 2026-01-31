@@ -32,7 +32,10 @@ export default async function handler(req, res) {
     if (certificateNumber) {
       try {
         // Strip .pdf extension if present (happens if some clients append it to the URL)
-        const cleanCertificateNumber = certificateNumber.replace(/\.pdf$/i, '');
+        // Use replace with global flag or logic to handle multiple occurrences if needed,
+        // but typically just one at the end.
+        // Also handle cases where it might be .pdf.pdf or something odd due to redirects.
+        let cleanCertificateNumber = certificateNumber.replace(/(\.pdf)+$/i, '');
         console.log(`[API/Certificates] Searching for ID: "${cleanCertificateNumber}" (Original: "${certificateNumber}")`);
         
         // Find the certificate by its certificateId - using simple query first
