@@ -1,6 +1,6 @@
 import SeoHead from "../components/SeoHead";
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { FaUserTie } from "react-icons/fa";
 
 const TEAM = [

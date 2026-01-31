@@ -22,15 +22,28 @@
         "name": "next"
       }
     ],
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     "next-env.d.ts",
-    ".next/types/**/*.ts"
-, "pages/dashboard/index.js", "models/exam.js", "app/api/auth/[...nextauth]/route.js", "pages/api/signup/route.ts"  ],
+    ".next/types/**/*.ts",
+    "pages/dashboard/index.js",
+    "models/exam.js",
+    "app/api/auth/[...nextauth]/route.js",
+    "pages/api/signup/route.ts",
+    ".next/dev/types/**/*.ts"
+  ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "pages_bk",
+    "pages_bk_2"
   ]
 }

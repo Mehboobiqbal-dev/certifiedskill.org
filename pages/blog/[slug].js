@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import SeoHead from "../../components/SeoHead";
-import Header from "../Header";
-import Footer from "../Footer";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 // Sample static post data for demo
 const BLOG_POSTS = {

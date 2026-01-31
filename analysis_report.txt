@@ -1,0 +1,13 @@
+--- Analysis Report ---
+Total Documents: 9062
+Unique Categories: 65
+Categories: html, css, js, python, java, sql, php, bootstrap, w3css, cpp, cs, react, academy, cssref, sass, graphics, charsets, howto, ai, gen_ai...
+Documents with potential Code Examples: 8052
+
+--- Sample HTML Entry ---
+{
+  "url": "https://www.w3schools.com/html/default.asp",
+  "title": "HTML Tutorial",
+  "category": "html",
+  "content": "HTML\nTutorial\nLearn HTML\nHTML is the standard markup language for Web pages.\nWith HTML you can create your own Website.\nHTML is easy to learn - You will enjoy it!\nHTML Tutorial\nStudy our HTML Tutorial for free,\nno registration needed.\nLearn HTML Now »\nOR\nHTML Course + Certificate\nUpgrade your learning with our\ninteractive HTML Course \n        and Get Certified.\n🏁\nTip:\nSign in\nto track your progress.\nLearning by Examples\nWith our \"Try it Yourself\" editor, you can edit the HTML code and view the \nresult in the browser:\nExample\n<!DOCTYPE html>\n<html>\n<head>\n<title>Page Title</title>\n</head>\n<body>\n<h1>This is a Heading</h1>\n<p>This is a paragraph.</p>\n</body>\n</html>\nTry it Yourself »\nClick on the \"Try it Yourself\" button to see how it works.\nHTML Examples\nThis tutorial supplements all explanations with clarifying examples.\nSee all HTML Examples\nHTML Exercises\nMany chapters in this tutorial end with an exercise where you can check your level of knowledge.\nSee all HTML Exercises\nHTML Quiz Test\nTest your HTML skills with our HTML Quiz!\nStart HTML Quiz!\nTrack Your Progress\nCreate a W3Schools account and get access to more features and learning materials:\nView your completed tutorials, exercises, and quizzes\nKeep an eye on your progress and daily streaks\nJoin the leaderboard and compete with others\nGet your own avatar and unlock new skins\nCreate your own personal website\nNote:\nThis is an optional feature. You can study at W3Schools without creating an account.\nHTML References\nAt W3Schools you will find complete references about HTML elements, \nattributes, events, color names, entities, character-sets, URL encoding, \nlanguage codes, HTTP messages, browser support, and more:\nHTML Elements\nBrowser Support\nAttributes\nGlobal Attributes\nEvent Attributes\nColor Names\nCanvas\nAudio/Video DOM\nCharacter Sets\nURL Encoding\nLanguage Codes\nCountry Codes\nHTTP Messages\nPx to Em Converter\nKeyboard Shortcuts\nKickstart your career\nGet certified by completing\nthe\ncourse\nVideo: HTML for Beginners"
+}

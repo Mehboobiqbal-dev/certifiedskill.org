@@ -12,8 +12,8 @@ import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "sonner";
 import { TriangleAlert, Eye, EyeOff } from "lucide-react";
-import Header from "../pages/Header";
-import Footer from "../pages/Footer";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");

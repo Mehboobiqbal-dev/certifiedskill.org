@@ -1,8 +1,8 @@
 // pages/faq-tc.js
 
 import Head from "next/head";
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { useState } from "react";
 import { FaChevronDown, FaSearch } from "react-icons/fa";
 

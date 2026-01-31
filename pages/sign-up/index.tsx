@@ -13,8 +13,8 @@ import { TriangleAlert, Eye, EyeOff } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import Header from "../Header";
-import Footer from "../Footer";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -116,40 +116,40 @@ const SignUp = () => {
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="relative">
-              <Input
-                type="text"
-                disabled={pending}
-                placeholder="Full name"
-                value={form.name}
+                <Input
+                  type="text"
+                  disabled={pending}
+                  placeholder="Full name"
+                  value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                required
+                  required
                   className="pl-10"
-              />
+                />
                 <span className="absolute left-3 top-2.5 text-indigo-400 font-bold">&#128100;</span>
               </div>
               <div className="relative">
-              <Input
-                type="email"
-                disabled={pending}
-                placeholder="Email"
-                value={form.email}
+                <Input
+                  type="email"
+                  disabled={pending}
+                  placeholder="Email"
+                  value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
-                required
+                  required
                   className="pl-10"
-              />
+                />
                 <span className="absolute left-3 top-2.5 text-indigo-400">@</span>
               </div>
               <div className="relative">
-              <Input
+                <Input
                   type={showPassword ? "text" : "password"}
-                disabled={pending}
-                placeholder="Password"
-                value={form.password}
+                  disabled={pending}
+                  placeholder="Password"
+                  value={form.password}
                   onChange={(e) => setForm({ ...form, password: e.target.value })}
-                required
+                  required
                   className="pr-10"
-                autoComplete="new-password"
-              />
+                  autoComplete="new-password"
+                />
                 <button
                   type="button"
                   tabIndex={-1}
@@ -161,16 +161,16 @@ const SignUp = () => {
                 </button>
               </div>
               <div className="relative">
-              <Input
+                <Input
                   type={showConfirm ? "text" : "password"}
-                disabled={pending}
-                placeholder="Confirm password"
-                value={form.confirmPassword}
+                  disabled={pending}
+                  placeholder="Confirm password"
+                  value={form.confirmPassword}
                   onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })}
-                required
+                  required
                   className="pr-10"
-                autoComplete="new-password"
-              />
+                  autoComplete="new-password"
+                />
                 <button
                   type="button"
                   tabIndex={-1}

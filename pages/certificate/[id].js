@@ -1,5 +1,5 @@
-import Header from "../Header";
-import Footer from "../Footer";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Skeleton from 'react-loading-skeleton';
