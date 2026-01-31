@@ -5,46 +5,81 @@ import { v4 as uuidv4 } from 'uuid';
 import connectToDatabase from '../../../lib/db';
 
 export default async function handler(req, res) {
-  // Connect to the database.
-  let connection;
+  // Connect to the database using the same robust pattern as verify.js
+  let db;
   try {
-    connection = await connectToDatabase();
+      const mongoose = require('mongoose');
+      await connectToDatabase();
+      
+      if (mongoose.connection.readyState === 1) {
+           db = mongoose.connection.db;
+      } else {
+           const conn = await connectToDatabase();
+           db = conn.db || (conn.connection && conn.connection.db) || mongoose.connection.db;
+      }
+      
+      if (!db) throw new Error("Could not acquire database handle");
+      
   } catch (dbError) {
     console.error('Database connection error:', dbError);
     return res.status(500).json({ message: 'Database connection failed' });
   }
-  
-  // Use the desired database (replace 'myDatabase' with your DB name if needed)
-  const db = connection.db || connection.useDb('myDatabase');
 
   if (req.method === 'GET') {
     // If a certificateNumber is provided in the query string, generate the PDF.
-    const { certificateNumber, userEmail, userId } = req.query;
+    const { certificateNumber, userEmail, userId, format } = req.query;
     
     if (certificateNumber) {
       try {
-        // Find the certificate by its certificateId - using simple query first
-        // IMPORTANT: Mongoose might default to lowercased collection names (e.g. 'certificates') 
-        // but if the model was saved differently or directly via mongo driver, it might be case sensitive.
-        let certificate = await db.collection('certificates').findOne({ certificateId: certificateNumber });
+        // Strip .pdf extension if present (happens if some clients append it to the URL)
+        const cleanCertificateNumber = certificateNumber.replace(/\.pdf$/i, '');
+        console.log(`[API/Certificates] Searching for ID: "${cleanCertificateNumber}" (Original: "${certificateNumber}")`);
         
+        // Find the certificate by its certificateId - using simple query first
+        let certificate = await db.collection('certificates').findOne({ certificateId: cleanCertificateNumber });
+        
+        if (certificate) {
+             console.log(`[API/Certificates] Found certificate directly: ${certificate._id}`);
+        }
+
         // Debug check: try to find any certificate to see structure
         if (!certificate) {
-             console.log(`Debug: searching for ${certificateNumber} in 'certificates' collection failed.`);
+             console.log(`[API/Certificates] Direct lookup failed for "${cleanCertificateNumber}". Checking alternatives...`);
              
-             // Double check if the collection name is different in your specific DB instance?
-             // Sometimes Mongoose models save to pluralized lowercase. 
-             // Let's try to query via the Mongoose model approach if available, but here we use raw db connection.
-             
-             // Let's try to strip potential whitespace?
-             const trimmedId = certificateNumber.trim();
-             if (trimmedId !== certificateNumber) {
+             // 1. Try Trimmed
+             const trimmedId = cleanCertificateNumber.trim();
+             if (trimmedId !== cleanCertificateNumber) {
+                 console.log(`[API/Certificates] Trying trimmed ID: "${trimmedId}"`);
                  certificate = await db.collection('certificates').findOne({ certificateId: trimmedId });
+             }
+             
+             // 2. Try Case Insensitive Regex
+             if (!certificate) {
+                 console.log(`[API/Certificates] Trying regex case-insensitive...`);
+                 certificate = await db.collection('certificates').findOne({ certificateId: { $regex: new RegExp(`^${cleanCertificateNumber}$`, 'i') } });
+             }
+             
+             // 3. Try to find by _id if it happens to be an ObjectId string (unlikely for uuid but possible)
+             if (!certificate && cleanCertificateNumber.length === 24) {
+                 const { ObjectId } = require('mongodb');
+                 try {
+                    certificate = await db.collection('certificates').findOne({ _id: new ObjectId(cleanCertificateNumber) });
+                 } catch(e) {}
              }
         }
         
         if (!certificate) {
-             return res.status(404).json({ message: 'Certificate not found', debugId: certificateNumber });
+             console.log(`[API/Certificates] ALL Lookups failed for "${cleanCertificateNumber}"`);
+             // List all IDs for debugging
+             const all = await db.collection('certificates').find({}, { projection: { certificateId: 1 } }).limit(5).toArray();
+             console.log("Sample IDs in DB:", all.map(c => c.certificateId));
+             
+             return res.status(404).json({ message: 'Certificate not found', debugId: cleanCertificateNumber });
+        }
+        
+        // Return JSON metadata if requested
+        if (format === 'json') {
+            return res.status(200).json(certificate);
         }
         
         // Set PDF headers so the file is rendered inline.

@@ -13,13 +13,24 @@ export default function CertificateDetail() {
   useEffect(() => {
     if (!id) return;
     setLoading(true);
-    fetch(`/api/certificates?certificateNumber=${id}`)
+    // If the ID in URL has .pdf extension (e.g. from a bad link), strip it
+    const cleanId = id.toString().replace(/\.pdf$/i, '');
+    
+    // Request JSON format explicitly for page metadata
+    fetch(`/api/certificates?certificateNumber=${cleanId}&format=json`)
       .then((res) => res.ok ? res.json() : null)
       .then((data) => {
-        setCertificate(data);
+        if (data) {
+            setCertificate(data);
+        } else {
+             console.error("Could not fetch certificate metadata.");
+        }
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch((e) => {
+          console.error("Fetch error:", e);
+          setLoading(false);
+      });
   }, [id]);
 
   return (
