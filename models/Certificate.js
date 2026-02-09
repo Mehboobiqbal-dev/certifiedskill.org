@@ -23,6 +23,10 @@ const CertificateSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  score: {
+    type: Number,
+    required: false,
+  },
   certificateId: {
     type: String,
     required: true,

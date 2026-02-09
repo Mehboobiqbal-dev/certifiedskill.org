@@ -117,10 +117,17 @@ export default async function handler(req, res) {
   
         // Certificate Title
         doc.moveDown(2);
+        
+        let title = certificate.examName || 'Certificate of Achievement';
+        // Capitalize first letter just in case
+        if (title && title.length > 0) {
+            title = title.charAt(0).toUpperCase() + title.slice(1);
+        }
+
         doc.font('Helvetica-Bold')
           .fontSize(36)
-          .text('Certificate of Achievement', { align: 'center', underline: true });
-  
+          .text(title, { align: 'center', underline: true });
+
         // Certificate Details
         doc.moveDown(1.5);
         doc.font('Helvetica')
@@ -138,7 +145,14 @@ export default async function handler(req, res) {
         doc.font('Helvetica-Bold')
           .fontSize(24)
           .text(certificate.examName, { align: 'center' });
-  
+        
+        if (certificate.score) {
+             doc.moveDown(0.5);
+             doc.font('Helvetica')
+               .fontSize(16)
+               .text(`with a score of ${certificate.score}%`, { align: 'center' });
+        }
+
         // Authenticity Assurance
         doc.moveDown(1.5);
         doc.font('Helvetica')
@@ -198,7 +212,7 @@ export default async function handler(req, res) {
   
   } else if (req.method === 'POST') {
     // POST: Create or update a certificate record.
-    const { userId, userName, examId, examName, passed, userEmail } = req.body;
+    const { userId, userName, examId, examName, passed, userEmail, score } = req.body;
     
     if (passed !== true && passed !== 'true') {
       console.error('Exam not passed:', req.body);
@@ -210,6 +224,7 @@ export default async function handler(req, res) {
   
       if (certificate) {
         console.log('Existing certificate found:', certificate);
+        // Update score if better? For now just ensure ID
         if (!certificate.certificateId) {
           certificate.certificateId = uuidv4();
           await db.collection('certificates').updateOne(
@@ -226,7 +241,8 @@ export default async function handler(req, res) {
           examName,
           certificateId: uuidv4(),
           issuedAt: new Date(),
-          ...(userEmail && { userEmail })
+          ...(userEmail && { userEmail }),
+          ...(score && { score: Number(score) })
         };
         await db.collection('certificates').insertOne(certificate);
         console.log('Created new certificate:', certificate);

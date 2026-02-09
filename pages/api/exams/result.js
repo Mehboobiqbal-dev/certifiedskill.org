@@ -36,7 +36,8 @@ export default async function handler(req, res) {
                     userName: session.user.name,
                     courseCategory: category,
                     examId: examId,
-                    examName: `${category} Certification Exam`,
+                    examName: `${category.charAt(0).toUpperCase() + category.slice(1)} Certification Exam`,
+                    score: result.score,
                     certificateId: newCertId,
                     issuedAt: new Date()
                 });
